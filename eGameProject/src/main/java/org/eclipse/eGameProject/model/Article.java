@@ -8,6 +8,7 @@ import java.util.Locale.Category;
 
 public class Article 
 {
+
 	private int idArticle ;
 	private String refArticle ;
 	private String articleName;
@@ -18,7 +19,7 @@ public class Article
 	private List<BufferedImage> artListImgBuffered;
 	private LocalDateTime articleAddedDateTime;
 	private int articleQty;
-	private float ArticlePricePromo;
+	private float articlePricePromo;
 	private LocalDateTime articlePromoBegDateTime;
 	private LocalDateTime articleDateTimePromoEndDateTime;
 	private boolean availibility;
@@ -94,11 +95,11 @@ public class Article
 		this.articleQty = articleQty;
 	}
 	
-	public float getArticlePricePromo() {
-		return ArticlePricePromo;
+	public float getarticlePricePromo() {
+		return articlePricePromo;
 	}
-	public void setArticlePricePromo(float articlePricePromo) {
-		ArticlePricePromo = articlePricePromo;
+	public void setarticlePricePromo(float articlePricePromo) {
+		articlePricePromo = articlePricePromo;
 	}
 	public LocalDateTime getArticlePromoBegDateTime() {
 		return articlePromoBegDateTime;
@@ -144,7 +145,7 @@ public class Article
 		this.artListImgBuffered = artListImgBuffered;
 		this.articleAddedDateTime = articleAddedDateTime;
 		this.articleQty = articleQty;
-		ArticlePricePromo = articlePricePromo;
+		articlePricePromo = articlePricePromo;
 		this.articlePromoBegDateTime = articlePromoBegDateTime;
 		this.articleDateTimePromoEndDateTime = articleDateTimePromoEndDateTime;
 	}
@@ -155,7 +156,7 @@ public class Article
 				+ ", articleBrand=" + articleBrand + ", articleCategories=" + articleCategories
 				+ ", articleDescription=" + articleDescription + ", articlePrice=" + articlePrice
 				+ ", artListImgBuffered=" + artListImgBuffered + ", articleAddedDateTime=" + articleAddedDateTime
-				+ ", articleQty=" + articleQty + ", ArticlePricePromo=" + ArticlePricePromo
+				+ ", articleQty=" + articleQty + ", articlePricePromo=" + articlePricePromo
 				+ ", articlePromoBegDateTime=" + articlePromoBegDateTime + ", articleDateTimePromoEndDateTime="
 				+ articleDateTimePromoEndDateTime + "]";
 	}
