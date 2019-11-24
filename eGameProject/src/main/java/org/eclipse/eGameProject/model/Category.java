@@ -1,7 +1,15 @@
 package org.eclipse.eGameProject.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+
+@Entity
 public class Category 
 {
+	@Id@
+	GeneratedValue
 	private int idCategory;
 	private String categoryLabel;
 	private String categoryDescription;

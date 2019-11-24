@@ -6,16 +6,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale.Category;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+
+@Entity
+//@Table(name = "Articles")
 public class Article 
 {
-
+	@Id
+	@GeneratedValue
 	private int idArticle ;
 	private String refArticle ;
 	private String articleName;
 	private String articleBrand;
+	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Category> articleCategories;
 	private String articleDescription;
 	private float articlePrice;
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<BufferedImage> artListImgBuffered;
 	private LocalDateTime articleAddedDateTime;
 	private int articleQty;
@@ -99,7 +113,7 @@ public class Article
 		return articlePricePromo;
 	}
 	public void setarticlePricePromo(float articlePricePromo) {
-		articlePricePromo = articlePricePromo;
+		this.articlePricePromo = articlePricePromo;
 	}
 	public LocalDateTime getArticlePromoBegDateTime() {
 		return articlePromoBegDateTime;
@@ -132,23 +146,7 @@ public class Article
 	}
 	
 	
-	public Article(String refArticle, String articleName, String articleBrand, List<Category> articleCategories,
-			String articleDescription, float articlePrice, List<BufferedImage> artListImgBuffered,
-			LocalDateTime articleAddedDateTime, int articleQty, float articlePricePromo,
-			LocalDateTime articlePromoBegDateTime, LocalDateTime articleDateTimePromoEndDateTime) {
-		this.refArticle = refArticle;
-		this.articleName = articleName;
-		this.articleBrand = articleBrand;
-		this.articleCategories = articleCategories;
-		this.articleDescription = articleDescription;
-		this.articlePrice = articlePrice;
-		this.artListImgBuffered = artListImgBuffered;
-		this.articleAddedDateTime = articleAddedDateTime;
-		this.articleQty = articleQty;
-		articlePricePromo = articlePricePromo;
-		this.articlePromoBegDateTime = articlePromoBegDateTime;
-		this.articleDateTimePromoEndDateTime = articleDateTimePromoEndDateTime;
-	}
+
 	@Override
 	public String toString() 
 	{
@@ -174,7 +172,7 @@ public class Article
 	
 	public void deactivatedArticle( Article article)
 	{
-		
+		this.availibility=false;
 	}
 	
 	public List<Article> getArticleBy(filter f, String parameter )
