@@ -1,7 +1,7 @@
 package org.eclipse.eGameProject.controller;
 
 
-@Controller
+//@Controller
 public class ArticleController 
 {
 
