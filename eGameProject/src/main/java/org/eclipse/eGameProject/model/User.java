@@ -18,8 +18,8 @@ public class User {
 	private String email;
 	private String password;
 	private Date createDate;
-	private String emailConfirmeToken;
-	private Date emailConfirmeTokenDate;
+	private String emailConfirmToken;
+	private Date emailConfirmTokenDate;
 	private boolean emailConfirmed;
 	
 	public long getUID() {
@@ -58,17 +58,17 @@ public class User {
 	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
-	public String getEmailConfirmeToken() {
-		return emailConfirmeToken;
+	public String getemailConfirmToken() {
+		return emailConfirmToken;
 	}
-	public void setEmailConfirmeToken(String emailConfirmeToken) {
-		this.emailConfirmeToken = emailConfirmeToken;
+	public void setemailConfirmToken(String emailConfirmToken) {
+		this.emailConfirmToken = emailConfirmToken;
 	}
-	public Date getEmailConfirmeTokenDate() {
-		return emailConfirmeTokenDate;
+	public Date getemailConfirmTokenDate() {
+		return emailConfirmTokenDate;
 	}
-	public void setEmailConfirmeTokenDate(Date emailConfirmeTokenDate) {
-		this.emailConfirmeTokenDate = emailConfirmeTokenDate;
+	public void setemailConfirmTokenDate(Date emailConfirmTokenDate) {
+		this.emailConfirmTokenDate = emailConfirmTokenDate;
 	}
 	public boolean isEmailConfirmed() {
 		return emailConfirmed;
