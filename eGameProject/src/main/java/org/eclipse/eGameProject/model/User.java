@@ -83,8 +83,8 @@ public class User {
 	}
 	
 	public void sendEmail(String email) {
-		  final String username = "oplike304@gmail.com";
-	        final String password = "oplike91";
+		  final String username = "donotreplyjp@gmail.com";
+	        final String password = "java12345";
 
 	        Properties prop = new Properties();
 			prop.put("mail.smtp.host", "smtp.gmail.com");
