@@ -1,14 +1,15 @@
 package fr.EGame.projet.model;
 
+
 import java.awt.Image;
 import java.io.Serializable;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -17,29 +18,29 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "Articles")
-public class Article implements Serializable
+//@Table(name = "Articles")
+public class Article 
 {
 	@Id
 	@GeneratedValue
-	private Long idArticle ;
+	private int idArticle ;
 	private String refArticle ;
 	private String articleName;
 	private String articleBrand;
-	@ManyToMany(cascade={ CascadeType.MERGE, CascadeType.REFRESH},fetch = FetchType.EAGER)
-	private List<Category> articleCategories = new ArrayList<Category>();
+	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	private List<Category> articleCategories;
 	private String articleDescription;
 	private float articlePrice;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+
 	private List<ArticlesImages> artListImg = new ArrayList<ArticlesImages>();
+
 	private LocalDateTime articleAddedDateTime;
 	private int articleQty;
 	private float articlePricePromo;
 	private LocalDateTime articlePromoBegDateTime;
 	private LocalDateTime articleDateTimePromoEndDateTime;
 	private LocalDateTime articleDateAvailibility;
-	
-	private static final long serialVersionUID = 1L;
 	
 	
 
@@ -49,10 +50,10 @@ public class Article implements Serializable
 	public void setArticleDateAvailibility(LocalDateTime articleDateAvailibility) {
 		this.articleDateAvailibility = articleDateAvailibility;
 	}
-	public Long getIdArticle() {
+	public int getIdArticle() {
 		return idArticle;
 	}
-	public void setIdArticle(Long idArticle) {
+	public void setIdArticle(int idArticle) {
 		this.idArticle = idArticle;
 	}
 	public String getRefArticle() {
@@ -91,11 +92,15 @@ public class Article implements Serializable
 	public void setArticlePrice(float articlePrice) {
 		this.articlePrice = articlePrice;
 	}
+
 	public List<ArticlesImages> getArtListImg() {
 		return artListImg;
 	}
+
 	public void setArtListImg(List<ArticlesImages> artListImg) {
 		this.artListImg = artListImg;
+
+
 	}
 	public LocalDateTime getArticleAddedDateTime() {
 		return articleAddedDateTime;
@@ -103,9 +108,7 @@ public class Article implements Serializable
 	public void setArticleAddedDateTime(LocalDateTime articleAddedDateTime) {
 		this.articleAddedDateTime = articleAddedDateTime;
 	}
-	public int getarticleQty(){
-		return articleQty;
-	}
+
 	public void setarticleQty(int articleQty) {
 		this.articleQty = articleQty;
 	}
@@ -132,8 +135,8 @@ public class Article implements Serializable
 	{
 
 	}
-	public Article(String refArticle, String articleName, String articleBrand, List<Category> articleCategories,
-			String articleDescription, float articlePrice, List<ArticlesImages> artListImg,
+	public Article(String refArticle, String articleName, String articleBrand, List<Category> articleCategories, float articlePrice, List<ArticlesImages> artListImg,
+			String articleDescription, 
 			LocalDateTime articleAddedDateTime, int articleQty) {
 		this.refArticle = refArticle;
 		this.articleName = articleName;
@@ -141,16 +144,15 @@ public class Article implements Serializable
 		this.articleCategories = articleCategories;
 		this.articleDescription = articleDescription;
 		this.articlePrice = articlePrice;
-		this.artListImg = artListImg;
 		this.articleAddedDateTime = articleAddedDateTime;
 		this.articleQty = articleQty;
 	}
 	
 	
 
-
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "Article [idArticle=" + idArticle + ", refArticle=" + refArticle + ", articleName=" + articleName
 				+ ", articleBrand=" + articleBrand + ", articleCategories=" + articleCategories
 				+ ", articleDescription=" + articleDescription + ", articlePrice=" + articlePrice + ", artListImg="
@@ -167,13 +169,15 @@ public class Article implements Serializable
 	}
 	public boolean add(ArticlesImages e) {
 		return artListImg.add(e);
+
 	}
 	
+
 	public boolean remove(ArticlesImages o) {
 		return artListImg.remove(o);
 	}
-	
-	
+
+	 
 
 	
 	
