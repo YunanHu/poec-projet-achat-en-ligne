@@ -23,8 +23,7 @@ public class Category implements Serializable
 	private int idCategory;
 	private String categoryLabel;
 	private String categoryDescription;
-	@JsonIgnore
-	@ManyToMany(fetch = FetchType.EAGER,mappedBy="articles")
+	@ManyToMany(fetch = FetchType.EAGER,mappedBy="articleCategories")
 	private List<Article> articles = new ArrayList<Article>();
 	
 	private static final long serialVersionUID = 1L;

@@ -1,11 +1,10 @@
 package fr.EGame.projet.model;
 
-import java.awt.image.BufferedImage;
+import java.awt.Image;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale.Category;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,8 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import javassist.expr.NewArray;
 
 
 @Entity
@@ -34,7 +31,7 @@ public class Article implements Serializable
 	private String articleDescription;
 	private float articlePrice;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
-	private List<String> artListImg = new ArrayList<String>();
+	private List<ArticlesImages> artListImg = new ArrayList<ArticlesImages>();
 	private LocalDateTime articleAddedDateTime;
 	private int articleQty;
 	private float articlePricePromo;
@@ -94,10 +91,10 @@ public class Article implements Serializable
 	public void setArticlePrice(float articlePrice) {
 		this.articlePrice = articlePrice;
 	}
-	public List<String> getArtListImg() {
+	public List<ArticlesImages> getArtListImg() {
 		return artListImg;
 	}
-	public void setArtListImgBuffered(List<String> artListImg) {
+	public void setArtListImg(List<ArticlesImages> artListImg) {
 		this.artListImg = artListImg;
 	}
 	public LocalDateTime getArticleAddedDateTime() {
@@ -136,7 +133,7 @@ public class Article implements Serializable
 
 	}
 	public Article(String refArticle, String articleName, String articleBrand, List<Category> articleCategories,
-			String articleDescription, float articlePrice, List<String> artListImg,
+			String articleDescription, float articlePrice, List<ArticlesImages> artListImg,
 			LocalDateTime articleAddedDateTime, int articleQty) {
 		this.refArticle = refArticle;
 		this.articleName = articleName;
@@ -168,11 +165,11 @@ public class Article implements Serializable
 	public boolean remove(Object o) {
 		return articleCategories.remove(o);
 	}
-	public boolean add(String e) {
+	public boolean add(ArticlesImages e) {
 		return artListImg.add(e);
 	}
 	
-	public boolean remove(String o) {
+	public boolean remove(ArticlesImages o) {
 		return artListImg.remove(o);
 	}
 	
