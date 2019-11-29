@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,8 +15,16 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
@@ -26,9 +35,14 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long UID;
+	@NonNull
+	@Column(unique = true)
 	private String email;
+	@NonNull
 	private String password;
+	@NonNull
 	private String nom;
+	@NonNull
 	private String prenom;
 	private Date createDate;
 	private String emailConfirmToken;
@@ -42,10 +56,11 @@ public class User implements Serializable {
 	public boolean addRole(Role role) {
 		return roles.add(role);
 	}
+
 	public boolean removeRole(Role role) {
 		return roles.remove(role);
 	}
-	
+
 	public boolean addAddress(Address adr) {
 		return addresses.add(adr);
 	}
@@ -53,5 +68,5 @@ public class User implements Serializable {
 	public boolean removeAddress(Address adr) {
 		return addresses.remove(adr);
 	}
-	
+
 }
