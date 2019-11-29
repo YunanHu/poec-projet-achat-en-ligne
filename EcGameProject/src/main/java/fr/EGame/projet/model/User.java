@@ -2,6 +2,7 @@ package fr.EGame.projet.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,12 +19,24 @@ import lombok.Data;
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long num;
-	private String userName;
+	private Long UID;
+	private String email;
 	private String password;
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
+	private String nom;
+	private String prenom;
+	private Date createDate;
+	private String emailConfirmToken;
+	private Date emailConfirmTokenDate;
+	private Boolean emailConfirmed;
+	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
+	private List<Address> addresses = new ArrayList<Address>();
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	private List<Role> roles = new ArrayList<Role>();
 
 	public boolean addRole(Role role) {
@@ -31,6 +44,14 @@ public class User implements Serializable {
 	}
 	public boolean removeRole(Role role) {
 		return roles.remove(role);
+	}
+	
+	public boolean addAddress(Address adr) {
+		return addresses.add(adr);
+	}
+
+	public boolean removeAddress(Address adr) {
+		return addresses.remove(adr);
 	}
 	
 }

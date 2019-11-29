@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String titre;
+	private Long idRole;
+	private String roleName;
 	
 }
