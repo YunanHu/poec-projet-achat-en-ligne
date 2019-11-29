@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package fr.EGame.projet.controller;
 
 
 //@Controller

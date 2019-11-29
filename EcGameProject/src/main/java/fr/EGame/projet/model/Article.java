@@ -1,4 +1,4 @@
-package com.example.demo.model;
+package fr.EGame.projet.model;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
