@@ -8,14 +8,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name = "categories")
 public class Category 
 {
 	@Id@
 	GeneratedValue
-	private int idCategory;
+	private Long idCategory;
 	private String categoryLabel;
 	private String categoryDescription;
 
@@ -24,7 +26,14 @@ public class Category
 	
 	private static final long serialVersionUID = 1L;
 	
+	
 
+	public Long getIdCategory() {
+		return idCategory;
+	}
+	public void setIdCategory(Long idCategory) {
+		this.idCategory = idCategory;
+	}
 	public String getCategoryLabel() {
 		return categoryLabel;
 	}

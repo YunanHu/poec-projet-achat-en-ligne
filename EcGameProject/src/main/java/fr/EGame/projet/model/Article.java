@@ -18,7 +18,7 @@ import javax.persistence.Table;
 
 
 @Entity
-//@Table(name = "Articles")
+@Table(name = "Articles")
 public class Article 
 {
 	@Id
@@ -41,8 +41,6 @@ public class Article
 	private LocalDateTime articlePromoBegDateTime;
 	private LocalDateTime articleDateTimePromoEndDateTime;
 	private LocalDateTime articleDateAvailibility;
-	
-	
 
 	public LocalDateTime getArticleDateAvailibility() {
 		return articleDateAvailibility;
