@@ -53,6 +53,15 @@ public class User implements Serializable {
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.LAZY)
 	private List<Role> roles = new ArrayList<Role>();
 
+	
+
+	public User(@NonNull String email, @NonNull String password, @NonNull String nom, @NonNull String prenom) {
+		this.email = email;
+		this.password = password;
+		this.nom = nom;
+		this.prenom = prenom;
+	}
+
 	public boolean addRole(Role role) {
 		return roles.add(role);
 	}
@@ -68,5 +77,7 @@ public class User implements Serializable {
 	public boolean removeAddress(Address adr) {
 		return addresses.remove(adr);
 	}
+	
+	
 
 }

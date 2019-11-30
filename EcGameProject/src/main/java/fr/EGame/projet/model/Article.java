@@ -3,8 +3,8 @@ package fr.EGame.projet.model;
 
 import java.awt.Image;
 import java.io.Serializable;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,26 +27,77 @@ public class Article
 	private int idArticle ;
 	private String refArticle ;
 	private String articleName;
-	private String articleBrand;
-	@ManyToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
-	private List<Category> articleCategories;
+	private String articlePlateforme;
+	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	private Category articleCategory;
 	private String articleDescription;
 	private float articlePrice;
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
-
 	private List<ArticlesImages> artListImg = new ArrayList<ArticlesImages>();
-
-	private LocalDateTime articleAddedDateTime;
+	private LocalDate articleAddedDate;
 	private int articleQty;
 	private float articlePricePromo;
-	private LocalDateTime articlePromoBegDateTime;
-	private LocalDateTime articleDateTimePromoEndDateTime;
-	private LocalDateTime articleDateAvailibility;
+	private LocalDate articlePromoBegDate;
+	private LocalDate articleDateTimePromoEndDate;
+	private LocalDate articleDateAvailibility;
+	private boolean articleDematerialized;
 
-	public LocalDateTime getArticleDateAvailibility() {
+	public Article(String refArticle, String articleName, String articlePlateforme, Category articleCategory,
+			String articleDescription, float articlePrice, List<ArticlesImages> artListImg, LocalDate articleAddedDate,
+			int articleQty, float articlePricePromo, LocalDate articlePromoBegDate,
+			LocalDate articleDateTimePromoEndDate, LocalDate articleDateAvailibility, boolean articleDematerialized) {
+		this.refArticle = refArticle;
+		this.articleName = articleName;
+		this.articlePlateforme = articlePlateforme;
+		this.articleCategory = articleCategory;
+		this.articleDescription = articleDescription;
+		this.articlePrice = articlePrice;
+		this.artListImg = artListImg;
+		this.articleAddedDate = articleAddedDate;
+		this.articleQty = articleQty;
+		this.articlePricePromo = articlePricePromo;
+		this.articlePromoBegDate = articlePromoBegDate;
+		this.articleDateTimePromoEndDate = articleDateTimePromoEndDate;
+		this.articleDateAvailibility = articleDateAvailibility;
+		this.articleDematerialized = articleDematerialized;
+	}
+	@Override
+	public String toString() {
+		return "Article [idArticle=" + idArticle + ", refArticle=" + refArticle + ", articleName=" + articleName
+				+ ", articlePlateforme=" + articlePlateforme + ", articleCategory=" + articleCategory
+				+ ", articleDescription=" + articleDescription + ", articlePrice=" + articlePrice + ", artListImg="
+				+ artListImg + ", articleAddedDate=" + articleAddedDate + ", articleQty=" + articleQty
+				+ ", articlePricePromo=" + articlePricePromo + ", articlePromoBegDate=" + articlePromoBegDate
+				+ ", articleDateTimePromoEndDate=" + articleDateTimePromoEndDate + ", articleDateAvailibility="
+				+ articleDateAvailibility + ", articleDematerialized=" + articleDematerialized + "]";
+	}
+	
+	
+	public Article(String refArticle, String articleName, String articlePlateforme, Category articleCategory,
+			String articleDescription, float articlePrice, LocalDate articleAddedDate, int articleQty,
+			LocalDate articleDateAvailibility, boolean articleDematerialized) {
+		super();
+		this.refArticle = refArticle;
+		this.articleName = articleName;
+		this.articlePlateforme = articlePlateforme;
+		this.articleCategory = articleCategory;
+		this.articleDescription = articleDescription;
+		this.articlePrice = articlePrice;
+		this.articleAddedDate = articleAddedDate;
+		this.articleQty = articleQty;
+		this.articleDateAvailibility = articleDateAvailibility;
+		this.articleDematerialized = articleDematerialized;
+	}
+	public boolean isArticleDematerialized() {
+		return articleDematerialized;
+	}
+	public void setArticleDematerialized(boolean articleDematerialized) {
+		this.articleDematerialized = articleDematerialized;
+	}
+	public LocalDate getArticleDateAvailibility() {
 		return articleDateAvailibility;
 	}
-	public void setArticleDateAvailibility(LocalDateTime articleDateAvailibility) {
+	public void setArticleDateAvailibility(LocalDate articleDateAvailibility) {
 		this.articleDateAvailibility = articleDateAvailibility;
 	}
 	public int getIdArticle() {
@@ -66,17 +118,31 @@ public class Article
 	public void setArticleName(String articleName) {
 		this.articleName = articleName;
 	}
-	public String getArticleBrand() {
-		return articleBrand;
+
+
+	public String getArticlePlateforme() {
+		return articlePlateforme;
 	}
-	public void setArticleBrand(String articleBrand) {
-		this.articleBrand = articleBrand;
+	public void setArticlePlateforme(String articlePlateforme) {
+		this.articlePlateforme = articlePlateforme;
 	}
-	public List<Category> getArticleCategories() {
-		return articleCategories;
+	public LocalDate getArticleAddedDate() {
+		return articleAddedDate;
 	}
-	public void setArticleCategories(List<Category> articleCategories) {
-		this.articleCategories = articleCategories;
+	public void setArticleAddedDate(LocalDate articleAddedDate) {
+		this.articleAddedDate = articleAddedDate;
+	}
+	public LocalDate getArticlePromoBegDate() {
+		return articlePromoBegDate;
+	}
+	public void setArticlePromoBegDate(LocalDate articlePromoBegDate) {
+		this.articlePromoBegDate = articlePromoBegDate;
+	}
+	public LocalDate getArticleDateTimePromoEndDate() {
+		return articleDateTimePromoEndDate;
+	}
+	public void setArticleDateTimePromoEndDate(LocalDate articleDateTimePromoEndDate) {
+		this.articleDateTimePromoEndDate = articleDateTimePromoEndDate;
 	}
 	public String getArticleDescription() {
 		return articleDescription;
@@ -100,12 +166,7 @@ public class Article
 
 
 	}
-	public LocalDateTime getArticleAddedDateTime() {
-		return articleAddedDateTime;
-	}
-	public void setArticleAddedDateTime(LocalDateTime articleAddedDateTime) {
-		this.articleAddedDateTime = articleAddedDateTime;
-	}
+
 
 	public void setarticleQty(int articleQty) {
 		this.articleQty = articleQty;
@@ -117,53 +178,24 @@ public class Article
 	public void setarticlePricePromo(float articlePricePromo) {
 		this.articlePricePromo = articlePricePromo;
 	}
-	public LocalDateTime getArticlePromoBegDateTime() {
-		return articlePromoBegDateTime;
-	}
-	public void setArticlePromoBegDateTime(LocalDateTime articlePromoBegDateTime) {
-		this.articlePromoBegDateTime = articlePromoBegDateTime;
-	}
-	public LocalDateTime getArticleDateTimePromoEndDateTime() {
-		return articleDateTimePromoEndDateTime;
-	}
-	public void setArticleDateTimePromoEndDateTime(LocalDateTime articleDateTimePromoEndDateTime) {
-		this.articleDateTimePromoEndDateTime = articleDateTimePromoEndDateTime;
-	}
+
 	public Article() 
 	{
 
 	}
-	public Article(String refArticle, String articleName, String articleBrand, List<Category> articleCategories, float articlePrice, List<ArticlesImages> artListImg,
-			String articleDescription, 
-			LocalDateTime articleAddedDateTime, int articleQty) {
-		this.refArticle = refArticle;
-		this.articleName = articleName;
-		this.articleBrand = articleBrand;
-		this.articleCategories = articleCategories;
-		this.articleDescription = articleDescription;
-		this.articlePrice = articlePrice;
-		this.articleAddedDateTime = articleAddedDateTime;
-		this.articleQty = articleQty;
-	}
+
 	
 	
 
-	@Override
-	public String toString() 
-	{
-		return "Article [idArticle=" + idArticle + ", refArticle=" + refArticle + ", articleName=" + articleName
-				+ ", articleBrand=" + articleBrand + ", articleCategories=" + articleCategories
-				+ ", articleDescription=" + articleDescription + ", articlePrice=" + articlePrice + ", artListImg="
-				+ artListImg + ", articleAddedDateTime=" + articleAddedDateTime + ", articleQty=" + articleQty
-				+ ", articlePricePromo=" + articlePricePromo + ", articlePromoBegDateTime=" + articlePromoBegDateTime
-				+ ", articleDateTimePromoEndDateTime=" + articleDateTimePromoEndDateTime + ", articleDateAvailibility="
-				+ articleDateAvailibility + "]";
+
+
+
+
+	public Category getArticleCategory() {
+		return articleCategory;
 	}
-	public boolean add(Category e) {
-		return articleCategories.add(e);
-	}
-	public boolean remove(Object o) {
-		return articleCategories.remove(o);
+	public void setArticleCategory(Category articleCategory) {
+		this.articleCategory = articleCategory;
 	}
 	public boolean add(ArticlesImages e) {
 		return artListImg.add(e);
