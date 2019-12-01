@@ -39,7 +39,7 @@ public class Category
 	}
 	public void setArticles(List<Article> articles) {
 		this.articles = articles;
-	}
+	} 
 	public Category(String categoryLabel, String categoryDescription, List<Article> articles) {
 		super();
 		this.categoryLabel = categoryLabel;

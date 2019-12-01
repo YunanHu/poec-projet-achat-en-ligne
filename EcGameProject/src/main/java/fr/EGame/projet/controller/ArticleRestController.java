@@ -194,7 +194,7 @@ public class ArticleRestController {
 	public List<Article> getArticleDeactivated(@PathVariable("isDeactivated") boolean isDeactivated){
 		return articleRepository.findByArticleDeactivated(isDeactivated);
 	}
-	
+	 
 //	@PostMapping("setArticlePromoPrice/{id}")
 //	public Article setArticlePromoPrice(@PathVariable("id") Long id, @Param("promoPriceHt") float promoPriceHt, @Param("beginDate") LocalDate beginDate, @Param("endDate") LocalDate endDate) {
 //		

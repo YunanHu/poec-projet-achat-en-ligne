@@ -16,4 +16,4 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 	List<Article> findByArticleDeactivated(boolean isDactivated);
 
 	
-}
+} 

@@ -204,7 +204,7 @@ public class Article
 
 	public List<ArticlesImages> getArtListImg() {
 		return artListImg;
-	}
+	} 
 
 	public void setArtListImg(List<ArticlesImages> artListImg) {
 		this.artListImg = artListImg;
