@@ -3,6 +3,7 @@ package fr.EGame.projet.model;
 
 import java.awt.Image;
 import java.io.Serializable;
+import java.security.interfaces.RSAMultiPrimePrivateCrtKey;
 import java.time.LocalDate;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,11 +25,11 @@ public class Article
 {
 	@Id
 	@GeneratedValue
-	private int idArticle ;
+	private Long idArticle ;
 	private String refArticle ;
 	private String articleName;
 	private String articlePlateforme;
-	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@ManyToOne(cascade={CascadeType.DETACH, CascadeType.REMOVE})
 	private Category articleCategory;
 	private String articleDescription;
 	private float articlePrice;
@@ -41,6 +42,14 @@ public class Article
 	private LocalDate articleDateTimePromoEndDate;
 	private LocalDate articleDateAvailibility;
 	private boolean articleDematerialized;
+	private boolean articleDeactivated;
+	
+	
+	public Article() 
+	{
+
+	}
+
 
 	public Article(String refArticle, String articleName, String articlePlateforme, Category articleCategory,
 			String articleDescription, float articlePrice, List<ArticlesImages> artListImg, LocalDate articleAddedDate,
@@ -61,17 +70,46 @@ public class Article
 		this.articleDateAvailibility = articleDateAvailibility;
 		this.articleDematerialized = articleDematerialized;
 	}
-	@Override
-	public String toString() {
-		return "Article [idArticle=" + idArticle + ", refArticle=" + refArticle + ", articleName=" + articleName
-				+ ", articlePlateforme=" + articlePlateforme + ", articleCategory=" + articleCategory
-				+ ", articleDescription=" + articleDescription + ", articlePrice=" + articlePrice + ", artListImg="
-				+ artListImg + ", articleAddedDate=" + articleAddedDate + ", articleQty=" + articleQty
-				+ ", articlePricePromo=" + articlePricePromo + ", articlePromoBegDate=" + articlePromoBegDate
-				+ ", articleDateTimePromoEndDate=" + articleDateTimePromoEndDate + ", articleDateAvailibility="
-				+ articleDateAvailibility + ", articleDematerialized=" + articleDematerialized + "]";
+	
+	
+	public Article(String refArticle, String articleName, String articlePlateforme, Category articleCategory,
+			String articleDescription, float articlePrice, List<ArticlesImages> artListImg, LocalDate articleAddedDate,
+			int articleQty, float articlePricePromo, LocalDate articlePromoBegDate,
+			LocalDate articleDateTimePromoEndDate, LocalDate articleDateAvailibility, boolean articleDematerialized,
+			boolean articleDeactivated) {
+		this.refArticle = refArticle;
+		this.articleName = articleName;
+		this.articlePlateforme = articlePlateforme;
+		this.articleCategory = articleCategory;
+		this.articleDescription = articleDescription;
+		this.articlePrice = articlePrice;
+		this.artListImg = artListImg;
+		this.articleAddedDate = articleAddedDate;
+		this.articleQty = articleQty;
+		this.articlePricePromo = articlePricePromo;
+		this.articlePromoBegDate = articlePromoBegDate;
+		this.articleDateTimePromoEndDate = articleDateTimePromoEndDate;
+		this.articleDateAvailibility = articleDateAvailibility;
+		this.articleDematerialized = articleDematerialized;
+		this.articleDeactivated = articleDeactivated;
 	}
 	
+	public Article(String refArticle, String articleName, String articlePlateforme, Category articleCategory,
+			String articleDescription, float articlePrice, LocalDate articleAddedDate, int articleQty,
+			LocalDate articleDateAvailibility, boolean articleDematerialized,boolean articleDeactivated) {
+		super();
+		this.refArticle = refArticle;
+		this.articleName = articleName;
+		this.articlePlateforme = articlePlateforme;
+		this.articleCategory = articleCategory;
+		this.articleDescription = articleDescription;
+		this.articlePrice = articlePrice;
+		this.articleAddedDate = articleAddedDate;
+		this.articleQty = articleQty;
+		this.articleDateAvailibility = articleDateAvailibility;
+		this.articleDematerialized = articleDematerialized;
+		this.articleDeactivated=articleDeactivated;
+	}
 	
 	public Article(String refArticle, String articleName, String articlePlateforme, Category articleCategory,
 			String articleDescription, float articlePrice, LocalDate articleAddedDate, int articleQty,
@@ -88,6 +126,13 @@ public class Article
 		this.articleDateAvailibility = articleDateAvailibility;
 		this.articleDematerialized = articleDematerialized;
 	}
+	
+	public boolean isArticleDeactivated() {
+		return articleDeactivated;
+	}
+	public void setArticleDeactivated(boolean articleDeactivated) {
+		this.articleDeactivated = articleDeactivated;
+	}
 	public boolean isArticleDematerialized() {
 		return articleDematerialized;
 	}
@@ -100,10 +145,10 @@ public class Article
 	public void setArticleDateAvailibility(LocalDate articleDateAvailibility) {
 		this.articleDateAvailibility = articleDateAvailibility;
 	}
-	public int getIdArticle() {
+	public Long getIdArticle() {
 		return idArticle;
 	}
-	public void setIdArticle(int idArticle) {
+	public void setIdArticle(Long idArticle) {
 		this.idArticle = idArticle;
 	}
 	public String getRefArticle() {
@@ -163,8 +208,6 @@ public class Article
 
 	public void setArtListImg(List<ArticlesImages> artListImg) {
 		this.artListImg = artListImg;
-
-
 	}
 
 
@@ -178,19 +221,6 @@ public class Article
 	public void setarticlePricePromo(float articlePricePromo) {
 		this.articlePricePromo = articlePricePromo;
 	}
-
-	public Article() 
-	{
-
-	}
-
-	
-	
-
-
-
-
-
 	public Category getArticleCategory() {
 		return articleCategory;
 	}
@@ -201,8 +231,6 @@ public class Article
 		return artListImg.add(e);
 
 	}
-	
-
 	public boolean remove(ArticlesImages o) {
 		return artListImg.remove(o);
 	}

@@ -23,7 +23,7 @@ public class Category
 	private String categoryLabel;
 	private String categoryDescription;
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="articleCategory")
+	@OneToMany(mappedBy="articleCategory")
 	private List<Article> articles = new ArrayList<Article>();
 	
 	private static final long serialVersionUID = 1L;

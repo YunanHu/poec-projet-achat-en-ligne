@@ -9,6 +9,11 @@ import fr.EGame.projet.model.Article;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 	
 	List<Article> findByArticleDematerialized(boolean articleDematerialized);
+	
+	Article findByArticleName(String name);
+	
+	Article findByArticlePlateforme(String plateforme);
+	List<Article> findByArticleDeactivated(boolean isDactivated);
 
 	
 }
