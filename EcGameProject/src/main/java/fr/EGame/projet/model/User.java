@@ -40,23 +40,20 @@ public class User implements Serializable {
 	private String email;
 	@NonNull
 	private String password;
-	
+
 	private String nom;
-	
+
 	private String prenom;
 	private Date createDate;
 	private String emailConfirmToken;
 	private Date emailConfirmTokenDate;
 	private Boolean emailConfirmed;
+	
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
 	private List<Address> addresses = new ArrayList<Address>();
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.LAZY)
-	@NonNull
+	
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
 	private List<Role> roles = new ArrayList<Role>();
-
-	
-
-	
 
 	public boolean addRole(Role role) {
 		return roles.add(role);
@@ -73,7 +70,5 @@ public class User implements Serializable {
 	public boolean removeAddress(Address adr) {
 		return addresses.remove(adr);
 	}
-	
-	
 
 }

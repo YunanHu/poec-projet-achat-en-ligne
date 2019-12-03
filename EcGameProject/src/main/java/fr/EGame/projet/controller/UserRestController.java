@@ -3,6 +3,7 @@ package fr.EGame.projet.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import fr.EGame.projet.model.User;
 
 @CrossOrigin
 @RestController
+//@Secured("ROLE_ADMIN")
 public class UserRestController {
 
 	@Autowired
@@ -26,11 +28,13 @@ public class UserRestController {
 		return userRepository.findAll();
 	}
 
+
 	@GetMapping("/user/{email}")
 	public User getUser(@PathVariable("email") String email) {
 		return userRepository.findByEmail(email);
 	}
 
+	
 	@GetMapping("/initusers")
 	public User initUsers() {
 		User u1 = new User("test@gmail.com", "pass" );
