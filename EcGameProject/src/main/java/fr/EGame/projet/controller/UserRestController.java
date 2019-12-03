@@ -33,10 +33,10 @@ public class UserRestController {
 
 	@GetMapping("/initusers")
 	public User initUsers() {
-		User u1 = new User("test@gmail.com", "pass", "Jon"," Wik");
+		User u1 = new User("test@gmail.com", "pass" );
 		System.out.println(u1);
 		userRepository.save(u1);
-		User u2 = new User("test2@gmail.com", "pass2", "Zon"," Bik");
+		User u2 = new User("test2@gmail.com", "pass2");
 		System.out.println(u2);
 		return userRepository.save(u2);
 		

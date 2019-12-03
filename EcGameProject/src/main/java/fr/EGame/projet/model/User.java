@@ -40,9 +40,9 @@ public class User implements Serializable {
 	private String email;
 	@NonNull
 	private String password;
-	@NonNull
+	
 	private String nom;
-	@NonNull
+	
 	private String prenom;
 	private Date createDate;
 	private String emailConfirmToken;
@@ -51,16 +51,12 @@ public class User implements Serializable {
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
 	private List<Address> addresses = new ArrayList<Address>();
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.LAZY)
+	@NonNull
 	private List<Role> roles = new ArrayList<Role>();
 
 	
 
-	public User(@NonNull String email, @NonNull String password, @NonNull String nom, @NonNull String prenom) {
-		this.email = email;
-		this.password = password;
-		this.nom = nom;
-		this.prenom = prenom;
-	}
+	
 
 	public boolean addRole(Role role) {
 		return roles.add(role);
