@@ -34,26 +34,26 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long UID;
+	Long UID;
 	@NonNull
 	@Column(unique = true)
-	private String email;
+	String email;
 	@NonNull
-	private String password;
+	String password;
 
-	private String nom;
+	String nom;
 
-	private String prenom;
-	private Date createDate;
-	private String emailConfirmToken;
-	private Date emailConfirmTokenDate;
-	private Boolean emailConfirmed;
-	
+	String prenom;
+	Date createDate;
+	String emailConfirmToken;
+	Date emailConfirmTokenDate;
+	Boolean emailConfirmed;
+
 	@ManyToMany(cascade = { CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
-	private List<Address> addresses = new ArrayList<Address>();
-	
+	List<Address> addresses = new ArrayList<Address>();
+
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.REMOVE }, fetch = FetchType.EAGER)
-	private List<Role> roles = new ArrayList<Role>();
+	List<Role> roles = new ArrayList<Role>();
 
 	public boolean addRole(Role role) {
 		return roles.add(role);
