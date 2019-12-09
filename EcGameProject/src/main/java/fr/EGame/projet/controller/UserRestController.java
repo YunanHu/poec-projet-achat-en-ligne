@@ -22,19 +22,20 @@ public class UserRestController {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/users")
 	public List<User> getUser() {
 		
 		return userRepository.findAll();
 	}
 
-
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/user/{email}")
 	public User getUser(@PathVariable("email") String email) {
 		return userRepository.findByEmail(email);
 	}
 
-	
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/initusers")
 	public User initUsers() {
 		User u1 = new User("test@gmail.com", "pass" );
