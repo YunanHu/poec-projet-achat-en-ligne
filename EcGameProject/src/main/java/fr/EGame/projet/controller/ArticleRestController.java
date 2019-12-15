@@ -1,6 +1,7 @@
 package fr.EGame.projet.controller;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.EGame.projet.dao.ArticleRepository;
 import fr.EGame.projet.dao.CategoryRepository;
 import fr.EGame.projet.model.Article;
+import fr.EGame.projet.model.ArticlesImages;
 import fr.EGame.projet.model.Category;
+import net.bytebuddy.dynamic.Nexus;
 
 @RestController
 public class ArticleRestController {
@@ -82,17 +85,17 @@ public class ArticleRestController {
 			Article a2 = new Article(
 					"SWI-" + LocalDate.now().toString() + cAv.getIdCategory().toString() + cAv.getCategoryLabel()
 							+ "02",
-					"Mario Sunshine", "SWITCH", cAv, "jeu blabla 2", 44, LocalDate.now(), 40,
+					"Mario Odyssey", "SWITCH", cAv, "jeu blabla 2", 44, LocalDate.now(), 40,
 					LocalDate.of(2020, 01, 12), true,true);
 			Article a3 = new Article(
 					"PS4-" + LocalDate.now().toString() + cRpg.getIdCategory().toString() + cRpg.getCategoryLabel()
 							+ "03",
-					"Call of Duty", "PS4", cRpg, "jeu blabla 3", 44, LocalDate.now(), 40, LocalDate.of(2019, 12, 24),
+					"Call of Duty Modern Warfare", "PS4", cRpg, "jeu blabla 3", 44, LocalDate.now(), 40, LocalDate.of(2019, 12, 24),
 					false,false);
 			Article a4 = new Article(
 					"PC-" + LocalDate.now().toString() + cPlat.getIdCategory().toString() + cPlat.getCategoryLabel()
 							+ "04",
-					"Call of Duty", "PC", cPlat, "jeu blabla 4", 44, LocalDate.now(), 40, LocalDate.of(2019, 12, 24),
+					"Call of Duty Modern Warfare", "PC", cPlat, "jeu blabla 4", 44, LocalDate.now(), 40, LocalDate.of(2019, 12, 24),
 					false,true);
 			Article a5 = new Article(
 					"PC-" + LocalDate.now().toString() + cSim.getIdCategory().toString() + cSim.getCategoryLabel()
@@ -113,7 +116,7 @@ public class ArticleRestController {
 					"Control", "PS4", cAv, "jeu blabla 8", 44, LocalDate.now(), 40, LocalDate.of(2019, 12, 24), true,false);
 			Article a9 = new Article(
 					"PC" + LocalDate.now().toString() + cAv.getIdCategory().toString() + cAv.getCategoryLabel() + "09",
-					"Doom", "PC", cAv, "jeu blabla 9", 44, LocalDate.now(), 40, LocalDate.of(2020, 02, 12), false,false);
+					"Doom Eternal", "PC", cAv, "jeu blabla 9", 44, LocalDate.now(), 40, LocalDate.of(2020, 02, 12), false,false);
 			Article a10 = new Article(
 					"XBO-" + LocalDate.now().toString() + cAv.getIdCategory().toString() + cAv.getCategoryLabel()
 							+ "010",
@@ -121,12 +124,12 @@ public class ArticleRestController {
 			Article a11 = new Article(
 					"SWI-" + LocalDate.now().toString() + cFps.getIdCategory().toString() + cFps.getCategoryLabel()
 							+ "011",
-					"Rayman Legend", "SWITCH", cFps, "jeu blabla 11", 44, LocalDate.now(), 40,
+					"Rayman Legends", "SWITCH", cFps, "jeu blabla 11", 44, LocalDate.now(), 40,
 					LocalDate.of(2020, 01, 12), false,false);
 			Article a12 = new Article(
 					"SWI-" + LocalDate.now().toString() + cRpg.getIdCategory().toString() + cRpg.getCategoryLabel()
 							+ "012",
-					"Zelda", "SWITCH", cRpg, "jeu blabla 12", 44, LocalDate.now(), 40, LocalDate.of(2019, 12, 24),
+					"Zelda Breath of the wild", "SWITCH", cRpg, "jeu blabla 12", 44, LocalDate.now(), 40, LocalDate.of(2019, 12, 24),
 					false,true);
 			Article a13 = new Article(
 					"XBO-" + LocalDate.now().toString() + cSim.getIdCategory().toString() + cSim.getCategoryLabel()
@@ -135,12 +138,120 @@ public class ArticleRestController {
 			Article a14 = new Article(
 					"PS4-" + LocalDate.now().toString() + cSpo.getIdCategory().toString() + cSpo.getCategoryLabel()
 							+ "014",
-					"Metal Gear Solid", "PS4", cSpo, "jeu blabla 14", 44, LocalDate.now(), 40,
+					"Metal Gear Solid 4", "PS4", cSpo, "jeu blabla 14", 44, LocalDate.now(), 40,
 					LocalDate.of(2019, 12, 24), false,false);
 			Article a15 = new Article(
 					"PC" + LocalDate.now().toString() + cFps.getIdCategory().toString() + cFps.getCategoryLabel()
 							+ "015",
 					"Portal 2", "PC", cFps, "jeu blabla 15", 44, LocalDate.now(), 40, LocalDate.of(2019, 12, 31), true,true);
+			
+//			List<ArticlesImages> listImagesForza = new ArrayList<ArticlesImages>();
+			a1.add(new ArticlesImages("Forza Horizon 4-1"," "));
+			a1.add(new ArticlesImages("Forza Horizon 4-2"," "));
+			a1.add(new ArticlesImages("Forza Horizon 4-3"," "));
+			a1.add(new ArticlesImages("Forza Horizon 4-4"," "));
+			
+
+			
+			//List<ArticlesImages> listImagesMario = new ArrayList<ArticlesImages>();
+			a2.add(new ArticlesImages("Mario Odyssey-1"," "));
+			a2.add(new ArticlesImages("Mario Odyssey-2"," "));
+			a2.add(new ArticlesImages("Mario Odyssey-3"," "));
+			a2.add(new ArticlesImages("Mario Odyssey-4"," "));
+
+			//List<ArticlesImages> listImagesCOD = new ArrayList<ArticlesImages>();
+			a3.add(new ArticlesImages("Call of Duty Modern Warfare-1"," "));
+			a3.add(new ArticlesImages("Call of Duty Modern Warfare-2"," "));
+			a3.add(new ArticlesImages("Call of Duty Modern Warfare-3"," "));
+			a3.add(new ArticlesImages("Call of Duty Modern Warfare-4"," "));
+			
+			a4.add(new ArticlesImages("Call of Duty Modern Warfare-1"," "));
+			a4.add(new ArticlesImages("Call of Duty Modern Warfare-2"," "));
+			a4.add(new ArticlesImages("Call of Duty Modern Warfare-3"," "));
+			a4.add(new ArticlesImages("Call of Duty Modern Warfare-4"," "));
+			
+			//List<ArticlesImages> listImagesControl = new ArrayList<ArticlesImages>();
+			a5.add(new ArticlesImages("Control-1"," "));
+			a5.add(new ArticlesImages("Control-2"," "));
+			a5.add(new ArticlesImages("Control-3"," "));
+			a5.add(new ArticlesImages("Control-4"," "));
+			
+			a8.add(new ArticlesImages("Control-1"," "));
+			a8.add(new ArticlesImages("Control-2"," "));
+			a8.add(new ArticlesImages("Control-3"," "));
+			a8.add(new ArticlesImages("Control-4"," "));
+			
+			a10.add(new ArticlesImages("Control-1"," "));
+			a10.add(new ArticlesImages("Control-2"," "));
+			a10.add(new ArticlesImages("Control-3"," "));
+			a10.add(new ArticlesImages("Control-4"," "));
+			
+			//List<ArticlesImages> listImagesOver = new ArrayList<ArticlesImages>();
+			a7.add(new ArticlesImages("Overwatch-1"," "));
+			a7.add(new ArticlesImages("Overwatch-2"," "));
+			a7.add(new ArticlesImages("Overwatch-3"," "));
+			a7.add(new ArticlesImages("Overwatch-4"," "));
+			
+			//List<ArticlesImages> listImagesH2 = new ArrayList<ArticlesImages>();
+			a6.add(new ArticlesImages("Halo 2-1"," "));
+			a6.add(new ArticlesImages("Halo 2-2"," "));
+			a6.add(new ArticlesImages("Halo 2-3"," "));
+			a6.add(new ArticlesImages("Halo 2-4"," "));
+			
+			//List<ArticlesImages> listImagesDE = new ArrayList<ArticlesImages>();
+			a9.add(new ArticlesImages("Doom Eternal-1"," "));
+			a9.add(new ArticlesImages("Doom Eternal-2"," "));
+			a9.add(new ArticlesImages("Doom Eternal-3"," "));
+			a9.add(new ArticlesImages("Doom Eternal-4"," "));
+			
+			//List<ArticlesImages> listImagesRL = new ArrayList<ArticlesImages>();
+			a11.add(new ArticlesImages("Rayman Legends-1"," "));
+			a11.add(new ArticlesImages("Rayman Legends-2"," "));
+			a11.add(new ArticlesImages("Rayman Legends-3"," "));
+			a11.add(new ArticlesImages("Rayman Legends-4"," "));
+			
+			List<ArticlesImages> listImagesBOTW = new ArrayList<ArticlesImages>();
+			a12.add(new ArticlesImages("Zelda Breath of the wild-1"," "));
+			a12.add(new ArticlesImages("Zelda Breath of the wild-2"," "));
+			a12.add(new ArticlesImages("Zelda Breath of the wild-3"," "));
+			a12.add(new ArticlesImages("Zelda Breath of the wild-4"," "));
+			
+//			List<ArticlesImages> listImagesForza = new ArrayList<ArticlesImages>();
+//			listImagesForza.add(new ArticlesImages("Halo 1", " "));
+//			listImagesForza.add(new ArticlesImages("Forza Horizon 4", " "));
+//			listImagesForza.add(new ArticlesImages("Forza Horizon 4", " "));
+//			listImagesForza.add(new ArticlesImages("Forza Horizon 4", " "));
+			
+			//List<ArticlesImages> listImagesH1 = new ArrayList<ArticlesImages>();
+			a13.add(new ArticlesImages("Halo 1-1"," "));
+			a13.add(new ArticlesImages("Halo 1-2"," "));
+			a13.add(new ArticlesImages("Halo 1-3"," "));
+			a13.add(new ArticlesImages("Halo 1-4"," "));
+			
+			//List<ArticlesImages> listImagesP2 = new ArrayList<ArticlesImages>();
+			a15.add(new ArticlesImages("Portal 2-1"," "));
+			a15.add(new ArticlesImages("Portal 2-2"," "));
+			a15.add(new ArticlesImages("Portal 2-3"," "));
+			a15.add(new ArticlesImages("Portal 2-4"," "));
+			
+//			List<ArticlesImages> listImagesForza = new ArrayList<ArticlesImages>();
+			a14.add(new ArticlesImages("Metal Gear Solid 4"," "));
+			a14.add(new ArticlesImages("Metal Gear Solid 4"," "));
+			a14.add(new ArticlesImages("Metal Gear Solid 4"," "));
+			a14.add(new ArticlesImages("Metal Gear Solid 4"," "));
+//			
+//			List<ArticlesImages> listImagesForza = new ArrayList<ArticlesImages>();
+//			listImagesForza.add(new ArticlesImages("Forza Horizon 4"," "));
+//			listImagesForza.add(new ArticlesImages("Forza Horizon 4"," "));
+//			listImagesForza.add(new ArticlesImages("Forza Horizon 4"," "));
+//			listImagesForza.add(new ArticlesImages("Forza Horizon 4"," "));
+//			
+//			List<ArticlesImages> listImagesForza = new ArrayList<ArticlesImages>();
+//			listImagesForza.add(new ArticlesImages("Forza Horizon 4-1"," "));
+//			listImagesForza.add(new ArticlesImages("Forza Horizon 4-2"," "));
+//			listImagesForza.add(new ArticlesImages("Forza Horizon 4-3"," "));
+//			listImagesForza.add(new ArticlesImages("Forza Horizon 4-4"," "));
+			
 			articleRepository.save(a1);
 			articleRepository.save(a2);
 			articleRepository.save(a3);
