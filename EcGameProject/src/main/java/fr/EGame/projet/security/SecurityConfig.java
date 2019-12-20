@@ -13,13 +13,6 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-	/*/Cette classe désactive la sécurité Spring pour travailler sans devoir s'authentifier.
-	@Override
-	protected void configure(HttpSecurity security) throws Exception {
-		security.httpBasic().disable();
-	}*/
-
 	@Autowired
 	private UserDetailsService userDetailsService;
 
@@ -35,9 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		//RAJOUTER LES PAGES QUI NE NECESSITENT PAS D'AUTHENTIFICATION DANS antMatchers(".. , .. , ..")
-		http.authorizeRequests().antMatchers("/users", "/initusers", "/initArticles", "/getAllArticles").permitAll().anyRequest().fullyAuthenticated();
-		//http.cors().and().authorizeRequests().anyRequest().fullyAuthenticated();
+		/*
+		 * http.cors().and() .authorizeRequests().anyRequest().fullyAuthenticated();
+		 */
+		http.cors().and().authorizeRequests().antMatchers("/login", "/getAllArticles", "/initArticles", "/initusers")
+				.permitAll().anyRequest().fullyAuthenticated();
 		http.httpBasic();
 		http.csrf().disable();
 	}

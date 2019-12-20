@@ -50,6 +50,11 @@ public class UserDetailsImpl implements UserDetails {
 		return true;
 	}
 
+	@Override
+	public String getUsername() {
+		return user.getEmail();
+	}
+
 	public String getEmail() {
 		return user.getEmail();
 	}
@@ -57,11 +62,5 @@ public class UserDetailsImpl implements UserDetails {
 	@Override
 	public String getPassword() {
 		return user.getPassword();
-	}
-
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
