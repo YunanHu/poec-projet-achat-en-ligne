@@ -156,13 +156,16 @@ class ProductList extends Component {
                             </div>
                         </div>
                         <div className="product-info">
-                            {product.tags ?
+                            {/* {product.tags ?
                                    <span className="ciyashop-product-category">
                                     {product.tags.map((tag,index) =>
                                           <span>{tag}{index === product.tags.length-1 ?'':','}</span>
                                      )}
                                 </span>
-                            : null } 
+                            : null }  */}
+                            <span className="ciyashop-product-category">
+                                <span>{product.category}</span>
+                            </span>
                             {product.name ?
                             <h3 className="product-name">
                                 <Link to={`/shop/${product.category}/${product.id}`}>
@@ -180,7 +183,7 @@ class ProductList extends Component {
                                 </ins>
                                 </span>
                             : null }
-                            <div className="product-rating">{rat}</div>
+                            {/* <div className="product-rating">{rat}</div> */}
                             </div>
                             {product.description ?
                             <div className="product-details__short-description">

@@ -124,15 +124,15 @@ class ShopPage extends Component {
                         <div className="sidebar col-xl-3 col-lg-4 desktop">
                                 <div className="shop-sidebar-widgets">
                                     <SideFilter />
-                                    <SocialFilter />
-                                    <ShopBanner />
+                                    {/* <SocialFilter />
+                                    <ShopBanner /> */}
                                 </div>
                             </div>
                             <div className="content col-xl-9 col-lg-8">
                                 <div className="products-header">
-                                    <div className="right-banner">
+                                    {/* <div className="right-banner">
                                         <img alt="Shop Banner" src={require(`../../assets/images/shop/shop-banner.jpg`)}  className="img-fluid" />
-                                    </div>
+                                    </div> */}
                                     <div className="loop-header">
                                         <div className="loop-header-tools">
                                             <div className="loop-header-tools-wrapper">

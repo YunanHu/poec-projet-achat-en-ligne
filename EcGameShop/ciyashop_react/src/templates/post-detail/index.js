@@ -197,13 +197,13 @@ const productslider = {
                 <div className="product-top-right-inner">
                     <div className="summary entry-summary">
                     <h1 className="product_title entry-title">{product.name}</h1>
-                    <div className="product-rating">
+                    {/* <div className="product-rating">
                         <div className="star-rating">
                            {rat}
                         </div>
                         <p  className="review-link mt-2" >(<span className="count">{rating}</span> customer
                         reviews)</p>
-                    </div>
+                    </div> */}
                     <p className="price">{`$${product.salePrice * qty}`}</p>
                     <div className="product-details__short-description">
                         <div className="pdp-about-details-txt pdp-about-details-equit">
@@ -227,7 +227,7 @@ const productslider = {
                                  }
                         <div className="clearfix" />
                     </form>
-                    <div className="product-summary-actions">
+                    {/* <div className="product-summary-actions">
 
                                 {!this.CheckWishList(product.id) ?
                                  <div className="add-to-wishlist">
@@ -241,9 +241,9 @@ const productslider = {
                                 </div>
                                 }
 
-                    </div>
+                    </div> */}
                     <div className="product_meta">
-                        <span className="sku_wrapper">
+                        {/* <span className="sku_wrapper">
                         <label>SKU:</label>
                         <span className="sku">
                             9624 </span>
@@ -255,20 +255,20 @@ const productslider = {
                                     <Link to="#" rel="tag">{sizes}{index === product.size.length-1 ?'':','}</Link>
                                 </span>
                             )}
-                        </span>
+                        </span> */}
                         <span className="posted_in"><label>Categories:</label>
                             {product.category}
                         </span>
-                        <span className="brands">
+                        {/* <span className="brands">
                         <label>Brand:</label>
                             {product.tags.map((brand,index)=>
                                 <span itemProp="brand">
                                     <Link to="#" rel="tag">{brand}{index === product.tags.length-1 ?'':','}</Link>
                                 </span>
                             )}
-                        </span>
+                        </span> */}
                     </div>
-                    <div className="social-profiles">
+                    {/* <div className="social-profiles">
                         <span className="share-label">Share :</span>
                         <ul className="share-links">
                         <li>
@@ -297,7 +297,7 @@ const productslider = {
                             </a>
                         </li>
                         </ul>
-                    </div>
+                    </div> */}
                     <div className="ciyashop-sticky-btn">
                         <div className="ciyashop-sticky-btn-container container">
                         <div className="row align-items-center">

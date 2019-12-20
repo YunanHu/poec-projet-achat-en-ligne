@@ -108,7 +108,7 @@ class SideFilter extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="widget widget_layered_nav widget-layered-nav pgs_widget-layered-nav">
+                {/* <div className="widget widget_layered_nav widget-layered-nav pgs_widget-layered-nav">
                     <h4 className="widget-title">Filter by Color</h4>
                     <div className="pgs-widget-layered-nav-list-container has-scrollbar" style={{height: '210px'}}>
                         <ul className="pgs-widget-layered-nav-list" tabIndex={0} style={{right: '-17px'}}>
@@ -123,7 +123,7 @@ class SideFilter extends Component {
                             })}
                         </ul>
                     </div>
-                </div>
+                </div> */}
                 <div className="widget widget_layered_nav widget-layered-nav pgs_widget-layered-nav">
                     <h4 className="widget-title">Product Categories</h4>
                         <div className="pgs-widget-layered-nav-list-container has-scrollbar" style={{height: '215px'}}>
@@ -137,7 +137,7 @@ class SideFilter extends Component {
                             })}
                     </div>
                  </div>
-                <div className="widget widget_layered_nav widget-layered-nav pgs_widget-layered-nav">
+                {/* <div className="widget widget_layered_nav widget-layered-nav pgs_widget-layered-nav">
                     <h4 className="widget-title">Filter by Size</h4>
                     <div className="pgs-widget-layered-nav-list-container has-scrollbar" style={{height: '215px'}}>
 
@@ -151,7 +151,7 @@ class SideFilter extends Component {
                                 )
                             })}
                     </div>
-                 </div>
+                 </div> */}
             </div>
        )
     }

@@ -110,18 +110,61 @@ class ProductDetail extends Component {
                         <div className="product-content-bottom">
 
                             <Nav tabs >
-                                <NavItem active>
-                                    <NavLink   className={classnames({ active: this.state.activeTab === '1' })}  onClick={() => { this.toggle('1'); }}>Description</NavLink>
+                                <NavItem>
+                                    <NavLink  className={classnames({ active: this.state.activeTab === '1' })} >Reviews</NavLink>
                                 </NavItem>
+                                {/* <NavItem active>
+                                    <NavLink   className={classnames({ active: this.state.activeTab === '1' })}  onClick={() => { this.toggle('1'); }}>Description</NavLink>
+                                </NavItem> 
                                 <NavItem>
                                     <NavLink  className={classnames({ active: this.state.activeTab === '2' })}  onClick={() => { this.toggle('2'); }}>Reviews</NavLink>
                                 </NavItem>
                                 <NavItem disabled>
                                     <NavLink  className={classnames({ active: this.state.activeTab === '3' })}  onClick={() => { this.toggle('3'); }}>Custom Tab</NavLink>
-                                </NavItem>
+                                </NavItem> */}
                             </Nav>
                             <TabContent activeTab={this.state.activeTab}>
+
                                 <TabPane tabId="1">
+                                    <div className="product-reviews">
+                                    <h6>Add a Review</h6>
+                                    <p>Your email address will not be published. Required fields are marked *</p>
+                                    <form>
+                                       <div class="form-group">
+                                        <label>Name</label>
+                                        <input type="Text" class="form-control"></input>
+                                      </div>
+                                      <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="Text" class="form-control"></input>
+                                      </div>
+                                      {/* <div class="form-group">
+                                        <label className="mb-0">Your rating *</label>
+                                        <ul class="rating list-unstyled">
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star-half-o"></i></li>
+                                            <li><i class="fa fa-star-o"></i></li>
+                                        </ul>
+                                      </div> */}
+                                      <div class="form-group">
+                                        <label>Your review *</label>
+                                        <textarea class="form-control" rows="3"></textarea>
+                                      </div>
+                                      <div class="form-group form-check">
+                                        <input type="checkbox" class="form-check-input" id="exampleCheck1"></input>
+                                        <label class="form-check-label" for="exampleCheck1">Save my name, email, and website in this browser for the next time I comment.</label>
+                                      </div>
+                                       <div class="form-group">
+                                        <Link class="btn btn-primary">Submit</Link>
+                                      </div>
+
+
+                                    </form>
+                                    </div>
+                                </TabPane>
+                                {/* <TabPane tabId="1">
                                         <div className="tab-content" id="myTabContent">
                                                 <div className="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="home-tab">
                                                 <h2>What is Lorem Ipsum?</h2>
@@ -246,7 +289,7 @@ class ProductDetail extends Component {
 
                                             </div>
 
-                                </TabPane>
+                                </TabPane> 
                                 <TabPane tabId="2">
                                 <div className="product-reviews">
                                     <h6>Add a Review</h6>
@@ -289,14 +332,14 @@ class ProductDetail extends Component {
                                 <TabPane tabId="3">
                                     <p>The Crochet-Shoulder Chevron Sweatshirt ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, libero, ratione. Tenetur dolor vitae voluptatem, earum nam, voluptas culpa ex vel et aliquid aperiam pariatur ad hic commodi, dicta tempora.</p>
                                     <p>Wearing a sweatshirt in public doesn’t mean you can’t look put-together doing it. The Crochet-Shoulder Chevron Sweatshirt from Knox Rose is slightly more tailored for a pullover, though it still gives you a loose fit that remains comfortable and flexible as you move. The textured fabric is enhanced with crochet sleeve details. Throw this long-sleeve sweatshirt over a pair of jeans and you’re ready to go. </p>
-                                </TabPane>
+                                </TabPane> */}
                             </TabContent>
-                            <div className="related products">
+                            {/* <div className="related products">
                                 <h2>Related products</h2>
                                 <div className="row">
                                 <ProductSlider settings={relatedslider} />
                             </div>
-                            </div>
+                            </div> */}
                             </div>
                     </Container>
                 </div>
