@@ -36,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		//RAJOUTER LES PAGES QUI NE NECESSITENT PAS D'AUTHENTIFICATION DANS antMatchers(".. , .. , ..")
-		http.authorizeRequests().antMatchers("/users").permitAll().anyRequest().fullyAuthenticated();
+		http.authorizeRequests().antMatchers("/users", "/initusers", "/initArticles", "/getAllArticles").permitAll().anyRequest().fullyAuthenticated();
 		//http.cors().and().authorizeRequests().anyRequest().fullyAuthenticated();
 		http.httpBasic();
 		http.csrf().disable();
