@@ -6,6 +6,20 @@ import { Link } from 'react-router-dom';
 import { Row, Col,Container,FormGroup,Form,Input,Button } from 'reactstrap';
 
 class MyAccount extends Component {
+    constructor(props){
+        super(props)
+        this.passwordInputRef = React.createRef()
+        this.state = {
+            username: ""
+        }
+    }
+
+    onChangeHandler = event => {
+        this.setState({
+            username: event.target.value
+        })
+        console.log(this.state)
+    }
     componentDidMount() {
         window.scrollTo(0, 0)
     }
@@ -44,7 +58,8 @@ class MyAccount extends Component {
                             <Form className="login form">
                                 <FormGroup>
                                     <label for="username">Username or email address&nbsp;<span className="required">*</span></label>
-                                    <Input type="text" className="form-control" name="username" id="username" autocomplete="username" value=""/>
+                                    <Input type="text" className="form-control" name="username" id="username" autocomplete="username" value={this.state.username}
+                                    onChange={this.onChangeHandler}/>
                                 </FormGroup>
                                 <FormGroup>
                                     <label for="password">Password&nbsp;<span className="required">*</span></label>
