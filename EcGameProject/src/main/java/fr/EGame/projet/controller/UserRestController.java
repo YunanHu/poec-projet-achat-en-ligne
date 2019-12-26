@@ -30,20 +30,33 @@ public class UserRestController {
 	}
 
 	@Secured("ROLE_ADMIN")
-	@GetMapping("/user/{email}")
+	@GetMapping("/user/byemail/{email}")
 	public User getUser(@PathVariable("email") String email) {
 		return userRepository.findByEmail(email);
+	}
+	
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/user/byid/{uid}")
+	public User getUser(@PathVariable("uid") Long uid) {
+		return userRepository.findByUID(uid);
 	}
 
 	@Secured("ROLE_ADMIN")
 	@GetMapping("/initusers")
 	public User initUsers() {
-		User u1 = new User("test@gmail.com", "pass" );
+		/*User u1 = new User("test@gmail.com", "pass" );
 		System.out.println(u1);
-		userRepository.save(u1);
-		User u2 = new User("test2@gmail.com", "pass2");
+		userRepository.save(u1);*/
+		
+		User u2 = new User("test10@gmail.com", "pass10");
+		userRepository.save(u2);
 		System.out.println(u2);
-		return userRepository.save(u2);
+
+		User u3 = userRepository.findByEmail(u2.getEmail());
+		userRepository.setRole(u3.getUID());
+		
+		
+		return u2;
 		
 	}
 
