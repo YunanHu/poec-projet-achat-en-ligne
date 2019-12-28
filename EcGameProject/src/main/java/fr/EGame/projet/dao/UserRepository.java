@@ -11,9 +11,9 @@ import fr.EGame.projet.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 	
 	@Modifying
-    @Query(value = "insert into users_roles values (:uid,1)", nativeQuery = true)
+    @Query(value = "insert into users_roles values (:uid,:role)", nativeQuery = true)
 	@Transactional
-	public void setRole(@Param("uid") Long usid); 
+	public void setRole(@Param("uid") Long usid, @Param("role") Long role); 
 	
 	
 	
