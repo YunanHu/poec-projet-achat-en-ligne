@@ -3,7 +3,7 @@ package fr.EGame.projet.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +16,6 @@ import fr.EGame.projet.model.User;
 
 @CrossOrigin
 @RestController
-//@Secured("ROLE_ADMIN")
 public class UserRestController {
 
 	@Autowired
@@ -24,20 +23,20 @@ public class UserRestController {
 	@Autowired
 	private RoleRepository roleRepository;
 
-	@Secured("ROLE_ADMIN")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/users")
 	public List<User> getUser() {
 
 		return userRepository.findAll();
 	}
 
-	@Secured("ROLE_ADMIN")
+	
 	@GetMapping("/user/byemail/{email}")
 	public User getUser(@PathVariable("email") String email) {
 		return userRepository.findByEmail(email);
 	}
 
-	@Secured("ROLE_ADMIN")
+	
 	@GetMapping("/user/byid/{uid}")
 	public User getUser(@PathVariable("uid") Long uid) {
 		return userRepository.findByUID(uid);
