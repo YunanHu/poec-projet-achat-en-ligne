@@ -2,6 +2,9 @@ package fr.EGame.projet.security;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,24 +13,25 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 @Configuration
-@EnableGlobalMethodSecurity(
-securedEnabled = true,
-jsr250Enabled = true,
-prePostEnabled = true)
+@EnableGlobalMethodSecurity(securedEnabled = true, jsr250Enabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -49,10 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		 */
 		http.cors().and().formLogin().loginProcessingUrl("/login")
 				.successHandler(new AuthentificationLoginSuccessHandler())
-				.failureHandler(new SimpleUrlAuthenticationFailureHandler()).and().authorizeRequests()
+				.failureHandler(new AuthentificationLoginSFailureHandler()).and().authorizeRequests()
 				.antMatchers("/", "/login", "/getAllArticles", "/initArticles", "/initusers").permitAll().anyRequest()
 				.fullyAuthenticated();
-		http.httpBasic();
+
 		http.csrf().disable();
 	}
 
@@ -63,6 +67,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			response.setStatus(HttpServletResponse.SC_OK);
 		}
 	}
+
+	private class AuthentificationLoginSFailureHandler implements AuthenticationFailureHandler {
+
+		private ObjectMapper objectMapper = new ObjectMapper();
+
+		@Override
+		public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
+				AuthenticationException exception) throws IOException, ServletException {
+
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			
+		}
+
+	}
+
+	
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
