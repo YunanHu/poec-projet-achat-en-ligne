@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -14,19 +15,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Entity
 @Table(name = "cart")
 public class Cart {
-	@Id@
-	GeneratedValue
+	@Id
+	@GeneratedValue
 	Long idCart;
+	@NonNull
+	@ManyToOne
+	User cartUser;
+	
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	List<CartItem> cartItems = new ArrayList<CartItem>();
-	// add user
+	
 	float total;
 	/*
 	// creer les tables billingAddress et shippingAddress
@@ -40,7 +47,7 @@ public class Cart {
 	private String billing_phone;
 	private String billing_email;
 	*/
-	
+
 	public boolean addCartItem(CartItem item) {
 		return cartItems.add(item);
 	}
