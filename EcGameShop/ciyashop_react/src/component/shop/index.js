@@ -46,6 +46,8 @@ import useFetch from '../../hook/useFetch'
 // };
 class ShopPage extends Component {
 
+    
+
     constructor(props, context) {
         super(props, context)
         this.state = {
