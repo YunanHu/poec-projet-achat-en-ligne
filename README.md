@@ -10,4 +10,14 @@ En lancant cette url : /initusers, Le systeme ajoute maintenant 3 roles (ROLE_AD
 Pour créer les articles, les insérer dans la base de données
 
 
-Config projet : il faut rajouter dans spring -> edit starters -> spring web
+
+
+
+Config projet :
+il faut rajouter dans spring -> edit starters -> spring web
+
+Si vous avez des problemes de constructeurs non définie ou getter et setters c'est proablement que vous navez pas installer lombok.
+Voici la manip :
+-Aller dans C:/Users/User/.m2/repository/org/projectlombok/lombok/1.18.4
+-Faire double clic sur lombok-1.18.4 et d´emarrer l’installation (c¸a peut prendre plusieurs minutes)
+-Red´emarrer Eclipse
