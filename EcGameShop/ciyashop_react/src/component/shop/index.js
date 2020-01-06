@@ -14,6 +14,7 @@ import {getFilterProductsdata} from '../../services';
 import { connect } from 'react-redux';
 import TopFilter from '../../widgets/shopfilter/TopFilter';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import useFetch from '../../hook/useFetch'
 
 // const shopitemslider = {
 //     dots: false,
@@ -45,13 +46,18 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 // };
 class ShopPage extends Component {
 
+    
+
     constructor(props, context) {
         super(props, context)
         this.state = {
           limit: 5,
           hasMoreProduct: true,
-          getproduct:AllProduct
+          getproduct:AllProduct,
+          articles:[]
         }
+        this.fetchArticles = this.fetchArticles.bind(this);
+
     }
     componentWillMount(){
         if (this.state.limit < this.state.getproduct.length) {
@@ -63,7 +69,8 @@ class ShopPage extends Component {
         }
     }
     componentDidMount() {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
+        this.fetchArticles();
     }
     componentDidUpdate(prevProps)
     {
@@ -75,19 +82,39 @@ class ShopPage extends Component {
             }, 2500);
         }
     }
-    fetchProduct = () => {
-        if (this.state.limit >= this.props.products.length) {
-            this.setState({ hasMoreProduct: false });
-            return;
-        }
-        setTimeout(() => {
+
+    
+    fetchArticles() {
+        
+        // if (this.state.limit >= this.props.products.length) {
+        //     this.setState({ hasMoreProduct: false });
+        //     return;
+        // }
+        // setTimeout(() => {
+        //     this.setState({
+        //         limit: this.state.limit + 5
+        //     });
+        // }, 2500);
+        fetch("http://localhost:8080/getAllArticles",
+        {
+            method:"get",
+            credentials:"include"
+        }).then(response=>response.json())
+        .then(result=>
             this.setState({
-                limit: this.state.limit + 5
-            });
-        }, 2500);
+                ...this.state,
+                articles:result
+            })
+            )
+            
+            
     }
     render() {
-        let {products} = this.props;
+        console.log("articlesIndex",this.state.articles);
+        // let {products} = this.props;
+        let products = this.state.articles;
+        //let test = products.length;
+        //console.log("test",test);
         let layoutstyle=localStorage.getItem('setLayoutStyle')
 
         if(layoutstyle == null)
@@ -96,6 +123,12 @@ class ShopPage extends Component {
         }
 
      return (
+            // <div>
+            //     {/* <button>Get users</button> */}
+            //     {loading && <p>Loading...</p>}
+            //     {error && <p>Oops, une erreur est survenue :(</p>}
+            //     {data ? data.map(user => <p key={user.id}>{user.email}</p>) : null}
+            // </div>
             <div className="site-content">
                 <div className="inner-intro">
                 <Container>
@@ -112,7 +145,7 @@ class ShopPage extends Component {
                                 <Link className="bread-link bread-home" to="/">Home</Link>
                                 </span>
                             </li>
-                            <li><span>Products</span></li>
+                            <li><span>Articles</span></li>
                             </ul>
                         </Col>
                     </Row>
@@ -136,7 +169,7 @@ class ShopPage extends Component {
                                     <div className="loop-header">
                                         <div className="loop-header-tools">
                                             <div className="loop-header-tools-wrapper">
-                                                <TopFilter productlength={products.length}  />
+                                                {/* <TopFilter productlength={products.length}  /> */}
                                             </div>
                                         </div>
                                     </div>
@@ -150,7 +183,7 @@ class ShopPage extends Component {
                                     >
                                         <Row className="products products-loop grid ciyashop-products-shortcode pgs-product-list">
                                             {products.slice(0,this.state.limit).map((product, index) =>
-                                                        <ProductList product={product} key={index} layoutstyle={layoutstyle} />
+                                                        <ProductList article={product} key={index} layoutstyle={layoutstyle} />
                                                 )
                                             }
                                         </Row>
