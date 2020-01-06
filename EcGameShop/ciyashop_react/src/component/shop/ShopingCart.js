@@ -12,8 +12,8 @@ class ShopingCart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ShippingFlatRate: 1.50,
-            ShippingLocalPickUp: 2.00,
+            ShippingFlatRate: 6.0,
+            ShippingLocalPickUp: 10.00,
             TotalShippingCarge: 1.50,
             Adress1: "B-87,Erceru erpopnt",
             Adress2: "Arndurm",
@@ -237,7 +237,7 @@ class ShopingCart extends Component {
                                             <tbody>
                                                 <tr className="cart-subtotal">
                                                     <th>Subtotal</th>
-                                                    <td data-title="Subtotal"><span className="woocs_special_price_code"><span className="Price-amount amount"><span className="Price-currencySymbol">$</span> {this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)}  </span></span>
+                                                    <td data-title="Subtotal"><span className="woocs_special_price_code"><span className="Price-amount amount"><span className="Price-currencySymbol"></span> {this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)}  </span>€</span>
                                                     </td>
                                                 </tr>
                                                 <tr className="shipping-totals shipping">
@@ -247,14 +247,14 @@ class ShopingCart extends Component {
                                                             <a onClick={() => this.SetShippingCharge(1)}  >
                                                                 <li>
 
-                                                                    <input style={{cursor:'pointer'}} id="rd1" ref="rd1" type="radio" name="shipping_method[0]" data-index="0"  value="flat_rate:3" className="shipping_method" /><label style={{cursor:'pointer'}} for="rd1">Flat rate: <span className="Price-amount amount"><span className="Price-currencySymbol">$</span>{parseFloat(this.state.ShippingFlatRate).toFixed(2)}</span></label>
+                                                                    <input style={{cursor:'pointer'}} id="rd1" ref="rd1" type="radio" name="shipping_method[0]" data-index="0"  value="flat_rate:3" className="shipping_method" /><label style={{cursor:'pointer'}} for="rd1">Dans 7 jours: <span className="Price-amount amount"><span className="Price-currencySymbol"></span>{parseFloat(this.state.ShippingFlatRate).toFixed(2)}</span> €</label>
 
                                                                 </li>
                                                             </a>
                                                             <a onClick={() => this.SetShippingCharge(2)} >
                                                                 <li>
 
-                                                                    <input style={{cursor:'pointer'}} type="radio" id="rd2" ref="rd2" name="shipping_method[0]" data-index="0"  value="local_pickup:4" className="shipping_method" /><label style={{cursor:'pointer'}} for="rd2">Local pickup: <span className="Price-amount amount"><span className="Price-currencySymbol">$</span>{parseFloat(this.state.ShippingLocalPickUp).toFixed(2)}</span></label>
+                                                                    <input style={{cursor:'pointer'}} type="radio" id="rd2" ref="rd2" name="shipping_method[0]" data-index="0"  value="local_pickup:4" className="shipping_method" /><label style={{cursor:'pointer'}} for="rd2">Dans 2-3 jours: <span className="Price-amount amount"><span className="Price-currencySymbol"></span>{parseFloat(this.state.ShippingLocalPickUp).toFixed(2)}</span> €</label>
 
                                                                 </li>
                                                             </a>
@@ -335,7 +335,7 @@ class ShopingCart extends Component {
                                                 </tr>
                                                 <tr className="order-total">
                                                     <th>Total</th>
-                                                    <td data-title="Total"><strong><span className="special_price_code"><span className="Price-amount amount"><span className="Price-currencySymbol">$</span> {parseFloat(parseFloat(this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)) + parseFloat(this.state.TotalShippingCarge.toFixed(2))).toFixed(2)}    </span></span></strong>
+                                                    <td data-title="Total"><strong><span className="special_price_code"><span className="Price-amount amount">{parseFloat(parseFloat(this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)) + parseFloat(this.state.TotalShippingCarge.toFixed(2))).toFixed(2)}    </span> <span className="Price-currencySymbol">€</span></span></strong>
                                                     </td>
                                                 </tr>
                                             </tbody>
