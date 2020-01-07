@@ -13,7 +13,19 @@ public class Address {
 	@Id
 	@GeneratedValue
 	private Long idAddress;
-	private String street;
-	private String zip;
-	private String city;
+
+	// creer les tables billingAddress et shippingAddress
+	private String billing_name;
+	private String billing_address;
+	private String billing_streetno;
+	private String billing_state;
+	private String billing_zipcode;
+	private String billing_country;
+	
+	private String shipping_name;
+	private String shipping_address;
+	private String shipping_streetno;
+	private String shipping_state;
+	private String shipping_zipcode;
+	private String shipping_country;
 }
