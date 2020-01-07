@@ -54,7 +54,7 @@ public class UserRestController {
 	}
 
 	@GetMapping("/initusers")
-	public User initUsers() {
+	public String initUsers() {
 		/*
 		 * User u1 = new User("test@gmail.com", "pass" ); System.out.println(u1);
 		 * userRepository.save(u1);
@@ -69,6 +69,9 @@ public class UserRestController {
 		roleRepository.save(vendeur);
 
 		User u2 = new User("admin@gmail.com", "admin");
+		u2.setFirstname("Jules");
+		u2.setLastname("DupontAdmin");
+		u2.setPhoneno("0123456789");
 		userRepository.save(u2);
 		System.out.println(u2);
 
@@ -76,6 +79,9 @@ public class UserRestController {
 		userRepository.setRole(u3.getUID(), (long) 1);
 
 		User u4 = new User("client@gmail.com", "client");
+		u4.setFirstname("Mathieu");
+		u4.setLastname("FoxClient");
+		u4.setPhoneno("0623456789");
 		userRepository.save(u4);
 		System.out.println(u4);
 
@@ -83,13 +89,16 @@ public class UserRestController {
 		userRepository.setRole(u5.getUID(), (long) 2);
 		
 		User u6 = new User("vendeur@gmail.com", "vendeur");
+		u6.setFirstname("Anna");
+		u6.setLastname("HenriVendeur");
+		u6.setPhoneno("0776655443");
 		userRepository.save(u6);
 		System.out.println(u6);
 
 		User u7 = userRepository.findByEmail(u6.getEmail());
 		userRepository.setRole(u7.getUID(), (long) 3);
 
-		return u3;
+		return "Done";
 
 	}
 
