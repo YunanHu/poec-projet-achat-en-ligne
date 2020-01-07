@@ -7,6 +7,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import fr.EGame.projet.dao.RoleRepository;
@@ -34,6 +36,15 @@ public class UserRestController {
 	@GetMapping("/user/byemail/{email}")
 	public User getUser(@PathVariable("email") String email) {
 		return userRepository.findByEmail(email);
+	}
+	
+	@PostMapping(value = "/user/register" , consumes = "application/json", produces = "application/json")
+	public int addUser(@RequestBody User user) {
+		System.out.println(user);
+		userRepository.save(user);
+		User u5 = userRepository.findByEmail(user.getEmail());
+		userRepository.setRole(u5.getUID(), (long) 2);
+		return 202;
 	}
 
 	

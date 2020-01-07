@@ -35,15 +35,17 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long UID;
-	@NonNull
+	
 	@Column(unique = true)
+	@NonNull
 	String email;
 	@NonNull
 	String password;
 
-	String nom;
+	String lastname;
 
-	String prenom;
+	String firstname;
+	String phoneno;
 	Date createDate;
 	String emailConfirmToken;
 	Date emailConfirmTokenDate;

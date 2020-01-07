@@ -1,3 +1,6 @@
+-MAJ 07/01/20 : drop la DB ou les tables users et users_roles et relancer spring boot.
+
+
 # poec-projet-achat-en-ligne
 Le code source de projet Achat en ligne. 
 
