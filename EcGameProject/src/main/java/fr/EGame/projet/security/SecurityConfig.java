@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().formLogin().loginProcessingUrl("/login")
 				.successHandler(new AuthentificationLoginSuccessHandler())
 				.failureHandler(new AuthentificationLoginSFailureHandler()).and().authorizeRequests()
-				.antMatchers("/", "/login", "/getAllArticles", "/initArticles", "/initusers").permitAll().anyRequest()
+				.antMatchers("/user/register","/", "/login", "/getAllArticles", "/initArticles", "/initusers").permitAll().anyRequest()
 				.fullyAuthenticated();
 
 		http.csrf().disable();
@@ -90,6 +90,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST"));
 		configuration.setAllowCredentials(true);
+		configuration.addAllowedHeader("*");
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
