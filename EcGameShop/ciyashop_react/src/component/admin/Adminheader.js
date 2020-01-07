@@ -66,7 +66,7 @@ class AdminHeader extends Component {
 
                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle2} className="profile-dropdown ml-auto">
                         <DropdownToggle caret className="btn-white">
-                        <img className="img-fluid rounded-circle profile-img" src={profile} alt="profile"/>
+                        {/* <img className="img-fluid rounded-circle profile-img" src={profile} alt="profile"/> */}
                         <div className="d-none d-sm-block">
                         <h6 className="mb-0">{Profile.firstname+' '+Profile.lastname}</h6>
                         <span className="text-dark">{Profile.email}</span>
@@ -74,7 +74,7 @@ class AdminHeader extends Component {
                         </DropdownToggle>
                         <DropdownMenu>
                             <DropdownItem onClick={() => this.Changeclass('profile')}  className="nav-link"  tag={Link} to="/admin-panel/Profile"><i className="fa fa-user-circle-o"></i>Profile</DropdownItem>
-                            <DropdownItem onClick={() => this.Changeclass('profile')}className="nav-link"  tag={Link} to="/admin-panel/Settings"><i className="fa fa-cog"></i>Account settings</DropdownItem>
+                            {/* <DropdownItem onClick={() => this.Changeclass('profile')}className="nav-link"  tag={Link} to="/admin-panel/Settings"><i className="fa fa-cog"></i>Account settings</DropdownItem> */}
                             <DropdownItem onClick={() => this.Changeclass('profile')}  className="nav-link" tag={Link} to="/"><i className="fa fa-sign-out"></i>Logout</DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
