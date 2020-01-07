@@ -252,10 +252,10 @@ class CheckOut extends Component {
                                                 <Input type="text" class="form-control " name="billing_last_name" id="billing_last_name" placeholder="" value={this.state.fieldvalue.lastname} onChange={this.handleChange.bind(this, "lastname")}/>
                                                 <span className="error">{this.state.errors["lastname"]}</span>
                                             </div>
-                                            <div class="form-group">
+                                            {/* <div class="form-group">
                                                 <label for="billing_company" class="">Company name&nbsp;<span class="optional">(optional)</span></label>
                                                 <Input type="text" class="form-control" name="billing_company" id="billing_company" placeholder="" value={this.state.fieldvalue.companyname} onChange={this.handleChange.bind(this, "companyname")}/>
-                                            </div>
+                                            </div> */}
                                             <div class="form-group">
                                                 <label for="billing_country" class="">Country&nbsp;<abbr class="required" title="required"></abbr></label>
                                                 <select name="billing_country" id="billing_country" class="form-control"  onChange={this.handleChange.bind(this, "country")}  >
@@ -335,7 +335,7 @@ class CheckOut extends Component {
                                                         <option value="FO">Faroe Islands</option>
                                                         <option value="FJ">Fiji</option>
                                                         <option value="FI">Finland</option>
-                                                        <option value="FR">France</option>
+                                                        <option value="FR" selected>France</option>
                                                         <option value="GF">French Guiana</option>
                                                         <option value="PF">French Polynesia</option>
                                                         <option value="TF">French Southern Territories</option>
@@ -494,7 +494,7 @@ class CheckOut extends Component {
                                                         <option value="UA">Ukraine</option>
                                                         <option value="AE">United Arab Emirates</option>
                                                         <option value="GB">United Kingdom (UK)</option>
-                                                        <option value="US" selected>United States (US)</option>
+                                                        <option value="US">United States (US)</option>
                                                         <option value="UM">United States (US) Minor Outlying Islands</option>
                                                         <option value="VI">United States (US) Virgin Islands</option>
                                                         <option value="UY">Uruguay</option>
@@ -517,11 +517,11 @@ class CheckOut extends Component {
                                                 <Input type="text" class="form-control" name="billing_address_1" id="billing_address_1" placeholder="House number and street name" value={this.state.fieldvalue.streetno}  onChange={this.handleChange.bind(this, "streetno")}/>
                                                 <span className="error">{this.state.errors["streetno"]}</span>
                                             </div>
-                                            <div class="form-group">
+                                            {/* <div class="form-group">
                                                 <label for="billing_address_2" class="screen-reader-text">Apartment, suite,
                                                     unit etc.&nbsp;<span class="optional">(optional)</span></label>
                                                 <Input type="text" class="form-control" name="billing_address_2" id="billing_address_2" placeholder="Apartment, suite, unit etc. (optional)" value={this.state.fieldvalue.address} onChange={this.handleChange.bind(this, "address")}  />
-                                            </div>
+                                            </div> */}
                                             <div class="form-group">
                                                 <label for="billing_city" class="">Town / City&nbsp;<abbr class="required" title="required">*</abbr></label>
                                                 <Input type="text" class="form-control" name="billing_city" id="billing_city" placeholder="" value={this.state.fieldvalue.state}  onChange={this.handleChange.bind(this, "state")} />
@@ -568,7 +568,7 @@ class CheckOut extends Component {
                                                 <td class="product-name">
                                                     {CartItem.ProductName}&nbsp; <strong class="product-quantity">× {CartItem.Qty}</strong> </td>
                                                 <td class="product-total">
-                                                    <span class="woocs_special_price_code"><span class="Price-amount amount"><span class="Price-currencySymbol">$</span>  {CartItem.Rate * CartItem.Qty} </span></span>
+                                                    <span class="woocs_special_price_code"><span class="Price-amount amount">  {CartItem.Rate * CartItem.Qty} </span> <span className="Price-currencySymbol">€</span></span>
                                                 </td>
                                                 </tr>
                                         ))}
@@ -578,7 +578,7 @@ class CheckOut extends Component {
                                     <tfoot>
                                         <tr class="cart-subtotal">
                                             <th>Subtotal</th>
-                                            <td><span class="woocs_special_price_code"><span class="Price-amount amount"><span class="Price-currencySymbol">$</span>{this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)}</span></span>
+                                            <td><span class="woocs_special_price_code"><span class="Price-amount amount">{this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)}</span> <span className="Price-currencySymbol">€</span></span>
                                             </td>
                                         </tr>
                                         <tr class="shipping-totals shipping">
@@ -604,7 +604,7 @@ class CheckOut extends Component {
                                         </tr>
                                         <tr class="order-total">
                                             <th>Total</th>
-                                            <td><strong><span class="woocs_special_price_code"><span class="Price-amount amount"><span class="Price-currencySymbol">$</span>{parseFloat(parseFloat(this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)) + parseFloat((this.state.TotalShippingCarge != undefined) ? this.state.TotalShippingCarge.toFixed(2) : 0)).toFixed(2)}    </span></span></strong>
+                                            <td><strong><span class="woocs_special_price_code"><span class="Price-amount amount">{parseFloat(parseFloat(this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)) + parseFloat((this.state.TotalShippingCarge != undefined) ? this.state.TotalShippingCarge.toFixed(2) : 0)).toFixed(2)}    </span> <span className="Price-currencySymbol">€</span></span></strong>
                                             </td>
                                         </tr>
                                     </tfoot>

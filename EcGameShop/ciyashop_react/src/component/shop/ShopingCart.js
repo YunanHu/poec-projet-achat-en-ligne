@@ -237,7 +237,7 @@ class ShopingCart extends Component {
                                             <tbody>
                                                 <tr className="cart-subtotal">
                                                     <th>Subtotal</th>
-                                                    <td data-title="Subtotal"><span className="woocs_special_price_code"><span className="Price-amount amount"><span className="Price-currencySymbol"></span> {this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)}  </span>€</span>
+                                                    <td data-title="Subtotal"><span className="woocs_special_price_code"><span className="Price-amount amount">  {this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)}</span> <span className="Price-currencySymbol">€</span></span>
                                                     </td>
                                                 </tr>
                                                 <tr className="shipping-totals shipping">
