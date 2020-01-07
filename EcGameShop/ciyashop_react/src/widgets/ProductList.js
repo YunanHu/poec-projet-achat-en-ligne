@@ -93,23 +93,22 @@ class ProductList extends Component {
     return wishlist;
     }
     render() {
-    const articles = this.props.article;
-    //const artListImg = articles.artListImg.map(img=>img.name);
-    //const artCateg = articles.map(art=>art.articleCategory.categoryLabel);
-    console.log("articlestest",articles.artListImg[0].name);
+    const {product} = this.props;
+
     let rat=[];
+    let rating=product.rating;
     let i = 1;
-    // while (i <= 5) {
-    //     if(i<=rating)
-    //     {
-    //         rat.push(<i className="fa fa-star" />);
-    //     }
-    //     else
-    //     {
-    //         rat.push(<i className="fa fa-star-o" />);
-    //     }
-    //     i += 1;
-    // };
+    while (i <= 5) {
+        if(i<=rating)
+        {
+            rat.push(<i className="fa fa-star" />);
+        }
+        else
+        {
+            rat.push(<i className="fa fa-star-o" />);
+        }
+        i += 1;
+    };
     return (
              <div key={1} className={this.props.layoutstyle}>
                     <ToastContainer autoClose={1000} />
@@ -117,17 +116,18 @@ class ProductList extends Component {
                         <div className="product-inner element-hovered">
                         <div className="product-thumbnail">
                             <div className="product-thumbnail-inner">
-                                <Link to={`/shop/${articles.articleCategory}/${articles.articleId}`}>
-                                    {articles.artListImg[0] ?
+                                <Link to={`/shop/${product.category}/${product.id}`}>
+                                    {product.pictures[0] ?
                                         <div className="product-thumbnail-main">
-                                            <img src={require(`../assets/images/imagesEcGame/${articles.artListImg[0].name}`)} className="img-fluid" />
+                                            {/* <img src={require(`../assets/images/imagesEcGame/${product.pictures[0]}`)} className="img-fluid" /> */}
+                                            <img src={require(`../assets/images/${product.pictures[0]}`)} className="img-fluid" />
                                         </div>
                                     :
                                         null
                                     }
-                                    {articles.artListImg[1]  ?
+                                    {product.pictures[1]  ?
                                         <div className="product-thumbnail-swap">
-                                                <img src={require(`../assets/images/imagesEcGame/${articles.artListImg[1].name}`)} className="img-fluid" />
+                                                <img src={require(`../assets/images/${product.pictures[1]}`)} className="img-fluid" />
                                         </div>
                                         :
                                         null
@@ -138,12 +138,12 @@ class ProductList extends Component {
                             <div className="product-actions">
                             <div className="product-actions-inner">
                                 <div className="product-action product-action-add-to-cart">
-                                 {/* {!this.CheckCardItem(articles.articleId) ?
-                                       <Link onClick={() => this.AddToCart(articles.articleId,articles.articleName, articles.pictures[0], 1, articles.articlePrice, "In Stock")} className="button add_to_cart_button" rel="nofollow">Add to
+                                 {!this.CheckCardItem(product.id) ?
+                                       <Link onClick={() => this.AddToCart(product.id,product.name, product.pictures[0], 1, product.salePrice, "In Stock")} className="button add_to_cart_button" rel="nofollow">Add to
                                        cart</Link>
                                  :
                                        <Link  to="/ShopingCart"  className="button add_to_cart_button" rel="nofollow">View Cart</Link>
-                                 } */}
+                                 }
                                 </div>
                                 {/* <div className="product-action product-action-wishlist">
                                     {!this.CheckWishList(product.id) ?
@@ -165,33 +165,33 @@ class ProductList extends Component {
                                 </span>
                             : null }  */}
                             <span className="ciyashop-product-category">
-                                {/* <span>{articles.articleCategory}</span> */}
+                                <span>{product.category}</span>
                             </span>
-                            {/* {articles.ArticleName ?
+                            {product.name ?
                             <h3 className="product-name">
-                                <Link to={`/shop/${articles.articleCategory.categoryLabel}/${articles.idArticle}`}>
-                                    {articles.articleName}
+                                <Link to={`/shop/${product.category}/${product.id}`}>
+                                    {product.name}
                                 </Link>
                             </h3>
-                            : null } */}
+                            : null }
                             <div className="product-rating-price">
-                            {/* {articles.articlePrice ?
+                            {product.salePrice ?
                                 <span className="price">
                                 <ins>
                                     <span className="price-amount amount">
-                                    <span className="currency-symbol">$</span>{articles.articlePrice}
+                                    <span className="currency-symbol">$</span>{product.salePrice}
                                     </span>
                                 </ins>
                                 </span>
-                            : null } */}
+                            : null }
                             {/* <div className="product-rating">{rat}</div> */}
                             </div>
-                            {/* {articles.articleDescription ?
+                            {product.description ?
                             <div className="product-details__short-description">
-                            <p>{articles.articleDescription}
+                            <p>{product.description}
                             </p>
                             </div>
-                            : null } */}
+                            : null }
                         </div>
                         </div>
                     </div>
