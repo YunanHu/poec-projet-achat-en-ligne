@@ -1,6 +1,7 @@
 # Astuce de pratique dans LA TEMPLATE
 
-Utiliser CommonList[0].siteUrl+"getAllArticles" au lieu de "http://localhost:8080/getAllArticles".<br>
+Utiliser CommonList[0].siteUrl au lieu de "http://localhost:8080/"<br>
+Par exemple: CommonList[0].siteUrl+"getAllArticles" au lieu de "http://localhost:8080/getAllArticles".<br>
 Na pas oublier d'ajouter la ligne suivante dans le fichier appliqué:<br>
 import CommonList from '../../api/common';
 
