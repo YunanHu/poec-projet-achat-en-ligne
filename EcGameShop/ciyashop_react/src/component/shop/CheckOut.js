@@ -11,8 +11,8 @@ class CheckOut extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ShippingFlatRate: 1.50,
-            ShippingLocalPickUp: 2.00,
+            ShippingFlatRate: 6.0,
+            ShippingLocalPickUp: 10.00,
             TotalShippingCarge: 1.50,
             fieldvalue:CommonList[0].profile,
             errors: {}
@@ -584,22 +584,22 @@ class CheckOut extends Component {
                                         <tr class="shipping-totals shipping">
                                             <th>Shipping</th>
                                             <td data-title="Shipping">
-                                            <ul id="shipping_method" className="shipping-methods">
-                                                            <a onClick={() => this.SetShippingCharge(1)}>
-                                                                <li>
+                                                <ul id="shipping_method" className="shipping-methods">
+                                                    <a onClick={() => this.SetShippingCharge(1)}  >
+                                                        <li>
 
-                                                                    <input style={{cursor:'pointer'}}  id="rd1" ref="rd1" type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_flat_rate3" value="flat_rate:3" className="shipping_method" /><label style={{cursor:'pointer'}} for="shipping_method_0_flat_rate3">Flat rate: <span className="Price-amount amount"><span className="Price-currencySymbol">$</span>{parseFloat(this.state.ShippingFlatRate).toFixed(2)} </span></label>
+                                                            <input style={{cursor:'pointer'}} id="rd1" ref="rd1" type="radio" name="shipping_method[0]" data-index="0"  value="flat_rate:3" className="shipping_method" /><label style={{cursor:'pointer'}} for="rd1">Dans 7 jours: <span className="Price-amount amount"><span className="Price-currencySymbol"></span>{parseFloat(this.state.ShippingFlatRate).toFixed(2)}</span> €</label>
 
-                                                                </li>
-                                                            </a>
-                                                            <a onClick={() => this.SetShippingCharge(2)}>
-                                                                <li>
+                                                        </li>
+                                                    </a>
+                                                    <a onClick={() => this.SetShippingCharge(2)} >
+                                                        <li>
 
-                                                                    <input style={{cursor:'pointer'}}  type="radio" id="rd2" ref="rd2" name="shipping_method[0]" data-index="0" id="shipping_method_0_local_pickup4" value="local_pickup:4" className="shipping_method" /><label style={{cursor:'pointer'}}  for="shipping_method_0_local_pickup4">Local pickup: <span className="Price-amount amount"><span className="Price-currencySymbol">$</span>{parseFloat(this.state.ShippingLocalPickUp).toFixed(2)}</span></label>
+                                                            <input style={{cursor:'pointer'}} type="radio" id="rd2" ref="rd2" name="shipping_method[0]" data-index="0"  value="local_pickup:4" className="shipping_method" /><label style={{cursor:'pointer'}} for="rd2">Dans 2-3 jours: <span className="Price-amount amount"><span className="Price-currencySymbol"></span>{parseFloat(this.state.ShippingLocalPickUp).toFixed(2)}</span> €</label>
 
-                                                                </li>
-                                                            </a>
-                                                        </ul>
+                                                        </li>
+                                                    </a>
+                                                </ul>
                                             </td>
                                         </tr>
                                         <tr class="order-total">

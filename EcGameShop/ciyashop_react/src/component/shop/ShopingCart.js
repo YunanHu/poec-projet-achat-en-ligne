@@ -260,7 +260,7 @@ class ShopingCart extends Component {
                                                             </a>
                                                         </ul>
                                                         <p className="shipping-destination">
-                                                            Estimate for <strong>India</strong>. </p>
+                                                            Livraison en <strong>France</strong>. </p>
 
 
                                                     </td>
