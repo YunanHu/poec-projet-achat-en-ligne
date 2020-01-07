@@ -1,6 +1,7 @@
 /* Invoice Bill Json */
 export default [
 {
+    "siteUrl" : "http://localhost:8080/",
     "profile":
         {
             "firstname":"Alice",
