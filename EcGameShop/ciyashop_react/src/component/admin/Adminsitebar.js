@@ -52,12 +52,12 @@ class Adminsitebar extends Component {
                                 <NavItem >
                                     <Link className={`${this.state.Prof_act == true ? 'active' : '' } adminprofile nav-link admin-nav`} to="/admin-panel/Profile" > <i className="fa fa-user-o"></i> Profile</Link>
                                 </NavItem>
-                                <NavItem >
+                                {/* <NavItem >
                                     <Link className={`${this.state.Coll_act == true ? 'active' : '' } collaboration nav-link admin-nav`} to="/admin-panel/Collaboration"  > <i className="fa fa-map-marker"></i> Collaboration</Link>
                                 </NavItem>
                                 <NavItem >
                                     <Link className={`${this.state.Sett_act == true ? 'active' : '' } account nav-link admin-nav`} to="/admin-panel/Settings" > <i className="fa fa-cogs"></i> Account Settings</Link>
-                                </NavItem>
+                                </NavItem> */}
                             </Nav>
                         </div>
                     </Col>

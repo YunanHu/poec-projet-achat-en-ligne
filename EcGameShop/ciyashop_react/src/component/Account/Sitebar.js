@@ -68,9 +68,9 @@ class Sitebar extends Component {
                         <NavItem>
                             <Link to="/Account/Address"  className={`${this.state.Add_act == true ? 'active' : '' } nav-link nav-custo Address`}  > <i className="fa fa-map-marker"></i> Address </Link>
                         </NavItem>
-                        <NavItem>
+                        {/* <NavItem>
                             <Link to="/Account/SavedCards" className={`${this.state.Saved_card == true ? 'active' : '' } nav-link  nav-custo SavedCards`}    > <i className="fa fa-credit-card"></i> Saved Cards </Link>
-                        </NavItem>
+                        </NavItem> */}
                     </Nav>
                 </div>
             </Col>

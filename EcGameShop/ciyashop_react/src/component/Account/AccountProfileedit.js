@@ -47,53 +47,53 @@ class AccountProfileedit extends Component {
               errors["lastname"] = "Please Enter Only Letter";
             }
         }
+        
+        
+              //Phone nomber
+              if (!fieldvalue["phoneno"]) {
+                  formIsValid = false;
+                  errors["phoneno"] = "Please Enter Phone NO";
+              }
+        
+              if (typeof fieldvalue["phoneno"] !== "undefined") {
+                  if (!fieldvalue["phoneno"].match(/^\d{10}$/)) {
+                    formIsValid = false;
+                    errors["phoneno"] = "Please Enter Valid Phone no";
+                  }
+              }
+        
+              //Email ID
+              if (!fieldvalue["emailid"]) {
+                formIsValid = false;
+                errors["emailid"] = "Please Enter Email ID";
+              }
+        
+              if (typeof fieldvalue["emailid"] !== "undefined") {
+                  if (!fieldvalue["emailid"].match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$/)) {
+                    formIsValid = false;
+                    errors["emailid"] = "Please Enter Valid Email Address";
+                  }
+              }
 
-      //Male & Female Radio Button
-      if (!fieldvalue["customradio"]) {
-          formIsValid = false;
-          errors["customradio"] = "Please Select Radio";
-      }
+      // //Male & Female Radio Button
+      // if (!fieldvalue["customradio"]) {
+      //     formIsValid = false;
+      //     errors["customradio"] = "Please Select Radio";
+      // }
 
 
+      // //Address
+      // if (!fieldvalue["address"]) {
+      //   formIsValid = false;
+      //   errors["address"] = "Please Enter Address";
+      // }
 
-      //Last Name
-      if (!fieldvalue["phoneno"]) {
-          formIsValid = false;
-          errors["phoneno"] = "Please Enter Phone NO";
-      }
-
-      if (typeof fieldvalue["phoneno"] !== "undefined") {
-          if (!fieldvalue["phoneno"].match(/^\d{10}$/)) {
-            formIsValid = false;
-            errors["phoneno"] = "Please Enter Valid Phone no";
-          }
-      }
-
-      //Email ID
-      if (!fieldvalue["emailid"]) {
-        formIsValid = false;
-        errors["emailid"] = "Please Enter Email ID";
-      }
-
-      if (typeof fieldvalue["emailid"] !== "undefined") {
-          if (!fieldvalue["emailid"].match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$/)) {
-            formIsValid = false;
-            errors["emailid"] = "Please Enter Valid Email Address";
-          }
-      }
-
-      //Address
-      if (!fieldvalue["address"]) {
-        formIsValid = false;
-        errors["address"] = "Please Enter Address";
-      }
-
-      if (typeof fieldvalue["address"] !== "undefined") {
-          if (!fieldvalue["address"].match(/^[a-zA-Z0-9 ]+$/)) {
-            formIsValid = false;
-            errors["address"] = "Please Enter Only Letter";
-          }
-      }
+      // if (typeof fieldvalue["address"] !== "undefined") {
+      //     if (!fieldvalue["address"].match(/^[a-zA-Z0-9 ]+$/)) {
+      //       formIsValid = false;
+      //       errors["address"] = "Please Enter Only Letter";
+      //     }
+      // }
 
       this.setState({ errors: errors });
       return formIsValid;
@@ -167,6 +167,16 @@ class AccountProfileedit extends Component {
                           <span className="error">{this.state.errors["lastname"]}</span>
                         </div>
                         <div class="form-group">
+                          <label>Email</label>
+                          <input type="Email" class="form-control" placeholder="Email" value={this.state.fieldvalue.email} onChange={this.handleChange.bind(this, "email")}></input>
+                          <span className="error">{this.state.errors["email"]}</span>
+                        </div>
+                        <div class="form-group">
+                          <label>Phone</label>
+                          <input type="text" class="form-control" placeholder="Phone" value={this.state.fieldvalue.phoneno} onChange={this.handleChange.bind(this, "phoneno")}></input>
+                          <span className="error">{this.state.errors["phoneno"]}</span>
+                        </div>
+                        {/* <div class="form-group">
                         <label className="d-block">Gender</label>
                           <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" id="male" name="gender" class="custom-control-input" value="Male" onChange={this.handleChange.bind(this, "gender")} checked={this.state.fieldvalue.gender === "Male"}></input>
@@ -182,20 +192,10 @@ class AccountProfileedit extends Component {
                           <input type="date" class="form-control" placeholder="Date of birth"  value={this.state.fieldvalue.dob} onChange={this.handleChange.bind(this, "dob")} ></input>
                         </div>
                         <div class="form-group">
-                          <label>Phone</label>
-                          <input type="text" class="form-control" placeholder="Phone" value={this.state.fieldvalue.phoneno} onChange={this.handleChange.bind(this, "phoneno")}></input>
-                          <span className="error">{this.state.errors["phoneno"]}</span>
-                        </div>
-                        <div class="form-group">
-                          <label>Email</label>
-                          <input type="Email" class="form-control" placeholder="Email" value={this.state.fieldvalue.email} onChange={this.handleChange.bind(this, "email")}></input>
-                          <span className="error">{this.state.errors["email"]}</span>
-                        </div>
-                        <div class="form-group">
                           <label>Address</label>
                           <textarea class="form-control" rows="3" placeholder="Address" value={this.state.fieldvalue.address}   onChange={this.handleChange.bind(this, "address")}></textarea>
                           <span className="error">{this.state.errors["address"]}</span>
-                        </div>
+                        </div> */}
                         <Button type="submit" className="btn btn-primary">Save</Button>
                     </form>
                     </div>

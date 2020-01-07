@@ -33,11 +33,11 @@ class Profile extends Component {
                       <ul class="list-unstyled mb-0">
                         <li><span>First name:</span><strong>{Profile.firstname}</strong></li>
                         <li><span>Last name:</span><strong>{Profile.lastname}</strong></li>
-                        <li><span>Gender:</span><strong>{Profile.gender}</strong></li>
-                        <li><span>DOB:</span><strong>{Profile.dob}</strong></li>
-                        <li><span>Phone no:</span><strong>{Profile.phoneno}</strong></li>
                         <li><span>Email:</span><strong>{Profile.email}</strong></li>
-                        <li><span>Address:</span><strong>{Profile.address}</strong></li>
+                        <li><span>Phone no:</span><strong>{Profile.phoneno}</strong></li>
+                        {/* <li><span>Gender:</span><strong>{Profile.gender}</strong></li>
+                        <li><span>DOB:</span><strong>{Profile.dob}</strong></li>
+                        <li><span>Address:</span><strong>{Profile.address}</strong></li> */}
                       </ul>
                     </div>
                   </div>

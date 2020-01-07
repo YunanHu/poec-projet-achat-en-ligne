@@ -13,9 +13,9 @@ class AdminProfileDetail extends Component{
             <Row>
                 <Col lg={12}>
                 <div className="admin-profile">
-                    <div className="admin-profile-image">
+                    {/* <div className="admin-profile-image">
                     <img className="img-fluid rounded-circle" src={adminprofile} alt="profile"/>	
-                    </div>
+                    </div> */}
                     <div className="admin-profile-info">
                         <h6 className="mb-0">{Profile.firstname+' '+Profile.lastname}</h6>
                         <span className="text-dark">{Profile.email}</span>
