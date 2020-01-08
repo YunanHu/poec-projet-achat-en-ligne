@@ -1,4 +1,3 @@
-
 /**
  *  Shop Main Page
  */
@@ -14,6 +13,7 @@ import {getFilterProductsdata} from '../../services';
 import { connect } from 'react-redux';
 import TopFilter from '../../widgets/shopfilter/TopFilter';
 import InfiniteScroll from 'react-infinite-scroll-component';
+
 
 // const shopitemslider = {
 //     dots: false,
@@ -44,139 +44,224 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 // };
 class ShopPage extends Component {
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      limit: 5,
+      hasMoreProduct: true,
+      getproduct: AllProduct,
+      articles: {},
+      articleProducts:{},
+      isLoading:false
+    };
+    this.fetchArticles = this.fetchArticles.bind(this);
+    // this.traitementArticle = this.traitementArticle.bind(this);
+  }
+  componentWillMount() {
+    if (this.state.limit < this.state.getproduct.length) {
+      setTimeout(() => {
+        this.setState({
+          limit: this.state.limit + 5
+        });
+      }, 2500);
+    }
+  }
+  fetchArticles() {
+    // if (this.state.limit >= this.props.products.length) {
+    //     this.setState({ hasMoreProduct: false });
+    //     return;
+    // }
+    // setTimeout(() => {
+    //     this.setState({
+    //         limit: this.state.limit + 5
+    //     });
+    // }, 2500);
+    fetch("http://localhost:8080/getAllArticles", {
+      method: "get",
+      credentials: "include"
+    })
+      .then(response => response.json())
+      .then(result =>
+        this.setState({
+          ...this.state,
+          articleProducts: result,
+          isLoading:false
+        })
+      )
+      .catch(function(error){
+        console.log("Il y a eu une erreur dans le fetch: "+error.message);
+      });
+      
+  }
+  componentDidMount() {
+    this.setState({
+      ...this.state,
+      isLoading:true
+    })
+    window.scrollTo(0, 0);
+    this.fetchArticles();
+    // this.traitementArticle();
+  }
+  componentDidUpdate(prevProps, prevState) {
+        this.traitementArticle(prevState)
 
-    constructor(props, context) {
-        super(props, context)
-        this.state = {
-          limit: 5,
-          hasMoreProduct: true,
-          getproduct:AllProduct
+    
+  }
+  traitementArticle(prevState) {    
+    const objArticles = this.state.articles;
+    const artProductsArray = [];
+    
+    for (let x in objArticles) {
+        // artProduct.add(objArticles[x].idArticle,objArticles[x].articleName);
+        const pictArray = [];
+        const category = [];
+        // for (let pict in objArticles[x].articleCategory) {
+        //     category.push(objArticles[x].artListImg[pict].name);
+        // }
+        for (let pict in objArticles[x].artListImg) {
+            pictArray.push(objArticles[x].artListImg[pict].name);
         }
+        artProductsArray.push({
+            id:objArticles[x].idArticle,
+            name:objArticles[x].articleName,
+            pictures:pictArray,
+            stock:objArticles[x].articleQty,
+            discount:0,
+            salePrice:objArticles[x].articlePrice,
+            description:objArticles[x].articleDescription,
+            rating:2,
+            category:""
+        });
     }
-    componentWillMount(){
-        if (this.state.limit < this.state.getproduct.length) {
-            setTimeout(() => {
-                this.setState({
-                    limit: this.state.limit + 5
-                });
-            }, 2500);
-        }
+    if(prevState.articleProducts===null){
+      this.setState({
+          ...this.state,
+          articleProducts:artProductsArray
+      });
     }
-    componentDidMount() {
-        window.scrollTo(0, 0)
+  }
+  fetchProduct = () => {
+    if (this.state.limit >= this.props.products.length) {
+      this.setState({ hasMoreProduct: false });
+      return;
     }
-    componentDidUpdate(prevProps)
-    {
-        if (this.state.limit < prevProps.products.length) {
-            setTimeout(() => {
-                this.setState({
-                    limit: this.state.limit + 5
-                });
-            }, 2500);
-        }
-    }
-    fetchProduct = () => {
-        if (this.state.limit >= this.props.products.length) {
-            this.setState({ hasMoreProduct: false });
-            return;
-        }
-        setTimeout(() => {
-            this.setState({
-                limit: this.state.limit + 5
-            });
-        }, 2500);
-    }
-    render() {
-        let {products} = this.props;
-        let layoutstyle=localStorage.getItem('setLayoutStyle')
+    setTimeout(() => {
+      this.setState({
+        limit: this.state.limit + 5
+      });
+    }, 2500);
+  };
+  render() {
+     let { products } = this.props;
+    //  let products =null;
+    // console.log("this.state.articleProducts",this.state.articleProducts);
+    console.log("isLoading",this.state.isLoading);
+    // if(this.state.isLoading===false){
+    //   products = this.state.articleProducts;
+    // }
+     //let { products } = this.state.articleProducts;
+     console.log("products",products);
+    let layoutstyle = localStorage.getItem("setLayoutStyle");
 
-        if(layoutstyle == null)
-        {
-            layoutstyle=localStorage.setItem('setLayoutStyle','col-sm-6 col-md-4')
-        }
+    if (layoutstyle == null) {
+      layoutstyle = localStorage.setItem("setLayoutStyle", "col-sm-6 col-md-4");
+    }
 
-     return (
-            <div className="site-content">
-                <div className="inner-intro">
-                <Container>
-                    <Row className="intro-title align-items-center">
-                        <Col md={6} className="text-left">
-                            <div className="intro-title-inner">
-                            <h1>Shop</h1>
-                            </div>
-                        </Col>
-                        <Col md={6}  className="text-right">
-                            <ul className="ciyashop_breadcrumbs page-breadcrumb breadcrumbs">
-                            <li className="home">
-                                <span>
-                                <Link className="bread-link bread-home" to="/">Home</Link>
-                                </span>
-                            </li>
-                            <li><span>Products</span></li>
-                            </ul>
-                        </Col>
-                    </Row>
-                </Container>
+    return (
+      <div className="site-content">
+        <div className="inner-intro">
+          <Container>
+            <Row className="intro-title align-items-center">
+              <Col md={6} className="text-left">
+                <div className="intro-title-inner">
+                  <h1>Products</h1>
                 </div>
-                <div className="content-wrapper section-pt mb-3 mb-md-5">
-                  <Container>
-                        <Row>
-                        <div className="sidebar col-xl-3 col-lg-4 desktop">
-                                <div className="shop-sidebar-widgets">
-                                    <SideFilter />
-                                    {/* <SocialFilter />
+              </Col>
+              <Col md={6} className="text-right">
+                <ul className="ciyashop_breadcrumbs page-breadcrumb breadcrumbs">
+                  <li className="home">
+                    <span>
+                      <Link className="bread-link bread-home" to="/">
+                        Home
+                      </Link>
+                    </span>
+                  </li>
+                  <li>
+                    <span>Products</span>
+                  </li>
+                </ul>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+        <div className="content-wrapper section-pt mb-3 mb-md-5">
+          <Container>
+            <Row>
+              <div className="sidebar col-xl-3 col-lg-4 desktop">
+                <div className="shop-sidebar-widgets">
+                  <SideFilter />
+                  {/* <SocialFilter />
                                     <ShopBanner /> */}
-                                </div>
-                            </div>
-                            <div className="content col-xl-9 col-lg-8">
-                                <div className="products-header">
-                                    {/* <div className="right-banner">
+                </div>
+              </div>
+              <div className="content col-xl-9 col-lg-8">
+                <div className="products-header">
+                  {/* <div className="right-banner">
                                         <img alt="Shop Banner" src={require(`../../assets/images/shop/shop-banner.jpg`)}  className="img-fluid" />
                                     </div> */}
-                                    <div className="loop-header">
-                                        <div className="loop-header-tools">
-                                            <div className="loop-header-tools-wrapper">
-                                                <TopFilter productlength={products.length}  />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                {products.length > 0 ?
-                                    <InfiniteScroll
-                                        dataLength={this.state.limit}
-                                        next={this.fetchProduct}
-                                        hasMore={this.state.hasMoreProduct}
-                                        loader={<div className="lazyload-img"></div>}
-                                    >
-                                        <Row className="products products-loop grid ciyashop-products-shortcode pgs-product-list">
-                                            {products.slice(0,this.state.limit).map((product, index) =>
-                                                        <ProductList product={product} key={index} layoutstyle={layoutstyle} />
-                                                )
-                                            }
-                                        </Row>
-                                    </InfiniteScroll>
-                                :
-                                      <Row className="products products-loop grid ciyashop-products-shortcode">
-                                        <div className="col-sm-12 text-center  mt-5" >
-                                            <img src={require(`../../assets/images/empty-search.jpg`)} className="img-fluid mb-4" />
-                                            <h3>Sorry! No products were found matching your selection!    </h3>
-                                            <p>Please try to other words.</p>
-                                             <Link to="/shop" className="btn btn-solid">Continue Shopping</Link>
-                                        </div>
-                                      </Row>
-                                }
-                            </div>
-
-                        </Row>
-                  </Container>
+                  <div className="loop-header">
+                    <div className="loop-header-tools">
+                      <div className="loop-header-tools-wrapper">
+                        <TopFilter productlength={products.length} />
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                {products.length > 0 ? (
+                  <InfiniteScroll
+                    dataLength={this.state.limit}
+                    next={this.fetchProduct}
+                    hasMore={this.state.hasMoreProduct}
+                     loader={<div className="lazyload-img"></div>}
+                  >
+                    <Row className="products products-loop grid ciyashop-products-shortcode pgs-product-list">
+                      {products
+                        .slice(0, this.state.limit)
+                        .map((product, index) => (
+                          <ProductList
+                            product={product}
+                            key={index}
+                            layoutstyle={layoutstyle}
+                          />
+                        ))}
+                    </Row>
+                  </InfiniteScroll>
+                ) : (
+                  <Row className="products products-loop grid ciyashop-products-shortcode">
+                    <div className="col-sm-12 text-center  mt-5">
+                      <img
+                        src={require(`../../assets/images/empty-search.jpg`)}
+                        className="img-fluid mb-4"
+                      />
+                      <h3>
+                        Sorry! No products were found matching your selection!{" "}
+                      </h3>
+                      <p>Please try to other words.</p>
+                      <Link to="/shop" className="btn btn-solid">
+                        Continue Shopping
+                      </Link>
+                    </div>
+                  </Row>
+                )}
+              </div>
+            </Row>
+          </Container>
         </div>
-      )
-    }
+      </div>
+    );
+  }
 }
-const mapDispatchToProps  = (state) => ({
-    products: getFilterProductsdata(state.data, state.filters)
-})
-export default connect(
-    mapDispatchToProps , {}
-)(ShopPage)
+const mapDispatchToProps = state => ({
+  products: getFilterProductsdata(state.data, state.filters)
+});
+export default connect(mapDispatchToProps, {})(ShopPage);

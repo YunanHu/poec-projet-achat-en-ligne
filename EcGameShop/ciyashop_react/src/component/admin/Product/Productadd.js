@@ -41,6 +41,14 @@ const productdata = {
         "Blue",
         "Green"
     ],
+
+    plateform:[
+        "PS4",
+        "Switch",
+        "XBox One",
+        "PC"
+    ],
+
     tags:[
         "Athleisure",
         "Jacket",
@@ -57,11 +65,58 @@ class Productadd extends Component{
                 pictures: [] ,
                 photoIndex: 0,
                 isOpen: false,
+                articleName:"",
+                articleDateAvailibility:"",
+                articleAddedDate:"",
+                articleDatePromoEnd:"",
+                articleDeactivated:"",
+                articleDematerialized:"",
+                articleDescription:"",
+                articlePlateforme:"",
+                articlePrice:"",
+                articlePricePromo:"",
+                articlePromoBegDate:"",
+                articleQty:"",
+                refArticle:"",
+                categories:[],
                 ErrorMsg:""
             };
             this.Uploadimage = this.Uploadimage.bind(this);
+            this.onClickSaveBtn = this.onClickSaveBtn.bind(this);
+            this.onChangeHandler=this.onChangeHandler.bind(this);
         }
+        
 
+        onChangeHandler(event){
+            const value = event.type === 'checkbox' ? event.checked : event.value;
+            const name = event.name;
+            this.setState({
+                ...this.state,
+                [name]:value               
+            })            
+        }
+        onClickSaveBtn(event){
+            event.preventDefault();
+            console.log(this.state);
+            const article ={};
+            article.articleName = this.state.articleName;
+
+            fetch("http://localhost:8080/addArticle",
+            {
+                method:"post",
+                credentials:"include",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                mode: "no-cors",
+                body:JSON.stringify(article)
+            }).then(data=>console.log("data",data))
+            .catch(error=>console.log(error))
+
+            //if(this.state.articleName!=="" && this.state.art)
+
+        }
         Uploadimage(picture) {
             if(picture == '')
             {
@@ -78,8 +133,22 @@ class Productadd extends Component{
                 });
             }
         }
+        fetchCategories(){
+            fetch("http://localhost:8080/categories",
+            {
+                method:"get",
+                credentials:"include"
+            }).then(response=>response.json())
+            .then(result=>
+                this.setState({
+                    ...this.state,
+                    categories:result
+                }))
+
+        }
         componentDidMount() {
             window.scrollTo(0, 0)
+            this.fetchCategories();
         }
       render(){
         return(
@@ -135,56 +204,74 @@ class Productadd extends Component{
                                         <div className="product-top-right-inner">
                                                 <div className="summary entry-summary">
                                                         <FormGroup className="edit-icon">
-                                                            <Input type="text" className="form-control product_title" placeholder="Product Name"  />
+                                                            <Input type="text" name="articleName" value={this.state.articleName} onChange={e=>this.onChangeHandler(e.target)} className="form-control product_title" placeholder="Product Name"  />
                                                         </FormGroup>
                                                         <FormGroup className="edit-icon">
-                                                            <Input type="text" className="form-control price" placeholder="Product Price"  />
+                                                            <Input type="text" value={this.state.articlePrice} name="articlePrice" onChange={e=>this.onChangeHandler(e.target)} className="form-control price" placeholder="Article Price"  />
                                                         </FormGroup>
                                                         <FormGroup className="edit-icon">
-                                                            <Input  type="textarea" className="form-control" rows="3" placeholder="Product Description" />
+                                                            <Input  type="textarea" value={this.state.articleDescription} name="articleDescription" onChange={e=>this.onChangeHandler(e.target)} className="form-control" rows="3" placeholder="Article Description" />
                                                         </FormGroup>
-                                                        <Label className="title">Size</Label>
+                                                        <Label className="title">Plateform</Label>
                                                         <FormGroup>
-                                                            {productdata.size.map((size) =>
+                                                            {productdata.plateform.map((p) =>
                                                                 <Label>
-                                                                    <Input type="checkbox"/>{' '}
-                                                                    {size}
+                                                                    <Input  name="articlePlateform" value={p} onChange={e=>this.onChangeHandler(e.target)} type="checkbox"/>{' '}
+                                                                    {p}
                                                                 </Label>
                                                             )}
                                                         </FormGroup>
-                                                        <Label className="title">Color</Label>
-                                                        <FormGroup>
-                                                            {productdata.colors.map((color) =>
-                                                                <Label>
-                                                                    <Input type="checkbox"/>{' '}
-                                                                    {color}
-                                                                </Label>
-                                                            )}
-                                                        </FormGroup>
+                                                        <Label className="title">Dematerialized</Label>
+                                                         <FormGroup>
+                                                            <Label>
+                                                                <Input name="articleDematerialized" onChange={e=>this.onChangeHandler(e.target)} type="checkbox"/>{' '}
+                                                                Yes
+                                                            </Label>
+                                                            <Label>
+                                                                <Input name="articleNotDematerialized" onChange={e=>this.onChangeHandler(e.target)} type="checkbox"/>{' '}
+                                                                No
+                                                            </Label>                                                            
+                                                        </FormGroup> 
                                                          <FormGroup>
                                                         <Label className="title pl-0">Brand</Label>
-                                                        <Input type="text" class="form-control" placeholder="Product Brand" />
+                                                        <Input type="text" name="articleBrand" value={this.state.articleName} onChange={e=>this.onChangeHandler(e.target)} class="form-control" placeholder="Article Brand" />
                                                         </FormGroup>
-
-                                                        <Label className="title mb-2">Category</Label>
+                                                        <Label className="title mb-2">Categories</Label>
                                                         <FormGroup>
-                                                            {productdata.tags.map((brand) =>
+                                                            {this.state.categories.map((label) =>
                                                             <Label>
-                                                            <Input type="checkbox"/>{' '}
-                                                            {brand}
+                                                            <Input name="categoryLabel" value={label.categoryLabel} onChange={e=>this.onChangeHandler(e.target)} type="checkbox"/>{' '}
+                                                            {label.categoryLabel}
                                                             </Label>
                                                             )}
                                                         </FormGroup>
+                                                        <Label className="title mb-2">Availibility Date</Label>
+                                                        <FormGroup>
+                                                            <Input type="date" name="articleAvailibilityDate" value={this.state.articleDateAvailibility} onChange={e=>this.onChangeHandler(e.target)} value={this.state.articleDateAvailibility}  onChange={e=>this.onChangeHandler(e.target.value)} ></Input>
+                                                        </FormGroup>
+                                                        <Label className="title mb-2">Article Promotion Beginning Date</Label>
+                                                        <FormGroup>
+                                                            <Input type="date" name="articlePromoBegDate" value={this.state.articlePromoBegDate} onChange={e=>this.onChangeHandler(e.target)}></Input>
+                                                        </FormGroup>
+                                                        <Label className="title mb-2">Article Promotion Ending Date</Label>
+                                                        <FormGroup>
+                                                            <Input type="date" name="articlePromoEndDate" value={this.state.articleDatePromoEnd} onChange={e=>this.onChangeHandler(e.target)}></Input>
+                                                        </FormGroup>
+                                                        <Label className="title mb-2">Promotion Price</Label>
+                                                        <FormGroup>
+                                                            <Input type="text" name="articlePromoPrice" value={this.state.articlePricePromo} onChange={e=>this.onChangeHandler(e.target)} className="form-control" placeholder="Promotion Price" ></Input>
+                                                        </FormGroup>
                                                         <FormGroup>
                                                         <Label className="title pl-0">Product Stock</Label>
-                                                        <input type="text" class="form-control" placeholder="Product Stock" ></input>
+                                                        <input type="text" name="articleQty" value={this.state.articleQty} onChange={e=>this.onChangeHandler(e.target)} class="form-control" placeholder="Article Stock"></input>
                                                         </FormGroup>
-                                                        <FormGroup>
+                                                        {/* <FormGroup>
                                                         <Label className="title pl-0">Total Products</Label>
-                                                        <input type="text" className="form-control" placeholder="Total Product" ></input>
-                                                        </FormGroup>
+                                                        <input type="text" name="" className="form-control" placeholder="Total Article" ></input>
+                                                        </FormGroup> */}
 
-                                                        <a href="#" class="btn btn-primary mb-2 mr-2"> Save </a>
+                                                        {/* <a href="#" class="btn btn-primary mb-2 mr-2"> Save </a> */}
+                                                        <button  class="btn btn-primary mb-2 mr-2" onClick={this.onClickSaveBtn}>Save</button>
                                                         <Link to="/admin-panel/Product" class="btn btn-danger mb-2"> Cancel </Link>
                                                     </div>
                                                 </div>
