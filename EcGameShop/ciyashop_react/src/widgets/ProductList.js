@@ -119,6 +119,7 @@ class ProductList extends Component {
                                 <Link to={`/shop/${product.category}/${product.id}`}>
                                     {product.pictures[0] ?
                                         <div className="product-thumbnail-main">
+                                            {/* <img src={require(`../assets/images/imagesEcGame/${product.pictures[0]}`)} className="img-fluid" /> */}
                                             <img src={require(`../assets/images/${product.pictures[0]}`)} className="img-fluid" />
                                         </div>
                                     :

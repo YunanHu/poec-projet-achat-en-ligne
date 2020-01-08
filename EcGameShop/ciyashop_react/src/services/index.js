@@ -1,5 +1,6 @@
 // Get Category Unique Data
 export const uniqueCategory = (products) => {
+    console.log("testProducts1",products);
     var uniqueCategorys = [];
     products.map((product) => {
         if (product.tags.length > 0 && product.tags) {
