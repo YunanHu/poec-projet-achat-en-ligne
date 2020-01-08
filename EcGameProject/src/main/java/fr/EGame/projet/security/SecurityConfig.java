@@ -54,11 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().formLogin().loginProcessingUrl("/login")
 				.successHandler(new AuthentificationLoginSuccessHandler())
 				.failureHandler(new AuthentificationLoginSFailureHandler()).and().authorizeRequests()
-<<<<<<< HEAD
-				.antMatchers("/user/register","/", "/login", "/getAllArticles", "/initArticles", "/initusers","/role/byemail").permitAll().anyRequest()
-=======
 				.antMatchers("/user/register","/", "/login", "/getAllArticles", "/initArticles", "/initusers", "/getAllComments", "/getComment/").permitAll().anyRequest()
->>>>>>> Adding Comments paths to SecurityConfig
 				.fullyAuthenticated();
 
 		http.csrf().disable();
