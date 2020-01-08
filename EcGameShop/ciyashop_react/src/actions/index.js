@@ -30,7 +30,7 @@ const traitementArticle = (result) =>{
         // }
         // console.log("category",category);
         for (let pict in article.artListImg) {
-            pictArray.push(article.artListImg[pict].name);
+            pictArray.push("imagesEcGame/"+article.artListImg[pict].name);
             
         }
         artProductsArray.push({
