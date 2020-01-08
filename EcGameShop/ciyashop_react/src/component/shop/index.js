@@ -50,7 +50,8 @@ class ShopPage extends Component {
       hasMoreProduct: true,
       getproduct: AllProduct,
       articles: {},
-      articleProducts:{}
+      articleProducts:{},
+      isLoading:false
     };
     this.fetchArticles = this.fetchArticles.bind(this);
     // this.traitementArticle = this.traitementArticle.bind(this);
@@ -82,39 +83,34 @@ class ShopPage extends Component {
       .then(result =>
         this.setState({
           ...this.state,
-          articles: result
+          articleProducts: result,
+          isLoading:false
         })
-      );
+      )
+      .catch(function(error){
+        console.log("Il y a eu une erreur dans le fetch: "+error.message);
+      });
       
   }
   componentDidMount() {
+    this.setState({
+      ...this.state,
+      isLoading:true
+    })
     window.scrollTo(0, 0);
     this.fetchArticles();
     // this.traitementArticle();
   }
   componentDidUpdate(prevProps, prevState) {
-    // if (this.state.limit < prevProps.products.length) {
-    //   setTimeout(() => {
-    //     this.setState({
-    //       limit: this.state.limit + 5
-    //     });
-    //   }, 2500);
-    // }
+        this.traitementArticle(prevState)
+
     
-    if(this.state.articles.length!=null){
-        console.log("youpi");
-        this.traitementArticle();
-    }
-    else {
-        console.log("cela n'a pas changé");
-    }
   }
-  traitementArticle() {    
+  traitementArticle(prevState) {    
     const objArticles = this.state.articles;
-    const artProducts = [];
+    const artProductsArray = [];
     
     for (let x in objArticles) {
-        console.log("objArticles[x]",objArticles[x]);
         // artProduct.add(objArticles[x].idArticle,objArticles[x].articleName);
         const pictArray = [];
         const category = [];
@@ -124,7 +120,7 @@ class ShopPage extends Component {
         for (let pict in objArticles[x].artListImg) {
             pictArray.push(objArticles[x].artListImg[pict].name);
         }
-        artProducts.push({
+        artProductsArray.push({
             id:objArticles[x].idArticle,
             name:objArticles[x].articleName,
             pictures:pictArray,
@@ -135,19 +131,13 @@ class ShopPage extends Component {
             rating:2,
             category:""
         });
-
     }
-
-    
-
-    
-    console.log("artProducts",artProducts)
-    // this.setState({
-    //     ...this.state,
-    //     articles:artProducts
-    // });
-    
-    
+    if(prevState.articleProducts===null){
+      this.setState({
+          ...this.state,
+          articleProducts:artProductsArray
+      });
+    }
   }
   fetchProduct = () => {
     if (this.state.limit >= this.props.products.length) {
@@ -161,9 +151,15 @@ class ShopPage extends Component {
     }, 2500);
   };
   render() {
-    let { products } = this.props;
-    // products.slice(0,this.state.limit).map((product, index) => console.log(product,index) );
-
+     let { products } = this.props;
+    //  let products =null;
+    // console.log("this.state.articleProducts",this.state.articleProducts);
+    console.log("isLoading",this.state.isLoading);
+    // if(this.state.isLoading===false){
+    //   products = this.state.articleProducts;
+    // }
+     //let { products } = this.state.articleProducts;
+     console.log("products",products);
     let layoutstyle = localStorage.getItem("setLayoutStyle");
 
     if (layoutstyle == null) {
@@ -225,7 +221,7 @@ class ShopPage extends Component {
                     dataLength={this.state.limit}
                     next={this.fetchProduct}
                     hasMore={this.state.hasMoreProduct}
-                    loader={<div className="lazyload-img"></div>}
+                     loader={<div className="lazyload-img"></div>}
                   >
                     <Row className="products products-loop grid ciyashop-products-shortcode pgs-product-list">
                       {products
