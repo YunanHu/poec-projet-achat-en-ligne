@@ -1,5 +1,6 @@
 package fr.EGame.projet.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,10 +47,13 @@ public class UserRestController {
 	}
 	
 	@PostMapping("/infouser/byemail")
-	public String getUserInfo(@RequestBody User user) {
+	public List<Object> getUserInfo(@RequestBody User user) {
 		System.out.println(user);
 		User u5 = userRepository.findByEmail(user.getEmail());
-		return u5.getUID() + u5.getEmail() + u5.getFirstname() + u5.getLastname()+ u5.getPhoneno(); 
+		List<Object> info = new ArrayList<Object>();;
+		info.add(u5.getUID()); info.add(u5.getEmail()); info.add(u5.getLastname()); info.add(u5.getFirstname()); info.add(u5.getPhoneno());
+		
+		return info; 
 	}
 	//id email firstname lastname phonenum
 	

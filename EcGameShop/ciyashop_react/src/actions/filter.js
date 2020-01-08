@@ -1,4 +1,4 @@
-
+// action creator
 export const searchValue = (search) => ({
     type: "RESULT_SEARCH_VALUE",
     search
