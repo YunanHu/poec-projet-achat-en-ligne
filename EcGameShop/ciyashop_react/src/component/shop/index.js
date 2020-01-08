@@ -14,7 +14,7 @@ import {getFilterProductsdata} from '../../services';
 import { connect } from 'react-redux';
 import TopFilter from '../../widgets/shopfilter/TopFilter';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import useFetch from '../../hook/useFetch'
+
 
 // const shopitemslider = {
 //     dots: false,
