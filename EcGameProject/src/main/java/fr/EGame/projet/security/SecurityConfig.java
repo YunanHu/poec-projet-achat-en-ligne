@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().formLogin().loginProcessingUrl("/login")
 				.successHandler(new AuthentificationLoginSuccessHandler())
 				.failureHandler(new AuthentificationLoginSFailureHandler()).and().authorizeRequests()
-				.antMatchers("/user/register","/", "/login", "/getAllArticles", "/initArticles", "/initusers").permitAll().anyRequest()
+				.antMatchers("/user/register","/", "/login", "/getAllArticles", "/initArticles", "/initusers","/role/byemail").permitAll().anyRequest()
 				.fullyAuthenticated();
 
 		http.csrf().disable();

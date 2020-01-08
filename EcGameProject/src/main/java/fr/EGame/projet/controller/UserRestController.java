@@ -38,6 +38,22 @@ public class UserRestController {
 		return userRepository.findByEmail(email);
 	}
 	
+	@PostMapping("/role/byemail")
+	public List<Role> getUserRole(@RequestBody User user) {
+		System.out.println(user);
+		User u5 = userRepository.findByEmail(user.getEmail());
+		return u5.getRoles();
+	}
+	
+	@PostMapping("/infouser/byemail")
+	public String getUserInfo(@RequestBody User user) {
+		System.out.println(user);
+		User u5 = userRepository.findByEmail(user.getEmail());
+		return u5.getUID() + u5.getEmail() + u5.getFirstname() + u5.getLastname()+ u5.getPhoneno(); 
+	}
+	//id email firstname lastname phonenum
+	
+	
 	@PostMapping(value = "/user/register" , consumes = "application/json", produces = "application/json")
 	public int addUser(@RequestBody User user) {
 		System.out.println(user);
