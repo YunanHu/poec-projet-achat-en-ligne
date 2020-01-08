@@ -1,5 +1,5 @@
 import ProductsList from '../api/product.json';
-
+// action creator qui nous permet de faire de l'asynchrone
 export const  fetchProducts = (product, times) => (
      setTimeout(() => product(ProductsList), times || 150)
 )
