@@ -99,47 +99,47 @@ class ShopPage extends Component {
       isLoading:true
     })
     window.scrollTo(0, 0);
-    this.fetchArticles();
+    // this.fetchArticles();
     // this.traitementArticle();
   }
   componentDidUpdate(prevProps, prevState) {
-        this.traitementArticle(prevState)
+        // this.traitementArticle(prevState)
 
     
   }
-  traitementArticle(prevState) {    
-    const objArticles = this.state.articles;
-    const artProductsArray = [];
+  // traitementArticle(prevState) {    
+  //   const objArticles = this.state.articles;
+  //   const artProductsArray = [];
     
-    for (let x in objArticles) {
-        // artProduct.add(objArticles[x].idArticle,objArticles[x].articleName);
-        const pictArray = [];
-        const category = [];
-        // for (let pict in objArticles[x].articleCategory) {
-        //     category.push(objArticles[x].artListImg[pict].name);
-        // }
-        for (let pict in objArticles[x].artListImg) {
-            pictArray.push(objArticles[x].artListImg[pict].name);
-        }
-        artProductsArray.push({
-            id:objArticles[x].idArticle,
-            name:objArticles[x].articleName,
-            pictures:pictArray,
-            stock:objArticles[x].articleQty,
-            discount:0,
-            salePrice:objArticles[x].articlePrice,
-            description:objArticles[x].articleDescription,
-            rating:2,
-            category:""
-        });
-    }
-    if(prevState.articleProducts===null){
-      this.setState({
-          ...this.state,
-          articleProducts:artProductsArray
-      });
-    }
-  }
+  //   for (let x in objArticles) {
+  //       // artProduct.add(objArticles[x].idArticle,objArticles[x].articleName);
+  //       const pictArray = [];
+  //       const category = [];
+  //       // for (let pict in objArticles[x].articleCategory) {
+  //       //     category.push(objArticles[x].artListImg[pict].name);
+  //       // }
+  //       for (let pict in objArticles[x].artListImg) {
+  //           pictArray.push(objArticles[x].artListImg[pict].name);
+  //       }
+  //       artProductsArray.push({
+  //           id:objArticles[x].idArticle,
+  //           name:objArticles[x].articleName,
+  //           pictures:pictArray,
+  //           stock:objArticles[x].articleQty,
+  //           discount:0,
+  //           salePrice:objArticles[x].articlePrice,
+  //           description:objArticles[x].articleDescription,
+  //           rating:2,
+  //           category:""
+  //       });
+  //   }
+  //   if(prevState.articleProducts===null){
+  //     this.setState({
+  //         ...this.state,
+  //         articleProducts:artProductsArray
+  //     });
+  //   }
+  // }
   fetchProduct = () => {
     if (this.state.limit >= this.props.products.length) {
       this.setState({ hasMoreProduct: false });

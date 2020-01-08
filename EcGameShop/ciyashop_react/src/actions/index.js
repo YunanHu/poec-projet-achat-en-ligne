@@ -1,4 +1,4 @@
-import ProductsList from '../api/product.json';
+// import ProductsList from '../api/product.json';
 
 export const fetchProducts = (product, times) => (
     fetch("http://localhost:8080/getAllArticles", {
