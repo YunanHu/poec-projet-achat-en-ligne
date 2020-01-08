@@ -8,6 +8,7 @@ import CommonList from '../../api/common';
 
 class CheckOut extends Component {
 
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -18,6 +19,7 @@ class CheckOut extends Component {
             errors: {}
         }
         this.ReadShippingCharge = this.ReadShippingCharge.bind(this);
+        const uid = 1// à dynamiser UID
     }
 
     componentDidMount() {
@@ -34,6 +36,23 @@ class CheckOut extends Component {
             this.props.history.push(`/`)
         } 
         return cart
+    }
+
+    fetchArticles() {
+        
+        fetch(CommonList[0].siteUrl+"user/byid/"+this.uid,
+        {
+            method:"get",
+            credentials:"include"
+        }).then(response=>response.json())
+        .then(result=>
+            
+            this.setState({
+                ...this.state,
+                articles:result
+            })
+            );
+        console.log("articlesResult",this.state.articles);
     }
 
     ReadShippingCharge()
