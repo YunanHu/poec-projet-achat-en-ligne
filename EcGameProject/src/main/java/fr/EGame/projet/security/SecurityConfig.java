@@ -53,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/user/register", "/", "/login", "/getAllArticles", "/initArticles", "/initusers",
 						"/getAllComments", "/getComment/")
 				.permitAll().anyRequest().fullyAuthenticated();
+
 		http.csrf().disable();
 	}
 
