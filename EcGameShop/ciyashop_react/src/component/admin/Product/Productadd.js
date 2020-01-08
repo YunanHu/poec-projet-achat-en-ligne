@@ -41,12 +41,14 @@ const productdata = {
         "Blue",
         "Green"
     ],
+
     plateform:[
         "PS4",
         "Switch",
         "XBox One",
         "PC"
     ],
+
     tags:[
         "Athleisure",
         "Jacket",

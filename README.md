@@ -1,3 +1,15 @@
+# Astuce de pratique dans LA TEMPLATE
+
+Utiliser CommonList[0].siteUrl au lieu de "http://localhost:8080/"<br>
+Par exemple: CommonList[0].siteUrl+"getAllArticles" au lieu de "http://localhost:8080/getAllArticles".<br>
+Na pas oublier d'ajouter la ligne suivante dans le fichier appliqué:<br>
+import CommonList from '../../api/common';
+
+
+# Dernières mises à jours
+-MAJ 07/01/20 : drop la DB ou les tables users et users_roles et relancer spring boot.
+
+
 # poec-projet-achat-en-ligne
 Le code source de projet Achat en ligne. 
 
@@ -9,11 +21,7 @@ En lancant cette url : /initusers, Le systeme ajoute maintenant 3 roles (ROLE_AD
 2. lancer http://localhost:8080/initArticles
 Pour créer les articles, les insérer dans la base de données
 
-
-
-
-
-Config projet :
+# Config projet
 il faut rajouter dans spring -> edit starters -> spring web
 
 Si vous avez des problemes de constructeurs non définie ou getter et setters c'est proablement que vous navez pas installer lombok.
