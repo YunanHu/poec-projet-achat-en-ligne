@@ -153,20 +153,11 @@ class ShopPage extends Component {
   };
   render() {
      let { products } = this.props;
-    //  let products =null;
-    // console.log("this.state.articleProducts",this.state.articleProducts);
-    console.log("isLoading",this.state.isLoading);
-    // if(this.state.isLoading===false){
-    //   products = this.state.articleProducts;
-    // }
-     //let { products } = this.state.articleProducts;
-     console.log("products",products);
     let layoutstyle = localStorage.getItem("setLayoutStyle");
 
     if (layoutstyle == null) {
       layoutstyle = localStorage.setItem("setLayoutStyle", "col-sm-6 col-md-4");
     }
-
     return (
       <div className="site-content">
         <div className="inner-intro">
