@@ -1,6 +1,6 @@
 package fr.EGame.projet.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class Cart {
 	String phone;
 	String email;
 	String orderId;
-	LocalDate orderDate;
+	LocalDateTime orderDate;
 	String orderStatus;
 	float shipping;
 	float subtotal;
