@@ -22,6 +22,7 @@ class CheckOut extends Component {
             errors: {},
             total:0
         }
+        console.log('checkout props: ',props)
         this.ReadShippingCharge = this.ReadShippingCharge.bind(this);
     }
 
