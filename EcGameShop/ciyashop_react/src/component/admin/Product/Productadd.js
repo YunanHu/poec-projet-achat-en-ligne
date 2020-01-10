@@ -41,12 +41,20 @@ const productdata = {
         "Blue",
         "Green"
     ],
+<<<<<<< HEAD
+=======
+
+>>>>>>> 99ba6edda7d1a9c4232668fac481b469603c971f
     plateform:[
         "PS4",
         "Switch",
         "XBox One",
         "PC"
     ],
+<<<<<<< HEAD
+=======
+
+>>>>>>> 99ba6edda7d1a9c4232668fac481b469603c971f
     tags:[
         "Athleisure",
         "Jacket",
@@ -98,6 +106,7 @@ class Productadd extends Component{
             console.log(this.state);
             const article ={};
             article.articleName = this.state.articleName;
+<<<<<<< HEAD
 
             fetch("http://localhost:8080/addArticle",
             {
@@ -114,6 +123,24 @@ class Productadd extends Component{
 
             //if(this.state.articleName!=="" && this.state.art)
 
+=======
+
+            fetch("http://localhost:8080/addArticle",
+            {
+                method:"post",
+                credentials:"include",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                mode: "no-cors",
+                body:JSON.stringify(article)
+            }).then(data=>console.log("data",data))
+            .catch(error=>console.log(error))
+
+            //if(this.state.articleName!=="" && this.state.art)
+
+>>>>>>> 99ba6edda7d1a9c4232668fac481b469603c971f
         }
         Uploadimage(picture) {
             if(picture == '')

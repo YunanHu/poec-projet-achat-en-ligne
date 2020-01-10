@@ -25,7 +25,7 @@ public class CategoryRestController {
 	private CategoryRepository categoryRepository;
 	
 	
-	@Secured("ROLE_CLIENT")
+	//@Secured("ROLE_CLIENT")
 	@GetMapping("/categories")
 	public List<Category> getCategories(){
 		return categoryRepository.findAll();
