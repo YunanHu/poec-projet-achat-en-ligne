@@ -16,6 +16,7 @@ import classnames from 'classnames';
 import axios from "axios"
 import {connect} from "react-redux"
 import * as action from "../../actions/loginInfo"
+import {withRouter } from "react-router-dom"
 
 
 class Header extends React.Component {
@@ -234,11 +235,9 @@ class Header extends React.Component {
                 uid:response3.data[0]
             })
             console.log("userdata:"+this.state.userData)
-            
 
             this.props.onSetUid(response3.data[0])
-            // this.props.history.push("/")
-
+            this.toggle()
         } else {
             console.log("Email ou mot de passe incorrect")
 
@@ -664,4 +663,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
