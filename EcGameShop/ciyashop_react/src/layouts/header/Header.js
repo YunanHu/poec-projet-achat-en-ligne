@@ -2,7 +2,7 @@
  *  Header Main
  */
 import React, { Fragment } from 'react';
-import { Link,Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import navLinks from '../../NavLinks.js';
 import logo from '../../assets/images/logo.svg';
 import { Row, Col, Container } from 'reactstrap';
@@ -13,6 +13,7 @@ import {
     NavbarToggler, Nav, NavItem, NavLink, UncontrolledDropdown, Collapse, TabContent, TabPane
 } from 'reactstrap';
 import classnames from 'classnames';
+import axios from "axios"
 
 
 class Header extends React.Component {
@@ -28,14 +29,26 @@ class Header extends React.Component {
             activeTab: '1',
             isOpen: false,
             collapsed: true,
-            CartHide:true,
-            classset:'',
-            getproduct:AllProduct
+            CartHide: true,
+            classset: '',
+            getproduct: AllProduct,
+
+            email: "",
+            statut: "",
+            passwordInput:"",
+            userData:[],
+
+
         }
         var removeFromCart, removeFromWishList;
         this.toggle = this.toggle.bind(this);
         this.toggleNavbar = this.toggleNavbar.bind(this);
         this.ShowCart = this.ShowCart.bind(this);
+
+        this.passwordInputRef = React.createRef();
+        this.passwordInputRef2 = React.createRef();
+        this.nom = React.createRef();
+
     }
 
 
@@ -47,9 +60,9 @@ class Header extends React.Component {
 
     toggleNavbar() {
         this.setState({
-          collapsed: !this.state.collapsed
+            collapsed: !this.state.collapsed
         });
-      }
+    }
 
     logintoggle(tab) {
         if (this.state.activeTab !== tab) {
@@ -79,99 +92,198 @@ class Header extends React.Component {
         }));
     }
 
-      componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll); 
-      }
-      componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
-      }
-
-      handleScroll(event) {
-        var scrollTop = (document.documentElement && document.documentElement.scrollTop) ||
-        document.body.scrollTop;
-
-        if(scrollTop > 100)
-        {
-            document.getElementById("site-header").setAttribute("class","site-header header-style-menu-center is-sticky");
-        } else {
-            document.getElementById("site-header").setAttribute("class","site-header header-style-menu-center");
-        }
-      }
-
-      ShowCart() {
-          if(this.state.CartHide == true)
-          {
-            var elm = document.getElementById("DivCartContent");
-            if(elm != null)
-            {
-            document.getElementById("DivCartContent").setAttribute("style","display:block");
-            this.state.CartHide = false;
-            }
-          }
-      }
-
-      HideCart()
-      {
-           var elm = document.getElementById("DivCartContent");
-           if(elm != null)
-           {
-           document.getElementById("DivCartContent").setAttribute("style","display:none");
-           this.state.CartHide = true;
-           }
-      }
-
-      closeNavbar() {
-            if (this.state.collapsed !== true) {
-            this.toggleNavbar();
-            }
-        }
-    onClickClassAdd(pages){
-        if(this.state.classset != pages)
-        {
-                this.setState({
-                    ...this.state,
-                    classset:pages
-                })
-        }
-        else
-        {
-            if(Object.keys(this.state.classset).length == 0){
-                this.setState({
-                    ...this.state,
-                    classset:pages
-                })
-            }
-            else
-            {
-                this.setState({
-                    ...this.state,
-                    classset:''
-                })
-            }
-        }
-        
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
     }
-  
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll(event) {
+        var scrollTop = (document.documentElement && document.documentElement.scrollTop) ||
+            document.body.scrollTop;
+
+        if (scrollTop > 100) {
+            document.getElementById("site-header").setAttribute("class", "site-header header-style-menu-center is-sticky");
+        } else {
+            document.getElementById("site-header").setAttribute("class", "site-header header-style-menu-center");
+        }
+    }
+
+    ShowCart() {
+        if (this.state.CartHide == true) {
+            var elm = document.getElementById("DivCartContent");
+            if (elm != null) {
+                document.getElementById("DivCartContent").setAttribute("style", "display:block");
+                this.state.CartHide = false;
+            }
+        }
+    }
+
+    HideCart() {
+        var elm = document.getElementById("DivCartContent");
+        if (elm != null) {
+            document.getElementById("DivCartContent").setAttribute("style", "display:none");
+            this.state.CartHide = true;
+        }
+    }
+
+    closeNavbar() {
+        if (this.state.collapsed !== true) {
+            this.toggleNavbar();
+        }
+    }
+    onClickClassAdd(pages) {
+        if (this.state.classset != pages) {
+            this.setState({
+                ...this.state,
+                classset: pages
+            })
+        }
+        else {
+            if (Object.keys(this.state.classset).length == 0) {
+                this.setState({
+                    ...this.state,
+                    classset: pages
+                })
+            }
+            else {
+                this.setState({
+                    ...this.state,
+                    classset: ''
+                })
+            }
+        }
+
+    }
+
 
     OpenSubmenuOpen(id) {
         var elm = document.getElementById(id);
-        if(elm != null)
-        {
-            document.getElementById(id).setAttribute("class","dropdown-menu dropdown-menu-right show")
+        if (elm != null) {
+            document.getElementById(id).setAttribute("class", "dropdown-menu dropdown-menu-right show")
         }
     }
 
     OpenSubmenuClose(id) {
         var elm = document.getElementById(id);
-        if(elm != null)
-        {
-            document.getElementById(id).setAttribute("class","dropdown-menu dropdown-menu-right")
+        if (elm != null) {
+            document.getElementById(id).setAttribute("class", "dropdown-menu dropdown-menu-right")
         }
     }
+
+
+    /************************************* */
+    onSubmitLogin = async (event) => {
+
+        event.preventDefault() //évite le rafraichissement de la page
+
+        console.log(this.state.passwordInput)
+        console.log(this.state.email)
+
+        const data = {
+            'username': this.state.email,
+            'password': this.state.passwordInput
+        }
+
+
+        const response = await fetch("http://localhost:8080/login", {
+            method: "POST",
+            credentials: "include",
+            body: new URLSearchParams(data),
+        })
+        console.log(response.status)
+
+        if (response.status == 200) {
+
+            this.setState({
+                statut: "Connecté !"
+            })
+
+            //try
+            const response2 = await axios({
+                method: 'post',
+                withCredentials: true,
+                url: 'http://localhost:8080/role/byemail',
+                data: {
+                    email: this.state.email,
+                }
+            })
+            console.log(response2.data[0].roleName)
+
+
+            const response3 = await axios({
+                method: 'post',
+                withCredentials: true,
+                url: 'http://localhost:8080/infouser/byemail',
+                data: {
+                    email: this.state.email,
+                }
+            })
+            
+            console.log(response3.data)
+            this.setState({
+                userData: response3.data
+            })
+            console.log("userdata:"+this.state.userData)
+            console.log(this.state.userData[2])
+
+        } else {
+            console.log("Email ou mot de passe incorrect")
+
+            this.setState({
+                statut: "Email ou mot de passe incorrect"
+            })
+        }
+
+    }
+
+
+    /**************************************** */
+
+    onSubmitRegister = async (event) => {
+
+        event.preventDefault() //évite le rafraichissement de la page
+
+        const inf = "{uid:2, email:client@gmail.com, firstname:Mathieu, lastname:FoxClient, Phoneno:0623456789}"
+        console.log(JSON.parse(inf))
+
+        if (this.passwordInputRef.current.value == this.passwordInputRef2.current.value) {
+            const response = await axios({
+                method: 'post',
+                url: 'http://localhost:8080/user/register',
+                data: {
+                    email: this.state.email,
+                    password: this.passwordInputRef.current.value,
+                    lastname: this.nom.current.value,
+                }
+            });
+            console.log(response)
+
+            if (response.data == 202) {
+                // this.props.history.push("/login")
+                console.log("inscrit")
+            }
+        
+    } else console.log("pas les memes mot de passe")
+}
+    //--------------------------------------------------------
+
+    onChangeHandler = (event) => {
+        console.log(event.target.name)
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
+
+
+
     render() {
+        console.log(this.state)
         let pathnames = document.location.href;
         let pathArray = pathnames.split('/');
-        let pageName = '/'+pathArray[pathArray.length -1];
+        let pageName = '/' + pathArray[pathArray.length - 1];
         if (this.state.timeout == true) {
             setTimeout(function () {
                 this.setState({ timeout: false });
@@ -277,33 +389,33 @@ class Header extends React.Component {
                                                                         <div className="primary-nav-wrapper">
                                                                             <nav className="mega-menu">
                                                                                 <div class="menu-list-items">
-                                                                                     <Navbar light expand="md" class="front_menu" >
+                                                                                    <Navbar light expand="md" class="front_menu" >
                                                                                         <NavbarToggler onClick={this.toggle} />
                                                                                         <Collapse isOpen={this.state.isOpen} navbar>
-                                                                                        {navLinks.map((navLink, index) => (
-                                                                                            <Nav className="ml-auto" navbar>
-                                                                                                {(navLink.type && navLink.type === 'subMenu') ?
-                                                                                                <Fragment>
-                                                                                                    <UncontrolledDropdown nav inNavbar onMouseEnter={()=>this.OpenSubmenuOpen(`submenu_${index}`)} onMouseLeave={()=>this.OpenSubmenuClose(`submenu_${index}`)}>
-                                                                                                    <Link aria-haspopup="true" to={navLink.path} className="dropdown-toggle nav-link" aria-expanded="true"> {navLink.menu_title}</Link>
-                                                                                                    <DropdownMenu right id={`submenu_${index}`}>
+                                                                                            {navLinks.map((navLink, index) => (
+                                                                                                <Nav className="ml-auto" navbar>
+                                                                                                    {(navLink.type && navLink.type === 'subMenu') ?
+                                                                                                        <Fragment>
+                                                                                                            <UncontrolledDropdown nav inNavbar onMouseEnter={() => this.OpenSubmenuOpen(`submenu_${index}`)} onMouseLeave={() => this.OpenSubmenuClose(`submenu_${index}`)}>
+                                                                                                                <Link aria-haspopup="true" to={navLink.path} className="dropdown-toggle nav-link" aria-expanded="true"> {navLink.menu_title}</Link>
+                                                                                                                <DropdownMenu right id={`submenu_${index}`}>
 
-                                                                                                        {navLink.child_routes && navLink.child_routes.map((subNavLink, index) => (
-                                                                                                      <DropdownItem tag={Link} to={subNavLink.path}>{subNavLink.menu_title}</DropdownItem>
-                                                                                                        ))}
-                                                                                                    </DropdownMenu>
-                                                                                                </UncontrolledDropdown>
+                                                                                                                    {navLink.child_routes && navLink.child_routes.map((subNavLink, index) => (
+                                                                                                                        <DropdownItem tag={Link} to={subNavLink.path}>{subNavLink.menu_title}</DropdownItem>
+                                                                                                                    ))}
+                                                                                                                </DropdownMenu>
+                                                                                                            </UncontrolledDropdown>
 
-                                                                                                </Fragment>
-                                                                                                :
-                                                                                                <Fragment>
-                                                                                                     <NavItem>
-                                                                                                    <NavLink href={navLink.path}>{navLink.menu_title}</NavLink>
-                                                                                                </NavItem>
+                                                                                                        </Fragment>
+                                                                                                        :
+                                                                                                        <Fragment>
+                                                                                                            <NavItem>
+                                                                                                                <NavLink href={navLink.path}>{navLink.menu_title}</NavLink>
+                                                                                                            </NavItem>
 
-                                                                                                </Fragment>
-                                                                                                }
-                                                                                            </Nav>
+                                                                                                        </Fragment>
+                                                                                                    }
+                                                                                                </Nav>
                                                                                             ))}
                                                                                         </Collapse>
                                                                                     </Navbar>
@@ -325,17 +437,17 @@ class Header extends React.Component {
                                                                 <li className="ciya-tools-action ciya-tools-cart">
                                                                     {
                                                                         (this.ReadCartItems() == null || this.ReadCartItems().length == 0) ?
-                                                                        <Link className="cart-link" to="#" onClick={() => this.ShowCart()} >
-                                                                            <span className="cart-icon"><i className="glyph-icon pgsicon-ecommerce-empty-shopping-cart" /></span>
-                                                                            <span className="cart-count count">  {this.ReadCartItems() == null ? 0 : this.ReadCartItems().length}  </span>
-                                                                        </Link>
+                                                                            <Link className="cart-link" to="#" onClick={() => this.ShowCart()} >
+                                                                                <span className="cart-icon"><i className="glyph-icon pgsicon-ecommerce-empty-shopping-cart" /></span>
+                                                                                <span className="cart-count count">  {this.ReadCartItems() == null ? 0 : this.ReadCartItems().length}  </span>
+                                                                            </Link>
 
-                                                                        :
+                                                                            :
 
-                                                                        <Link className="cart-link" to="/ShopingCart" onClick={() => this.ShowCart()} >
-                                                                            <span className="cart-icon"><i className="glyph-icon pgsicon-ecommerce-empty-shopping-cart" /></span>
-                                                                            <span className="cart-count count">  {this.ReadCartItems() == null ? 0 : this.ReadCartItems().length}  </span>
-                                                                        </Link>
+                                                                            <Link className="cart-link" to="/ShopingCart" onClick={() => this.ShowCart()} >
+                                                                                <span className="cart-icon"><i className="glyph-icon pgsicon-ecommerce-empty-shopping-cart" /></span>
+                                                                                <span className="cart-count count">  {this.ReadCartItems() == null ? 0 : this.ReadCartItems().length}  </span>
+                                                                            </Link>
 
                                                                     }
 
@@ -369,7 +481,7 @@ class Header extends React.Component {
                                                                                     <p className="ciyashop-mini-cart__total total"><strong>Subtotal:</strong> <span className="woocs_special_price_code"><span className="ciyashop-Price-amount amount"><span className="ciyashop-Price-currencySymbol">$</span> {this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)}</span></span></p>
                                                                                     <p className="ciyashop-mini-cart__buttons buttons">
                                                                                         <Link onClick={() => this.HideCart()} to="/ShopingCart" className="button wc-forward">View cart</Link>
-                                                                                        <Link onClick={() => this.HideCart()}  to="/CheckOut" className="button checkout wc-forward">Checkout</Link>
+                                                                                        <Link onClick={() => this.HideCart()} to="/CheckOut" className="button checkout wc-forward">Checkout</Link>
                                                                                     </p>
                                                                                 </div>
                                                                             </div>
@@ -380,8 +492,8 @@ class Header extends React.Component {
                                                                             <div className="widget ciyashop widget-shopping-cart">
                                                                                 <div className="widget-shopping-cart-content">
                                                                                     <p className="ciyashop-mini-cart__total total">
-                                                                                    <img src={require(`../../assets/images/empty-cart.png`)} className="img-fluid mr-3" />
-                                                                                    <strong>Your cart is currently empty.</strong> <span className="woocs_special_price_code"><span className="ciyashop-Price-amount amount"><span className="ciyashop-Price-currencySymbol"></span> </span></span></p>
+                                                                                        <img src={require(`../../assets/images/empty-cart.png`)} className="img-fluid mr-3" />
+                                                                                        <strong>Your cart is currently empty.</strong> <span className="woocs_special_price_code"><span className="ciyashop-Price-amount amount"><span className="ciyashop-Price-currencySymbol"></span> </span></span></p>
 
 
                                                                                 </div>
@@ -389,8 +501,8 @@ class Header extends React.Component {
                                                                         </div>
                                                                     }
                                                                 </li>
-                                                                 {/* <li className="ciya-tools-action ciya-tools-wishlist"> <Link to="/wishlist"><i className="glyph-icon pgsicon-ecommerce-like" /> <span className="wishlist ciyashop-wishlist-count"> {this.ReadWishListItems() == null ? 0 : this.ReadWishListItems().length} </span> </Link></li> */}
-                                                                 <li className="ciya-tools-action ciya-tools-search"><Link to="/shop"><i className="glyph-icon pgsicon-ecommerce-magnifying-glass"  /></Link></li>
+                                                                {/* <li className="ciya-tools-action ciya-tools-wishlist"> <Link to="/wishlist"><i className="glyph-icon pgsicon-ecommerce-like" /> <span className="wishlist ciyashop-wishlist-count"> {this.ReadWishListItems() == null ? 0 : this.ReadWishListItems().length} </span> </Link></li> */}
+                                                                <li className="ciya-tools-action ciya-tools-search"><Link to="/shop"><i className="glyph-icon pgsicon-ecommerce-magnifying-glass" /></Link></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -398,35 +510,35 @@ class Header extends React.Component {
                                             </Col>
                                             <Navbar color="faded" light >
 
-                                                                <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-                                                                <Collapse isOpen={!this.state.collapsed} navbar>
-                                                                <Nav className="ml-auto" navbar>
-                                                                {navLinks.map((navLink, index) => (
-                                                                                         <li className={`nav-item ${(this.state.classset == navLink.menu_title) ? 'show' : '' }`}>
-                                                                                            {(navLink.type && navLink.type === 'subMenu') ?
-                                                                                                <Fragment>
-                                                                                                            <Link href="#" className="nav-link" onClick={()=>this.onClickClassAdd(navLink.menu_title)}>{navLink.menu_title}</Link>
-                                                                                                            <ul className={(this.state.classset == navLink.menu_title) ? 'showcollapsed' : 'submenu' }>
-                                                                                                                {navLink.child_routes && navLink.child_routes.map((subNavLink, index) => (
-                                                                                                                    <li  className={`nav-item  ${(pageName == subNavLink.path) ? 'active' : '' }`} toggle={false}   >
-                                                                                                                        <Link className="nav-link"  onClick={() => this.closeNavbar()} to={subNavLink.path}>{subNavLink.menu_title}</Link>
-                                                                                                                    </li>
-                                                                                                               ))}
-                                                                                                            </ul>
-                                                                                                </Fragment>
-                                                                                                :
-                                                                                                <Fragment>
-                                                                                                     <NavItem>
-                                                                                                        <Link to={navLink.path} className="nav-admin-link" >{navLink.menu_title}</Link>
-                                                                                                     </NavItem>
+                                                <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
+                                                <Collapse isOpen={!this.state.collapsed} navbar>
+                                                    <Nav className="ml-auto" navbar>
+                                                        {navLinks.map((navLink, index) => (
+                                                            <li className={`nav-item ${(this.state.classset == navLink.menu_title) ? 'show' : ''}`}>
+                                                                {(navLink.type && navLink.type === 'subMenu') ?
+                                                                    <Fragment>
+                                                                        <Link href="#" className="nav-link" onClick={() => this.onClickClassAdd(navLink.menu_title)}>{navLink.menu_title}</Link>
+                                                                        <ul className={(this.state.classset == navLink.menu_title) ? 'showcollapsed' : 'submenu'}>
+                                                                            {navLink.child_routes && navLink.child_routes.map((subNavLink, index) => (
+                                                                                <li className={`nav-item  ${(pageName == subNavLink.path) ? 'active' : ''}`} toggle={false}   >
+                                                                                    <Link className="nav-link" onClick={() => this.closeNavbar()} to={subNavLink.path}>{subNavLink.menu_title}</Link>
+                                                                                </li>
+                                                                            ))}
+                                                                        </ul>
+                                                                    </Fragment>
+                                                                    :
+                                                                    <Fragment>
+                                                                        <NavItem>
+                                                                            <Link to={navLink.path} className="nav-admin-link" >{navLink.menu_title}</Link>
+                                                                        </NavItem>
 
-                                                                                                </Fragment>
-                                                                                                }
-                                                                                            </li> 
-                                                                                            ))}
-                                                                                    </Nav>
-                                                                   </Collapse>
-                                                            </Navbar>
+                                                                    </Fragment>
+                                                                }
+                                                            </li>
+                                                        ))}
+                                                    </Nav>
+                                                </Collapse>
+                                            </Navbar>
                                         </div>
                                     </Col>
 
@@ -458,17 +570,18 @@ class Header extends React.Component {
                                             <TabContent activeTab={this.state.activeTab}>
                                                 <TabPane tabId="1">
                                                     <form>
+                                                        {this.state.statut}
                                                         <div class="form-group">
                                                             <label>Email address</label>
-                                                            <input type="text" class="form-control" placeholder="Enter email"></input>
+                                                            <input type="text" class="form-control" placeholder="Enter email" name="email" value={this.state.email} onChange={this.onChangeHandler}></input>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Password </label>
-                                                            <input type="text" class="form-control" placeholder="Password"></input>
+                                                            <input type="password" class="form-control" placeholder="Password" name="passwordInput" value={this.state.passwordInput} onChange={this.onChangeHandler}/>
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <Link className="btn btn-primary mt-1" >Log in</Link>
+                                                            <Link className="btn btn-primary mt-1" onClick={this.onSubmitLogin} >Log in</Link>
                                                             <Link className="btn btn-secondary ml-2 mt-1" onClick={this.toggle} >Cancel</Link>
                                                         </div>
                                                         <p className="mb-0">Don't have account? <Link to="#" className={classnames({ active: this.state.activeTab === '2' })}
@@ -478,23 +591,23 @@ class Header extends React.Component {
                                                 <TabPane tabId="2">
                                                     <form>
                                                         <div class="form-group">
-                                                            <label>Name</label>
-                                                            <input type="texttext" class="form-control" placeholder="Name"></input>
+                                                            <label>Nom</label>
+                                                            <input type="texttext" class="form-control" placeholder="Nom" ref={this.nom}></input>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Email address</label>
-                                                            <input type="text" class="form-control" placeholder="Enter email"></input>
+                                                            <label>Email</label>
+                                                            <input type="text" class="form-control" placeholder="Entrer votre email" value={this.state.email} onChange={this.onChangeHandler}></input>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label>Password </label>
-                                                            <input type="text" class="form-control" placeholder="Password"></input>
+                                                            <label>Mot de passe </label>
+                                                            <input type="text" class="form-control" placeholder="Password" ref={this.passwordInputRef}></input>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Confirm Password </label>
-                                                            <input type="text" class="form-control" placeholder="Confirm Password"></input>
+                                                            <input type="text" class="form-control" placeholder="Confirm Password" ref={this.passwordInputRef2}></input>
                                                         </div>
                                                         <div class="form-group">
-                                                            <Link className="btn btn-primary" >Register</Link>
+                                                            <Link className="btn btn-primary" onClick={this.onSubmitRegister}>S'inscrire</Link>
                                                             <Link className="btn btn-secondary ml-2" onClick={this.toggle} >Cancel</Link>
 
                                                         </div>
@@ -507,13 +620,13 @@ class Header extends React.Component {
                                     </Modal>
                                     <div className="col-12">
                                         <div className="mobile-menu" id="mobileMenu" />
-                                     </div>
+                                    </div>
                                 </Row>
                             </div>
                         </div>
                     </div>
 
-                :
+                    :
 
                     <div id="preloader">
                         <Loader

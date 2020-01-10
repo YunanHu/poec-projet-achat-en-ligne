@@ -2,9 +2,6 @@ package fr.EGame.projet.security;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -55,7 +51,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.successHandler(new AuthentificationLoginSuccessHandler())
 				.failureHandler(new AuthentificationLoginSFailureHandler()).and().authorizeRequests()
 				.antMatchers("/user/register","/", "/login","/addArticle", "/getAllArticles", "/initArticles", "/initusers","/role/byemail").permitAll().anyRequest()
-				.fullyAuthenticated();
+				.fullyAuthenticated()
+				.antMatchers("/user/register", "/", "/login", "/getAllArticles", "/initArticles", "/initusers",
+						"/getAllComments", "/getComment/")
+				.permitAll().anyRequest().fullyAuthenticated();
+
 
 		http.csrf().disable();
 	}
@@ -77,12 +77,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				AuthenticationException exception) throws IOException, ServletException {
 
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-			
+
 		}
 
 	}
-
-	
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {

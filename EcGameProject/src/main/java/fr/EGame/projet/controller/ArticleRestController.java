@@ -31,7 +31,7 @@ public class ArticleRestController {
 	
 	@PostMapping("/addArticle")
 	public boolean addArticle(@RequestBody Article newArticle) {
-		System.out.println("tadada  requete envoyée");
+
 		
 		if(newArticle!=null)
 		{

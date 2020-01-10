@@ -48,7 +48,7 @@ export default [
             "child_routes": null
          },
          {
-            "path": "/shop/clothing/29",
+            "path": "/shop/FPS/97",
             "menu_title": "Product Detail",
             "icon": "arrow_right_alt",
             "child_routes": null
