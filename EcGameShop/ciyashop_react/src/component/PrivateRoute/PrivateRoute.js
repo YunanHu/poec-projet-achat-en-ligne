@@ -12,10 +12,10 @@ const PrivateRoute = ({ component: Component, userRole, routeRole, ...rest }) =>
     } else {
         return (
             <Redirect to={{
-                pathname: "/",
+                pathname: "/loginerror",
             }}
-            
             />
+            
         )
     }
 }

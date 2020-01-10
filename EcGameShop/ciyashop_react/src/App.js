@@ -65,7 +65,7 @@ class App extends Component {
                 <Switch>
                   <Route path="/ComingSoon" component={ComingSoon} />
                   <Route path="/Maintenance" component={Maintenance} />
-                  <Route path="/admin-panel" component={AdminDashboard} />
+                  <PrivateRoute routeRole={"ROLE_ADMIN"} path="/admin-panel" component={AdminDashboard} />
                 </Switch>
               :
               <div>
@@ -78,7 +78,6 @@ class App extends Component {
                     <Route exact path="/index-home-classic" component={HomePage4} />
                     <Route exact path="/shop" component={ShopPage} />
                     <Route exact path="/ShopingCart" component={ShopingCart} />
-                    <PrivateRoute routeRole={"ROLE_CLIENT"} path={`/MyAccount`} component={MyAccount} />  {/* a changer */}
                     <Route exact path="/MyAccount" component={MyAccount} />
                     <Route exact path="/BlogSinglePage" component={BlogSinglePage} />
                     <Route exact path="/BlogFullWidth" component={BlogFullWidth} />
@@ -88,6 +87,7 @@ class App extends Component {
                     <Route exact path="/CheckOut" component={CheckOut} />
                     <Route exact path="/Address" component={Address} />
                     <Route exact path="/Account/Addressedit" component={Addressedit} />
+                    <PrivateRoute routeRole={"ROLE_CLIENT"} path={`/Account/AccountProfile`} component={AccountProfile} />  {/* a changer */}
                     <Route exact path="/Account/AccountProfile" component={AccountProfile} />
                     <Route exact path="/Account/Address" component={Address} />
                     <Route exact path="/Account/OrderHistory" component={OrderHistory} />
@@ -101,6 +101,7 @@ class App extends Component {
                     <Route exact path="/Invoices" component={Invoices} />
                     <Route path={`/shop/:category/:id`} component={ProductDetail} /> 
                     <Route exact  component={PageNotFound} />
+                    <Route path="/loginerror" render={() => <h1>ERREUR IL FAUT VOUS CONNECTER</h1>}/>
 
                   </Switch>
                 <Footer />
