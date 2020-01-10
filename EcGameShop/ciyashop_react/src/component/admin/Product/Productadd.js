@@ -6,6 +6,7 @@ import { Row, Col,Container, FormGroup, Label, Input } from 'reactstrap';
 import Slider from "react-slick";
 import { Link } from 'react-router-dom';
 import ImageUploader from 'react-images-upload';
+import axios from 'axios';
 
 const INITIAL_STATE_ARTICLE_FORM = {
     articleName:"",
@@ -168,7 +169,7 @@ class Productadd extends Component{
             if(!values.articleDescription){
                 errors.articleDescription = "Required Description"
             }
-            else if(values.articleDescription.length<50){
+            else if(values.articleDescription.length<10){
                 errors.articleDescription = "a little bit more please. At least 50 characters";
             }
             if(!values.articlePlateforme){
@@ -213,7 +214,7 @@ class Productadd extends Component{
             }
             return errors;
         }
-        onClickSaveBtn(event){
+        onClickSaveBtn  = async (event) =>{
             event.preventDefault();
             console.log(this.state);
             const article ={};
@@ -232,24 +233,46 @@ class Productadd extends Component{
             article.articleDatePromoEnd = this.state.articleDatePromoEnd;
             const errors = this.validationArticleForm(article);
             console.log("errors",errors);
+            console.log("articleCategory",article.articleCategory)
             this.setState({
                 ...this.state,
                 validationErrorMsg:errors
             })
-            if (errors) return;
+            // if (errors) return;
             
-            fetch("http://localhost:8080/addArticle",
-            {
-                method:"post",
-                credentials:"include",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                mode: "no-cors",
-                body:JSON.stringify(article)
-            }).then(data=>console.log("data",data))
-            .catch(error=>console.log("le message d'erreur est tatata",error))
+            // fetch("http://localhost:8080/addArticle",
+            // {
+            //     method:"post",
+            //     credentials:"include",
+            //     headers: {
+            //         'Accept': 'application/json',
+            //         'Content-Type': 'application/json',
+            //     },
+            //     mode: "no-cors",
+            //     body:JSON.stringify(article)
+            // }).then(data=>console.log("data",data))
+            // .catch(error=>console.log("le message d'erreur est tatata",error))
+            const response = await axios({
+                method: 'post',
+                credentials:'include',
+                url: 'http://localhost:8080/addArticle',
+                data: {
+                    articleName : this.state.articleName,
+                    articleBrand : this.state.articleBrand,
+                    articleDescription : this.state.articleDescription,
+                    articleDateAvailibility : this.state.articleDateAvailibility,
+                    articlePlateforme : this.state.articlePlateforme,
+                    articleCategory : this.state.categories[0],
+                    articleDematerialized : this.state.articleDematerialized,
+                    articlePricePromo : this.state.articlePricePromo,
+                    articlePrice : this.state.articlePrice,
+                    articleQty : this.state.articleQty,
+                    articlePromoBegDate : this.state.articlePromoBegDate,
+                    articleDatePromoEnd : this.state.articleDatePromoEnd,
+
+                }
+            });
+            console.log("response",response);
 
         }
         Uploadimage(picture) {
