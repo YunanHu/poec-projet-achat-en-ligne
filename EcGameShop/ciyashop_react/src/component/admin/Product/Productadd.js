@@ -6,7 +6,7 @@ import { Row, Col,Container, FormGroup, Label, Input } from 'reactstrap';
 import Slider from "react-slick";
 import { Link } from 'react-router-dom';
 import ImageUploader from 'react-images-upload';
-import UseFormArticleValidation from '../../../hook/useFormArticleValidation';
+// import UseFormArticleValidation from '../../../hook/useFormArticleValidation';
 
 const INITIAL_STATE_ARTICLE_FORM = {
     articleName:"",

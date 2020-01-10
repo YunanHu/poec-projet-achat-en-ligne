@@ -73,30 +73,30 @@ public class UserRestController {
 		return userRepository.findByUID(uid);
 	}
 
-	@GetMapping("/initusers")
-	public String initUsers() {
-		/*
-		 * User u1 = new User("test@gmail.com", "pass" ); System.out.println(u1);
-		 * userRepository.save(u1);
-		 */
-
-		Role admin = new Role((long) 1, "ROLE_ADMIN");
-		Role client = new Role((long) 2, "ROLE_CLIENT");
-		Role vendeur = new Role((long) 3, "ROLE_SELLER");
-
-		roleRepository.save(admin);
-		roleRepository.save(client);
-		roleRepository.save(vendeur);
-
-		User u2 = new User("admin@gmail.com", "admin");
-		u2.setFirstname("Jules");
-		u2.setLastname("DupontAdmin");
-		u2.setPhoneno("0123456789");
-		userRepository.save(u2);
-		System.out.println(u2);
-
-		User u3 = userRepository.findByEmail(u2.getEmail());
-		userRepository.setRole(u3.getUID(), (long) 1);
+			@GetMapping("/initusers")
+			public String initUsers() {
+				/*
+				 * User u1 = new User("test@gmail.com", "pass" ); System.out.println(u1);
+				 * userRepository.save(u1);
+				 */
+		
+				Role admin = new Role((long) 1, "ROLE_ADMIN");
+				Role client = new Role((long) 2, "ROLE_CLIENT");
+				Role vendeur = new Role((long) 3, "ROLE_SELLER");
+		
+				roleRepository.save(admin);
+				roleRepository.save(client);
+				roleRepository.save(vendeur);
+		
+				User u2 = new User("admin@gmail.com", "admin");
+				u2.setFirstname("Jules");
+				u2.setLastname("DupontAdmin");
+				u2.setPhoneno("0123456789");
+				userRepository.save(u2);
+				System.out.println(u2);
+		
+				User u3 = userRepository.findByEmail(u2.getEmail());
+				userRepository.setRole(u3.getUID(), (long) 1);
 
 		User u4 = new User("client@gmail.com", "client");
 		u4.setFirstname("Mathieu");

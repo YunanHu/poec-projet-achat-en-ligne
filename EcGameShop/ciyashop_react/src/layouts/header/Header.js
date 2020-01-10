@@ -14,6 +14,8 @@ import {
 } from 'reactstrap';
 import classnames from 'classnames';
 import axios from "axios"
+import {connect} from "react-redux"
+import * as action from "../../actions/loginInfo"
 
 
 class Header extends React.Component {
@@ -37,6 +39,8 @@ class Header extends React.Component {
             statut: "",
             passwordInput:"",
             userData:[],
+            uid:0,
+
 
 
         }
@@ -196,6 +200,7 @@ class Header extends React.Component {
 
         if (response.status == 200) {
 
+
             this.setState({
                 statut: "Connecté !"
             })
@@ -211,6 +216,8 @@ class Header extends React.Component {
             })
             console.log(response2.data[0].roleName)
 
+            this.props.onSetRole(response2.data[0].roleName)
+
 
             const response3 = await axios({
                 method: 'post',
@@ -223,10 +230,14 @@ class Header extends React.Component {
             
             console.log(response3.data)
             this.setState({
-                userData: response3.data
+                userData: response3.data,
+                uid:response3.data[0]
             })
             console.log("userdata:"+this.state.userData)
-            console.log(this.state.userData[2])
+            
+
+            this.props.onSetUid(response3.data[0])
+            // this.props.history.push("/")
 
         } else {
             console.log("Email ou mot de passe incorrect")
@@ -244,10 +255,7 @@ class Header extends React.Component {
     onSubmitRegister = async (event) => {
 
         event.preventDefault() //évite le rafraichissement de la page
-
-        const inf = "{uid:2, email:client@gmail.com, firstname:Mathieu, lastname:FoxClient, Phoneno:0623456789}"
-        console.log(JSON.parse(inf))
-
+        
         if (this.passwordInputRef.current.value == this.passwordInputRef2.current.value) {
             const response = await axios({
                 method: 'post',
@@ -270,7 +278,7 @@ class Header extends React.Component {
     //--------------------------------------------------------
 
     onChangeHandler = (event) => {
-        console.log(event.target.name)
+        console.log(event.target)
         this.setState({
             [event.target.name]: event.target.value
         })
@@ -280,7 +288,7 @@ class Header extends React.Component {
 
 
     render() {
-        console.log(this.state)
+        // console.log(this.state)
         let pathnames = document.location.href;
         let pathArray = pathnames.split('/');
         let pageName = '/' + pathArray[pathArray.length - 1];
@@ -596,15 +604,15 @@ class Header extends React.Component {
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Email</label>
-                                                            <input type="text" class="form-control" placeholder="Entrer votre email" value={this.state.email} onChange={this.onChangeHandler}></input>
+                                                            <input type="text" class="form-control" placeholder="Entrer votre email" value={this.state.email} onChange={this.onChangeHandler} name="email"></input>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Mot de passe </label>
-                                                            <input type="text" class="form-control" placeholder="Password" ref={this.passwordInputRef}></input>
+                                                            <input type="password" class="form-control" placeholder="Password" ref={this.passwordInputRef}></input>
                                                         </div>
                                                         <div class="form-group">
                                                             <label>Confirm Password </label>
-                                                            <input type="text" class="form-control" placeholder="Confirm Password" ref={this.passwordInputRef2}></input>
+                                                            <input type="password" class="form-control" placeholder="Confirm Password" ref={this.passwordInputRef2}></input>
                                                         </div>
                                                         <div class="form-group">
                                                             <Link className="btn btn-primary" onClick={this.onSubmitRegister}>S'inscrire</Link>
@@ -642,4 +650,18 @@ class Header extends React.Component {
         )
     }
 };
-export default Header;
+
+const mapStateToProps =(state) => {
+    return {
+        userRole : state.login.role
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onSetRole : (role) => dispatch(action.setRole(role)),
+        onSetUid: (uid) => dispatch(action.setUid(uid))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
