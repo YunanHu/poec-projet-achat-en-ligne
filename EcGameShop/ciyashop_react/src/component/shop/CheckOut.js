@@ -7,8 +7,7 @@ import { Row, Col,Container,Form, NavItem, Input,Table } from 'reactstrap';
 import CommonList from '../../api/common';
 import axios from 'axios';
 import { connect } from "react-redux"
-
-
+import { getCurrentDate } from '../../assets/utils'
 
 class CheckOut extends Component {
 
@@ -23,7 +22,8 @@ class CheckOut extends Component {
             errors: {},
             total:0,
             subtotal:0,
-            shipping:0
+            shipping:0,
+            tax:0
         }
         this.ReadShippingCharge = this.ReadShippingCharge.bind(this);
     }
@@ -115,10 +115,12 @@ class CheckOut extends Component {
         const subtotal = parseFloat(this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0))
         const shipping = parseFloat((this.state.TotalShippingCarge != undefined) ? this.state.TotalShippingCarge.toFixed(2) : 0)
         const total =  parseFloat(subtotal + shipping).toFixed(2)
+        const tax = parseFloat(total*0.2/1.2).toFixed(2)
         this.setState({
             total: total,
             subtotal: subtotal,
-            shipping: shipping
+            shipping: shipping,
+            tax: tax
         })
     }
 
@@ -130,7 +132,10 @@ class CheckOut extends Component {
             const localCartItems = JSON.parse(localStorage.getItem("LocalCartItems"))
             console.log('LocalCartItems:', localCartItems)
             console.log(typeof localCartItems)
-            
+            // format date
+            const orderDate = getCurrentDate();
+
+            console.log('orderDate: ',orderDate)
             let saveCartItems = {
                 "cartUser": {
                     "uid": this.props.uid
@@ -138,8 +143,8 @@ class CheckOut extends Component {
                 "total": this.state.total,
                 "subtotal": this.state.subtotal,
                 "shipping": this.state.shipping,
-                "tax": parseFloat(this.state.subtotal*0.2/1.2).toFixed(2),
-                "orderDate": Date.now(),
+                "tax": this.state.tax,
+                "orderDate": orderDate,
                 "orderStatus": "Success",
                 "cartItems": []
             }
@@ -158,9 +163,9 @@ class CheckOut extends Component {
                     }
                 )
             }
-            // console.log('saveCartItems type: ',typeof saveCartItems)
-            // console.log('saveCartItems: ', saveCartItems)
-            // console.log('state: ',this.state)
+            console.log('saveCartItems type: ',typeof saveCartItems)
+            console.log('saveCartItems: ', saveCartItems)
+            console.log('state: ',this.state)
 
             const response = await axios({
                 method: 'post',
@@ -169,9 +174,16 @@ class CheckOut extends Component {
                 data: saveCartItems
             });
             console.log("response",response);
-            localStorage.setItem("FinalCheckoutCartItems",localStorage.getItem("LocalCartItems"));
-            localStorage.removeItem("LocalCartItems");
-            this.props.history.push(`/SuccessScreen`)
+            // if(response.data.includes('<!DOCTYPE html>')){
+            //     // user n'est pas connecté
+            //     // afficher le message d'erreur
+            //     //document.getElementById('responseErrorMsg').classList.add("show")
+            // } else {
+
+            //     localStorage.setItem("FinalCheckoutCartItems",localStorage.getItem("LocalCartItems"));
+            //     localStorage.removeItem("LocalCartItems");
+            //     this.props.history.push(`/SuccessScreen`)
+            // }
         }
       }
 
@@ -296,6 +308,12 @@ class CheckOut extends Component {
             <div className="content-wrapper mb-7">
                 <Container>
                    <form onSubmit={this.onCheckOutSubmit.bind(this)}>
+                    <div class="alert alert-danger alert-dismissible fade" id="responseErrorMsg" role="alert" style={{marginTop: "2rem"}}>
+                    <strong>Oups !</strong> You should login before order the article.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
                         <Row class="mt-5">
                         <Col class="col-lg-6">
                             <Row>
