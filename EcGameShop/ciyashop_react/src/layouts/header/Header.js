@@ -288,7 +288,7 @@ class Header extends React.Component {
         this.props.onLogout()
     }
 
-
+   
 
     render() {
         // console.log(this.state)
@@ -337,7 +337,7 @@ class Header extends React.Component {
                                                                     <Link to="#" onClick={this.toggle} data-toggle="modal" data-target="#"><i className="fa fa-sign-in">&nbsp;</i> Login</Link>
                                                                 </li>
                                                                 <li>
-                                                                    <Link onClick={this.onLogout} > Se deconnecter</Link>
+                                                                    <Link onClick={this.onLogout}  > Se deconnecter</Link>
                                                                 </li>
                                                             </ul>
                                                         </div>
