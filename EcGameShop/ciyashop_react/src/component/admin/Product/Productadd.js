@@ -6,7 +6,11 @@ import { Row, Col,Container, FormGroup, Label, Input } from 'reactstrap';
 import Slider from "react-slick";
 import { Link } from 'react-router-dom';
 import ImageUploader from 'react-images-upload';
+
 // import UseFormArticleValidation from '../../../hook/useFormArticleValidation';
+
+import axios from 'axios';
+
 
 const INITIAL_STATE_ARTICLE_FORM = {
     articleName:"",
@@ -57,7 +61,6 @@ const productdata = {
         "Blue",
         "Green"
     ],
-
     plateform:[
         "PS4",
         "Switch",
@@ -110,8 +113,11 @@ class Productadd extends Component{
         }
         onChangeHandler(event){
             
-            const value = event.type === 'radio' ? event.checked : event.value;
+            // const value = event.type === 'radio' ? event.checked : event.value;
+            const value = event.value;
             const name = event.name;
+            console.log("event name",event.name);
+            console.log("event value", event.value);
             this.setState({
                 ...this.state,
                 [name]:value,
@@ -146,10 +152,10 @@ class Productadd extends Component{
                 }
             }
             return errors;
-
         }
 
         validationArticleForm(values){
+            console.log("values",values);
             let errors = {};
             if(!values.articleName){
                 errors.articleName = "Required Name";
@@ -166,7 +172,7 @@ class Productadd extends Component{
             if(!values.articleDescription){
                 errors.articleDescription = "Required Description"
             }
-            else if(values.articleDescription.length<50){
+            else if(values.articleDescription.length<10){
                 errors.articleDescription = "a little bit more please. At least 50 characters";
             }
             if(!values.articlePlateforme){
@@ -192,6 +198,7 @@ class Productadd extends Component{
                 }
             }
             else if(!values.articleDatePromoEnd){
+                console.log("no end date");
                 if(!values.articlePromoPrice){
                     errors.articlePricePromo = "Required Promotion Price"
                 }
@@ -201,12 +208,16 @@ class Productadd extends Component{
                 errors.articleDatePromoEnd = "Required End Promotion Date"
             }
 
+            if(!values.articleDematerialized){
+                errors.articleDematerialized="Is it dematerialized or not?"
+            }
+
             if(!values.articleQty){
                 errors.articleQty="Required Quantity"
             }
             return errors;
         }
-        onClickSaveBtn(event){
+        onClickSaveBtn  = async (event) =>{
             event.preventDefault();
             console.log(this.state);
             const article ={};
@@ -218,32 +229,51 @@ class Productadd extends Component{
             article.articlePlateforme = this.state.articlePlateforme;
             article.articleCategory = this.state.articleCategory;
             article.articleDematerialized = this.state.articleDematerialized;
-            article.articlePromoPrice = this.state.articlePromoPrice;
+            article.articlePricePromo = this.state.articlePricePromo;
             article.articlePrice = this.state.articlePrice;
             article.articleQty = this.state.articleQty;
             article.articlePromoBegDate = this.state.articlePromoBegDate;
-            article.articleDatePromoEnd = this.state.articlePromoEndDate;
+            article.articleDatePromoEnd = this.state.articleDatePromoEnd;
             const errors = this.validationArticleForm(article);
             console.log("errors",errors);
+            console.log("articleCategory",article.articleCategory)
             this.setState({
                 ...this.state,
                 validationErrorMsg:errors
             })
-            if (errors) return;
+            // if (errors) return;
             
-            fetch("http://localhost:8080/addArticle",
-            {
-                method:"post",
-                credentials:"include",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                mode: "no-cors",
-                body:JSON.stringify(article)
-            }).then(data=>console.log("data",data))
-            .catch(error=>console.log("le message d'erreur est tatata",error))
-
+            // fetch("http://localhost:8080/addArticle",
+            // {
+            //     method:"post",
+            //     credentials:"include",
+            //     headers: {
+            //         'Accept': 'application/json',
+            //         'Content-Type': 'application/json',
+            //     },
+            //     mode: "no-cors",
+            //     body:JSON.stringify(article)
+            // }).then(data=>console.log("data",data))
+            // .catch(error=>console.log("le message d'erreur est tatata",error))
+            const response = await axios({
+                method: 'post',
+                credentials:'include',
+                url: 'http://localhost:8080/addArticle',
+                data: {
+                    articleName : this.state.articleName,
+                    articleBrand : this.state.articleBrand,
+                    articleDescription : this.state.articleDescription,
+                    articleDateAvailibility : this.state.articleDateAvailibility,
+                    articlePlateforme : this.state.articlePlateforme,
+                    articleCategory : this.state.categories[0],
+                    articleDematerialized : this.state.articleDematerialized,
+                    articlePricePromo : this.state.articlePricePromo,
+                    articlePrice : this.state.articlePrice,
+                    articleQty : this.state.articleQty,
+                    articlePromoBegDate : this.state.articlePromoBegDate,
+                    articleDatePromoEnd : this.state.articleDatePromoEnd,
+                }
+            });
         }
         Uploadimage(picture) {
             if(picture == '')
@@ -350,12 +380,12 @@ class Productadd extends Component{
                                                         <FormGroup>
                                                             {productdata.plateform.map((p) =>
                                                                 <Label>
-                                                                    <Input  name="articlePlateform" value={this.state.articleDematerialized} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
+                                                                    <Input  name="articlePlateforme" value={p} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
                                                                     {p}
                                                                 </Label>
                                                             )}
                                                         </FormGroup>
-                                                        {this.state.validationErrorMsg.articlePlateform && <p className="error-text">{this.state.validationErrorMsg.articlePlateform}</p>}
+                                                        {this.state.validationErrorMsg.articlePlateforme && <p className="error-text">{this.state.validationErrorMsg.articlePlateforme}</p>}
                                                         <Label className="title">Dematerialized</Label>
                                                          <FormGroup>
                                                             {productdata.dematerialized.map((d) =>
@@ -375,7 +405,7 @@ class Productadd extends Component{
                                                         <FormGroup>
                                                             {this.state.categories.map((cat) =>
                                                             <Label>
-                                                            <Input name="categoryLabel" name="articleCategory" value={cat} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
+                                                            <Input name="categoryLabel" name="articleCategory" value={cat.categoryLabel} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
                                                             {cat.categoryLabel}
                                                             </Label>
                                                             )}
@@ -393,14 +423,14 @@ class Productadd extends Component{
                                                         {this.state.validationErrorMsg.articlePromoBegDate && <p className="error-text">{this.state.validationErrorMsg.articlePromoBegDate}</p>}
                                                         <Label className="title mb-2">Article Promotion Ending Date</Label>
                                                         <FormGroup>
-                                                            <Input type="date" name="articlePromoEndDate" value={this.state.articlePromoEndDate} onChange={e=>this.onChangeHandler(e.target)}></Input>
+                                                            <Input type="date" name="articleDatePromoEnd" value={this.state.articleDatePromoEnd} onChange={e=>this.onChangeHandler(e.target)}></Input>
                                                         </FormGroup>
-                                                        {this.state.validationErrorMsg.articlePromoEndDate && <p className="error-text">{this.state.validationErrorMsg.articlePromoEndDate}</p>}
+                                                        {this.state.validationErrorMsg.articleDatePromoEnd && <p className="error-text">{this.state.validationErrorMsg.articleDatePromoEnd}</p>}
                                                         <Label className="title mb-2">Promotion Price</Label>
                                                         <FormGroup>
-                                                            <Input type="text" name="articlePromoPrice" value={this.state.articlePromoPrice} onChange={e=>this.onChangeHandler(e.target)} className="form-control" placeholder="Promotion Price" ></Input>
+                                                            <Input type="text" name="articlePricePromo" value={this.state.articlePricePromo} onChange={e=>this.onChangeHandler(e.target)} className="form-control" placeholder="Promotion Price" ></Input>
                                                         </FormGroup>
-                                                        {this.state.validationErrorMsg.articlePromoPrice && <p className="error-text">{this.state.validationErrorMsg.articlePromoPrice}</p>}
+                                                        {this.state.validationErrorMsg.articlePricePromo && <p className="error-text">{this.state.validationErrorMsg.articlePricePromo}</p>}
                                                         <FormGroup>
                                                         <Label className="title pl-0">Product Stock</Label>
                                                         <input type="text" name="articleQty" value={this.state.articleQty} onChange={e=>this.onChangeHandler(e.target)} class="form-control" placeholder="Article Stock"></input>

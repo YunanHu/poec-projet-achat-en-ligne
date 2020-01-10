@@ -39,92 +39,103 @@ public class Article
 	private int articleQty;
 	private float articlePricePromo;
 	private LocalDate articlePromoBegDate;
-	private LocalDate articleDateTimePromoEndDate;
+	private LocalDate articlePromoEndDate;
 	private LocalDate articleDateAvailibility;
 	private boolean articleDematerialized;
 	private boolean articleDeactivated;
+	private String articleBrand;
 	
 	
+
+
 	public Article() 
 	{
 
 	}
 
 
-	public Article(String refArticle, String articleName, String articlePlateforme, Category articleCategory,
-			String articleDescription, float articlePrice, List<ArticlesImages> artListImg, LocalDate articleAddedDate,
+	public Article(String articleName, String articlePlateforme, Category articleCategory,
+			String articleDescription, float articlePrice, List<ArticlesImages> artListImg,
 			int articleQty, float articlePricePromo, LocalDate articlePromoBegDate,
-			LocalDate articleDateTimePromoEndDate, LocalDate articleDateAvailibility, boolean articleDematerialized) {
-		this.refArticle = refArticle;
+			LocalDate articlePromoEndDate, LocalDate articleDateAvailibility, boolean articleDematerialized, String articleBrand) {
+		this.refArticle = articlePlateforme + LocalDate.now().toString() + articleCategory.getIdCategory().toString() + articleCategory.getCategoryLabel()
+		+ "01";
 		this.articleName = articleName;
 		this.articlePlateforme = articlePlateforme;
 		this.articleCategory = articleCategory;
 		this.articleDescription = articleDescription;
 		this.articlePrice = articlePrice;
 		this.artListImg = artListImg;
-		this.articleAddedDate = articleAddedDate;
+		this.articleAddedDate = LocalDate.now();
 		this.articleQty = articleQty;
 		this.articlePricePromo = articlePricePromo;
 		this.articlePromoBegDate = articlePromoBegDate;
-		this.articleDateTimePromoEndDate = articleDateTimePromoEndDate;
+		this.articlePromoEndDate = articlePromoEndDate;
 		this.articleDateAvailibility = articleDateAvailibility;
 		this.articleDematerialized = articleDematerialized;
+		this.articleBrand = articleBrand;
 	}
 	
 	
-	public Article(String refArticle, String articleName, String articlePlateforme, Category articleCategory,
-			String articleDescription, float articlePrice, List<ArticlesImages> artListImg, LocalDate articleAddedDate,
+	public Article(String articleName, String articlePlateforme, Category articleCategory,
+			String articleDescription, float articlePrice, List<ArticlesImages> artListImg,
 			int articleQty, float articlePricePromo, LocalDate articlePromoBegDate,
-			LocalDate articleDateTimePromoEndDate, LocalDate articleDateAvailibility, boolean articleDematerialized,
-			boolean articleDeactivated) {
-		this.refArticle = refArticle;
+			LocalDate articlePromoEndDate, LocalDate articleDateAvailibility, boolean articleDematerialized,
+			boolean articleDeactivated, String articleBrand) {
+		this.refArticle = articlePlateforme + LocalDate.now().toString() + articleCategory.getIdCategory().toString() + articleCategory.getCategoryLabel()
+		+ "01";
 		this.articleName = articleName;
 		this.articlePlateforme = articlePlateforme;
 		this.articleCategory = articleCategory;
 		this.articleDescription = articleDescription;
 		this.articlePrice = articlePrice;
 		this.artListImg = artListImg;
-		this.articleAddedDate = articleAddedDate;
+		this.articleAddedDate = LocalDate.now();
 		this.articleQty = articleQty;
 		this.articlePricePromo = articlePricePromo;
 		this.articlePromoBegDate = articlePromoBegDate;
-		this.articleDateTimePromoEndDate = articleDateTimePromoEndDate;
+		this.articlePromoEndDate = articlePromoEndDate;
 		this.articleDateAvailibility = articleDateAvailibility;
 		this.articleDematerialized = articleDematerialized;
 		this.articleDeactivated = articleDeactivated;
+		this.articleBrand = articleBrand;
 	}
 	
-	public Article(String refArticle, String articleName, String articlePlateforme, Category articleCategory,
-			String articleDescription, float articlePrice, LocalDate articleAddedDate, int articleQty,
-			LocalDate articleDateAvailibility, boolean articleDematerialized,boolean articleDeactivated) {
+	public Article( String articleName, String articlePlateforme, Category articleCategory,
+			String articleDescription, float articlePrice, int articleQty,
+			LocalDate articleDateAvailibility, boolean articleDematerialized,boolean articleDeactivated, String articleBrand) {
 		super();
-		this.refArticle = refArticle;
+		this.refArticle = articlePlateforme + LocalDate.now().toString() + articleCategory.getIdCategory().toString() + articleCategory.getCategoryLabel()
+		+ "01";
 		this.articleName = articleName;
 		this.articlePlateforme = articlePlateforme;
 		this.articleCategory = articleCategory;
 		this.articleDescription = articleDescription;
 		this.articlePrice = articlePrice;
-		this.articleAddedDate = articleAddedDate;
+		this.articleAddedDate = LocalDate.now();
 		this.articleQty = articleQty;
 		this.articleDateAvailibility = articleDateAvailibility;
 		this.articleDematerialized = articleDematerialized;
 		this.articleDeactivated=articleDeactivated;
+		this.articleBrand = articleBrand;
 	}
 	
-	public Article(String refArticle, String articleName, String articlePlateforme, Category articleCategory,
-			String articleDescription, float articlePrice, LocalDate articleAddedDate, int articleQty,
-			LocalDate articleDateAvailibility, boolean articleDematerialized) {
+	public Article(String articleName, String articlePlateforme, Category articleCategory,
+			String articleDescription, float articlePrice, int articleQty,
+			LocalDate articleDateAvailibility, boolean articleDematerialized, String articleBrand) {
 		super();
-		this.refArticle = refArticle;
+		this.refArticle = articlePlateforme + LocalDate.now().toString() + articleCategory.getIdCategory().toString() + articleCategory.getCategoryLabel()
+		+ "01";
 		this.articleName = articleName;
 		this.articlePlateforme = articlePlateforme;
 		this.articleCategory = articleCategory;
 		this.articleDescription = articleDescription;
 		this.articlePrice = articlePrice;
-		this.articleAddedDate = articleAddedDate;
+		this.articleAddedDate = LocalDate.now();
 		this.articleQty = articleQty;
 		this.articleDateAvailibility = articleDateAvailibility;
 		this.articleDematerialized = articleDematerialized;
+		this.articleBrand = articleBrand;
 	}
 	
 	public boolean isArticleDeactivated() {
@@ -183,11 +194,11 @@ public class Article
 	public void setArticlePromoBegDate(LocalDate articlePromoBegDate) {
 		this.articlePromoBegDate = articlePromoBegDate;
 	}
-	public LocalDate getArticleDateTimePromoEndDate() {
-		return articleDateTimePromoEndDate;
+	public LocalDate getArticlePromoEndDate() {
+		return articlePromoEndDate;
 	}
-	public void setArticleDateTimePromoEndDate(LocalDate articleDateTimePromoEndDate) {
-		this.articleDateTimePromoEndDate = articleDateTimePromoEndDate;
+	public void setArticleDateTimePromoEndDate(LocalDate articlePromoEndDate) {
+		this.articlePromoEndDate = articlePromoEndDate;
 	}
 	public String getArticleDescription() {
 		return articleDescription;
@@ -233,6 +244,12 @@ public class Article
 	}
 	public boolean remove(ArticlesImages o) {
 		return artListImg.remove(o);
+	}
+	public String getArticleBrand() {
+		return articleBrand;
+	}
+	public void setArticleBrand(String articleBrand) {
+		this.articleBrand = articleBrand;
 	}
 
 	 
