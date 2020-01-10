@@ -57,27 +57,16 @@ const productdata = {
         "Blue",
         "Green"
     ],
-<<<<<<< HEAD
-=======
-
->>>>>>> 99ba6edda7d1a9c4232668fac481b469603c971f
     plateform:[
         "PS4",
         "Switch",
         "XBox One",
         "PC"
     ],
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
->>>>>>> 99ba6edda7d1a9c4232668fac481b469603c971f
-=======
     dematerialized:[
         "true",
         "false"
     ],
->>>>>>> branch 'dev' of https://github.com/YunanHu/poec-projet-achat-en-ligne.git
     tags:[
         "Athleisure",
         "Jacket",
@@ -229,9 +218,6 @@ class Productadd extends Component{
             console.log(this.state);
             const article ={};
             article.articleName = this.state.articleName;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
             article.articleBrand = this.state.articleBrand;
             article.articleDescription = this.state.articleDescription;
             article.articleDateAvailibility = this.state.articleDateAvailibility;
@@ -282,30 +268,8 @@ class Productadd extends Component{
                     articleQty : this.state.articleQty,
                     articlePromoBegDate : this.state.articlePromoBegDate,
                     articleDatePromoEnd : this.state.articleDatePromoEnd,
->>>>>>> branch 'dev' of https://github.com/YunanHu/poec-projet-achat-en-ligne.git
-
                 }
             });
-            console.log("response",response);
-
-=======
-
-            fetch("http://localhost:8080/addArticle",
-            {
-                method:"post",
-                credentials:"include",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                mode: "no-cors",
-                body:JSON.stringify(article)
-            }).then(data=>console.log("data",data))
-            .catch(error=>console.log(error))
-
-            //if(this.state.articleName!=="" && this.state.art)
-
->>>>>>> 99ba6edda7d1a9c4232668fac481b469603c971f
         }
         Uploadimage(picture) {
             if(picture == '')
