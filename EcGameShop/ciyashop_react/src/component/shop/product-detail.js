@@ -5,6 +5,8 @@ import React , {Component} from 'react';
 import PostDetail from '../../templates/post-detail';
 import ProductSlider from '../../widgets/ProductSlider';
 import { Link } from 'react-router-dom';
+import {getFilterProductsdata} from '../../services';
+import { connect } from 'react-redux';
 import { Row, Col,Container,Nav, NavItem, NavLink,TabContent, TabPane } from 'reactstrap';
 import productdata from '../../api/product';
 import classnames from 'classnames';
@@ -42,12 +44,13 @@ class ProductDetail extends Component {
     {
          super(props);
          this.state={
-             AllProduct:productdata,
+             AllProduct:this.props.products,
              ProductId:parseInt(this.props.match.params.id),
              CurrentProduct:null,
              activeTab: '1'
          }
          this.toggle = this.toggle.bind(this);
+         console.log("this.props",this.props);
     }
 
     componentDidMount()
@@ -82,6 +85,7 @@ class ProductDetail extends Component {
       }
     render() {
         const Productedit = this.state.CurrentProduct;
+        console.log("Productedit",)
 
      return (
         <div>
@@ -138,7 +142,7 @@ class ProductDetail extends Component {
                                         <label>Email</label>
                                         <input type="Text" class="form-control"></input>
                                       </div>
-                                      {/* <div class="form-group">
+                                      <div class="form-group">
                                         <label className="mb-0">Your rating *</label>
                                         <ul class="rating list-unstyled">
                                             <li><i class="fa fa-star"></i></li>
@@ -147,7 +151,7 @@ class ProductDetail extends Component {
                                             <li><i class="fa fa-star-half-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
                                         </ul>
-                                      </div> */}
+                                      </div>
                                       <div class="form-group">
                                         <label>Your review *</label>
                                         <textarea class="form-control" rows="3"></textarea>
@@ -164,7 +168,7 @@ class ProductDetail extends Component {
                                     </form>
                                     </div>
                                 </TabPane>
-                                {/* <TabPane tabId="1">
+                                 <TabPane tabId="1">
                                         <div className="tab-content" id="myTabContent">
                                                 <div className="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="home-tab">
                                                 <h2>What is Lorem Ipsum?</h2>
@@ -332,14 +336,14 @@ class ProductDetail extends Component {
                                 <TabPane tabId="3">
                                     <p>The Crochet-Shoulder Chevron Sweatshirt ipsum dolor sit amet, consectetur adipisicing elit. Tenetur, libero, ratione. Tenetur dolor vitae voluptatem, earum nam, voluptas culpa ex vel et aliquid aperiam pariatur ad hic commodi, dicta tempora.</p>
                                     <p>Wearing a sweatshirt in public doesn’t mean you can’t look put-together doing it. The Crochet-Shoulder Chevron Sweatshirt from Knox Rose is slightly more tailored for a pullover, though it still gives you a loose fit that remains comfortable and flexible as you move. The textured fabric is enhanced with crochet sleeve details. Throw this long-sleeve sweatshirt over a pair of jeans and you’re ready to go. </p>
-                                </TabPane> */}
+                                </TabPane>
                             </TabContent>
-                            {/* <div className="related products">
+                             <div className="related products">
                                 <h2>Related products</h2>
                                 <div className="row">
                                 <ProductSlider settings={relatedslider} />
                             </div>
-                            </div> */}
+                            </div>
                             </div>
                     </Container>
                 </div>
@@ -355,4 +359,8 @@ class ProductDetail extends Component {
     )
 }
 }
-export default ProductDetail;
+// export default ProductDetail;
+const mapDispatchToProps = state => ({
+    products: getFilterProductsdata(state.data, state.filters)
+  });
+  export default connect(mapDispatchToProps, {})(ProductDetail);

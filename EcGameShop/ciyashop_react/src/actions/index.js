@@ -1,5 +1,5 @@
-import ProductsList from '../api/product.json';
-// action creator qui nous permet de faire de l'asynchrone
+// import ProductsList from '../api/product.json';
+
 export const fetchProducts = (product, times) => (
     fetch("http://localhost:8080/getAllArticles", {
       method: "get",
