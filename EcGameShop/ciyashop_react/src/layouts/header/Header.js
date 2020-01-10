@@ -284,7 +284,11 @@ class Header extends React.Component {
     }
 
 
+    onLogout = () => {
+        this.props.onLogout()
+    }
 
+   
 
     render() {
         // console.log(this.state)
@@ -331,6 +335,9 @@ class Header extends React.Component {
                                                                 </li>
                                                                 <li>
                                                                     <Link to="#" onClick={this.toggle} data-toggle="modal" data-target="#"><i className="fa fa-sign-in">&nbsp;</i> Login</Link>
+                                                                </li>
+                                                                <li>
+                                                                    <Link onClick={this.onLogout}  > Se deconnecter</Link>
                                                                 </li>
                                                             </ul>
                                                         </div>
@@ -659,7 +666,8 @@ const mapStateToProps =(state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onSetRole : (role) => dispatch(action.setRole(role)),
-        onSetUid: (uid) => dispatch(action.setUid(uid))
+        onSetUid: (uid) => dispatch(action.setUid(uid)),
+        onLogout : () => dispatch(action.logout())
     }
 }
 
