@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col,Container,Form, NavItem, Input,Table } from 'reactstrap';
 import CommonList from '../../api/common';
+import axios from 'axios';
+
 
 class CheckOut extends Component {
 
@@ -12,14 +14,15 @@ class CheckOut extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            tempsUID: 2, // à remplacer par le vrai UID
             ShippingFlatRate: 6.0,
             ShippingLocalPickUp: 10.00,
             TotalShippingCarge: 1.50,
             fieldvalue:CommonList[0].profile,
-            errors: {}
+            errors: {},
+            total:0
         }
         this.ReadShippingCharge = this.ReadShippingCharge.bind(this);
-        const uid = 1// à dynamiser UID
     }
 
     componentDidMount() {
@@ -28,6 +31,7 @@ class CheckOut extends Component {
         evt.initEvent('load', false, false);
         window.dispatchEvent(evt);
         window.scrollTo(0, 0)
+        this.calculTotal()
     }
 
     ReadCartItems() {
@@ -36,23 +40,6 @@ class CheckOut extends Component {
             this.props.history.push(`/`)
         } 
         return cart
-    }
-
-    fetchArticles() {
-        
-        fetch(CommonList[0].siteUrl+"user/byid/"+this.uid,
-        {
-            method:"get",
-            credentials:"include"
-        }).then(response=>response.json())
-        .then(result=>
-            
-            this.setState({
-                ...this.state,
-                articles:result
-            })
-            );
-        console.log("articlesResult",this.state.articles);
     }
 
     ReadShippingCharge()
@@ -117,14 +104,59 @@ class CheckOut extends Component {
 
 
         }
-        this.forceUpdate();
+        // this.forceUpdate();
+        this.calculTotal();
+    }
+
+    calculTotal = () => {
+        const total = parseFloat(parseFloat(this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)) + parseFloat((this.state.TotalShippingCarge != undefined) ? this.state.TotalShippingCarge.toFixed(2) : 0)).toFixed(2)
+        this.setState({
+            total: total
+        })
     }
 
 
-
-    onCheckOutSubmit(e){
+    onCheckOutSubmit = async (e) => {
         e.preventDefault();
         if(this.handleValidation()){
+
+            const localCartItems = JSON.parse(localStorage.getItem("LocalCartItems"))
+            console.log('LocalCartItems:', localCartItems)
+            console.log(typeof localCartItems)
+            
+            let saveCartItems = {
+                "cartUser": {
+                    "uid": this.state.tempsUID
+                },
+                "total": this.state.total,
+                "cartItems": []
+            }
+            
+            for (const item of localCartItems) {
+                console.log(item)
+                saveCartItems.cartItems.push(
+                    {
+                        "itemArticle": {
+                            "idArticle": item.ProductID
+                        },
+                        "qty":item.Qty,
+                        "productName": item.ProductName,
+                        "productImage": item.ProductImage,
+                        "rate":item.Rate
+                    }
+                )
+            }
+            // console.log('saveCartItems type: ',typeof saveCartItems)
+            // console.log('saveCartItems: ', saveCartItems)
+            // console.log('state: ',this.state)
+
+            const response = await axios({
+                method: 'post',
+                withCredentials:true,
+                url:  CommonList[0].siteUrl+'saveCart',
+                data: saveCartItems
+            });
+            console.log("response",response);
             localStorage.setItem("FinalCheckoutCartItems",localStorage.getItem("LocalCartItems"));
             localStorage.removeItem("LocalCartItems");
             this.props.history.push(`/SuccessScreen`)
@@ -623,7 +655,7 @@ class CheckOut extends Component {
                                         </tr>
                                         <tr class="order-total">
                                             <th>Total</th>
-                                            <td><strong><span class="woocs_special_price_code"><span class="Price-amount amount">{parseFloat(parseFloat(this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)) + parseFloat((this.state.TotalShippingCarge != undefined) ? this.state.TotalShippingCarge.toFixed(2) : 0)).toFixed(2)}    </span> <span className="Price-currencySymbol">€</span></span></strong>
+                                            <td><strong><span class="woocs_special_price_code"><span class="Price-amount amount">{this.state.total}    </span> <span className="Price-currencySymbol">€</span></span></strong>
                                             </td>
                                         </tr>
                                     </tfoot>
