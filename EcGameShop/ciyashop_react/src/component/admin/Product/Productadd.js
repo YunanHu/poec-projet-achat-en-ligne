@@ -6,7 +6,6 @@ import { Row, Col,Container, FormGroup, Label, Input } from 'reactstrap';
 import Slider from "react-slick";
 import { Link } from 'react-router-dom';
 import ImageUploader from 'react-images-upload';
-import UseFormArticleValidation from '../../../hook/useFormArticleValidation';
 
 const INITIAL_STATE_ARTICLE_FORM = {
     articleName:"",
@@ -110,8 +109,11 @@ class Productadd extends Component{
         }
         onChangeHandler(event){
             
-            const value = event.type === 'radio' ? event.checked : event.value;
+            // const value = event.type === 'radio' ? event.checked : event.value;
+            const value = event.value;
             const name = event.name;
+            console.log("event name",event.name);
+            console.log("event value", event.value);
             this.setState({
                 ...this.state,
                 [name]:value,
@@ -146,10 +148,10 @@ class Productadd extends Component{
                 }
             }
             return errors;
-
         }
 
         validationArticleForm(values){
+            console.log("values",values);
             let errors = {};
             if(!values.articleName){
                 errors.articleName = "Required Name";
@@ -192,6 +194,7 @@ class Productadd extends Component{
                 }
             }
             else if(!values.articleDatePromoEnd){
+                console.log("no end date");
                 if(!values.articlePromoPrice){
                     errors.articlePricePromo = "Required Promotion Price"
                 }
@@ -199,6 +202,10 @@ class Productadd extends Component{
                     errors.articlePricePromo = "The Promo Price is Higher Than The Regular Price";
                 }
                 errors.articleDatePromoEnd = "Required End Promotion Date"
+            }
+
+            if(!values.articleDematerialized){
+                errors.articleDematerialized="Is it dematerialized or not?"
             }
 
             if(!values.articleQty){
@@ -218,11 +225,11 @@ class Productadd extends Component{
             article.articlePlateforme = this.state.articlePlateforme;
             article.articleCategory = this.state.articleCategory;
             article.articleDematerialized = this.state.articleDematerialized;
-            article.articlePromoPrice = this.state.articlePromoPrice;
+            article.articlePricePromo = this.state.articlePricePromo;
             article.articlePrice = this.state.articlePrice;
             article.articleQty = this.state.articleQty;
             article.articlePromoBegDate = this.state.articlePromoBegDate;
-            article.articleDatePromoEnd = this.state.articlePromoEndDate;
+            article.articleDatePromoEnd = this.state.articleDatePromoEnd;
             const errors = this.validationArticleForm(article);
             console.log("errors",errors);
             this.setState({
@@ -350,12 +357,12 @@ class Productadd extends Component{
                                                         <FormGroup>
                                                             {productdata.plateform.map((p) =>
                                                                 <Label>
-                                                                    <Input  name="articlePlateform" value={this.state.articleDematerialized} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
+                                                                    <Input  name="articlePlateforme" value={p} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
                                                                     {p}
                                                                 </Label>
                                                             )}
                                                         </FormGroup>
-                                                        {this.state.validationErrorMsg.articlePlateform && <p className="error-text">{this.state.validationErrorMsg.articlePlateform}</p>}
+                                                        {this.state.validationErrorMsg.articlePlateforme && <p className="error-text">{this.state.validationErrorMsg.articlePlateforme}</p>}
                                                         <Label className="title">Dematerialized</Label>
                                                          <FormGroup>
                                                             {productdata.dematerialized.map((d) =>
@@ -375,7 +382,7 @@ class Productadd extends Component{
                                                         <FormGroup>
                                                             {this.state.categories.map((cat) =>
                                                             <Label>
-                                                            <Input name="categoryLabel" name="articleCategory" value={cat} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
+                                                            <Input name="categoryLabel" name="articleCategory" value={cat.categoryLabel} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
                                                             {cat.categoryLabel}
                                                             </Label>
                                                             )}
@@ -393,14 +400,14 @@ class Productadd extends Component{
                                                         {this.state.validationErrorMsg.articlePromoBegDate && <p className="error-text">{this.state.validationErrorMsg.articlePromoBegDate}</p>}
                                                         <Label className="title mb-2">Article Promotion Ending Date</Label>
                                                         <FormGroup>
-                                                            <Input type="date" name="articlePromoEndDate" value={this.state.articlePromoEndDate} onChange={e=>this.onChangeHandler(e.target)}></Input>
+                                                            <Input type="date" name="articleDatePromoEnd" value={this.state.articleDatePromoEnd} onChange={e=>this.onChangeHandler(e.target)}></Input>
                                                         </FormGroup>
-                                                        {this.state.validationErrorMsg.articlePromoEndDate && <p className="error-text">{this.state.validationErrorMsg.articlePromoEndDate}</p>}
+                                                        {this.state.validationErrorMsg.articleDatePromoEnd && <p className="error-text">{this.state.validationErrorMsg.articleDatePromoEnd}</p>}
                                                         <Label className="title mb-2">Promotion Price</Label>
                                                         <FormGroup>
-                                                            <Input type="text" name="articlePromoPrice" value={this.state.articlePromoPrice} onChange={e=>this.onChangeHandler(e.target)} className="form-control" placeholder="Promotion Price" ></Input>
+                                                            <Input type="text" name="articlePricePromo" value={this.state.articlePricePromo} onChange={e=>this.onChangeHandler(e.target)} className="form-control" placeholder="Promotion Price" ></Input>
                                                         </FormGroup>
-                                                        {this.state.validationErrorMsg.articlePromoPrice && <p className="error-text">{this.state.validationErrorMsg.articlePromoPrice}</p>}
+                                                        {this.state.validationErrorMsg.articlePricePromo && <p className="error-text">{this.state.validationErrorMsg.articlePricePromo}</p>}
                                                         <FormGroup>
                                                         <Label className="title pl-0">Product Stock</Label>
                                                         <input type="text" name="articleQty" value={this.state.articleQty} onChange={e=>this.onChangeHandler(e.target)} class="form-control" placeholder="Article Stock"></input>
