@@ -50,8 +50,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.cors().and().formLogin().loginProcessingUrl("/login")
 				.successHandler(new AuthentificationLoginSuccessHandler())
 				.failureHandler(new AuthentificationLoginSFailureHandler()).and().authorizeRequests()
-				.antMatchers("/user/register","/", "/login","/addArticle", "/getAllArticles", "/initArticles", "/initusers","/role/byemail").permitAll().anyRequest()
-				.fullyAuthenticated()
 				.antMatchers("/user/register", "/", "/login", "/getAllArticles", "/initArticles", "/initusers",
 						"/getAllComments", "/getComment/")
 				.permitAll().anyRequest().fullyAuthenticated();
