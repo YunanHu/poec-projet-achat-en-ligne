@@ -15,3 +15,11 @@ export const setUid = (uid) => {
          uid: uid
     }
  }
+
+ export const logout = () => {
+    
+    return{
+         type: "LOGOUT", 
+         
+    }
+ }
