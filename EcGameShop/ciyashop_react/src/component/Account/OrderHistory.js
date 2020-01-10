@@ -12,7 +12,7 @@ class OrderHistory extends Component {
       super(props);
       this.state={
         modal: false,
-        Order:OrderData,
+        Order:OrderData, // import order data
         ViewOrder:''
       }
       this.toggle = this.toggle.bind(this);

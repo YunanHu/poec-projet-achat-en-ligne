@@ -21,7 +21,9 @@ class CheckOut extends Component {
             TotalShippingCarge: 1.50,
             fieldvalue:CommonList[0].profile,
             errors: {},
-            total:0
+            total:0,
+            subtotal:0,
+            shipping:0
         }
         this.ReadShippingCharge = this.ReadShippingCharge.bind(this);
     }
@@ -110,9 +112,13 @@ class CheckOut extends Component {
     }
 
     calculTotal = () => {
-        const total = parseFloat(parseFloat(this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)) + parseFloat((this.state.TotalShippingCarge != undefined) ? this.state.TotalShippingCarge.toFixed(2) : 0)).toFixed(2)
+        const subtotal = parseFloat(this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0))
+        const shipping = parseFloat((this.state.TotalShippingCarge != undefined) ? this.state.TotalShippingCarge.toFixed(2) : 0)
+        const total =  parseFloat(subtotal + shipping).toFixed(2)
         this.setState({
-            total: total
+            total: total,
+            subtotal: subtotal,
+            shipping: shipping
         })
     }
 
@@ -130,6 +136,11 @@ class CheckOut extends Component {
                     "uid": this.props.uid
                 },
                 "total": this.state.total,
+                "subtotal": this.state.subtotal,
+                "shipping": this.state.shipping,
+                "tax": parseFloat(this.state.subtotal*0.2/1.2).toFixed(2),
+                "orderDate": Date.now(),
+                "orderStatus": "Success",
                 "cartItems": []
             }
             
