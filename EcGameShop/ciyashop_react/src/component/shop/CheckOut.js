@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { Row, Col,Container,Form, NavItem, Input,Table } from 'reactstrap';
 import CommonList from '../../api/common';
 import axios from 'axios';
+import { connect } from "react-redux"
+
 
 
 class CheckOut extends Component {
@@ -14,7 +16,6 @@ class CheckOut extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tempsUID: 2, // à remplacer par le vrai UID
             ShippingFlatRate: 6.0,
             ShippingLocalPickUp: 10.00,
             TotalShippingCarge: 1.50,
@@ -22,7 +23,6 @@ class CheckOut extends Component {
             errors: {},
             total:0
         }
-        console.log('checkout props: ',props)
         this.ReadShippingCharge = this.ReadShippingCharge.bind(this);
     }
 
@@ -127,7 +127,7 @@ class CheckOut extends Component {
             
             let saveCartItems = {
                 "cartUser": {
-                    "uid": this.state.tempsUID
+                    "uid": this.props.uid
                 },
                 "total": this.state.total,
                 "cartItems": []
@@ -713,4 +713,11 @@ class CheckOut extends Component {
             )
     }
 }
-export default CheckOut;
+
+const mapStateToProps = (state) => {
+    return {
+        uid: state.login.uid
+    }
+}
+
+export default connect(mapStateToProps)(CheckOut) 
