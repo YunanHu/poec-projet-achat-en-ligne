@@ -76,7 +76,7 @@ class App extends Component {
                     <Route exact path="/index-new-fashion" component={HomePage2} />
                     <Route exact path="/index-modern" component={HomePage3} />
                     <Route exact path="/index-home-classic" component={HomePage4} />
-                    <PrivateRoute routeRole={"ROLE_ADMIN"} path={`/shop`} component={ProductDetail} /> 
+                    <PrivateRoute routeRole={"ROLE_ADMIN"} path={`/shop`} component={ShopPage} /> 
                     <Route exact path="/shop" component={ShopPage} />
                     <Route exact path="/ShopingCart" component={ShopingCart} />
                     <Route exact path="/MyAccount" component={MyAccount} />
