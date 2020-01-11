@@ -46,6 +46,11 @@ public class UserRestController {
 		return u5.getRoles();
 	}
 
+	
+	
+	
+	//ADRESSE 
+	
 	@PostMapping("/addAdresses/byid")
 	public List<Address> addAdress(@RequestBody User user) {
 		User u5 = userRepository.findByUID(user.getUID());
@@ -60,6 +65,9 @@ public class UserRestController {
 		return u5.getAddresses();
 	}
 
+	//
+	
+	
 	@PostMapping("/infouser/byemail")
 	public List<Object> getUserInfo(@RequestBody User user) {
 		System.out.println(user);
@@ -74,7 +82,7 @@ public class UserRestController {
 
 		return info;
 	}
-	// id email firstname lastname phonenum
+	
 
 	@PostMapping(value = "/user/register", consumes = "application/json", produces = "application/json")
 	public int addUser(@RequestBody User user) {
@@ -82,6 +90,7 @@ public class UserRestController {
 		userRepository.save(user);
 		User u5 = userRepository.findByEmail(user.getEmail());
 		userRepository.setRole(u5.getUID(), (long) 2);
+		UserRepository.sendEmail(u5.getEmail());
 		return 202;
 	}
 
