@@ -5,9 +5,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Row, Col,Container,Form, NavItem, Input,Table } from 'reactstrap';
 import CommonList from '../../api/common';
+import axios from 'axios';
+import { connect } from "react-redux"
+import { getCurrentDate } from '../../assets/utils'
 
 class CheckOut extends Component {
 
+    
     constructor(props) {
         super(props);
         this.state = {
@@ -15,7 +19,11 @@ class CheckOut extends Component {
             ShippingLocalPickUp: 10.00,
             TotalShippingCarge: 1.50,
             fieldvalue:CommonList[0].profile,
-            errors: {}
+            errors: {},
+            total:0,
+            subtotal:0,
+            shipping:0,
+            tax:0
         }
         this.ReadShippingCharge = this.ReadShippingCharge.bind(this);
     }
@@ -26,6 +34,7 @@ class CheckOut extends Component {
         evt.initEvent('load', false, false);
         window.dispatchEvent(evt);
         window.scrollTo(0, 0)
+        this.calculTotal()
     }
 
     ReadCartItems() {
@@ -98,17 +107,83 @@ class CheckOut extends Component {
 
 
         }
-        this.forceUpdate();
+        // this.forceUpdate();
+        this.calculTotal();
+    }
+
+    calculTotal = () => {
+        const subtotal = parseFloat(this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0))
+        const shipping = parseFloat((this.state.TotalShippingCarge != undefined) ? this.state.TotalShippingCarge.toFixed(2) : 0)
+        const total =  parseFloat(subtotal + shipping).toFixed(2)
+        const tax = parseFloat(total*0.2/1.2).toFixed(2)
+        this.setState({
+            total: total,
+            subtotal: subtotal,
+            shipping: shipping,
+            tax: tax
+        })
     }
 
 
-
-    onCheckOutSubmit(e){
+    onCheckOutSubmit = async (e) => {
         e.preventDefault();
         if(this.handleValidation()){
-            localStorage.setItem("FinalCheckoutCartItems",localStorage.getItem("LocalCartItems"));
-            localStorage.removeItem("LocalCartItems");
-            this.props.history.push(`/SuccessScreen`)
+
+            const localCartItems = JSON.parse(localStorage.getItem("LocalCartItems"))
+            console.log('LocalCartItems:', localCartItems)
+            console.log(typeof localCartItems)
+            // format date
+            const orderDate = getCurrentDate();
+
+            console.log('orderDate: ',orderDate)
+            let saveCartItems = {
+                "cartUser": {
+                    "uid": this.props.uid
+                },
+                "total": this.state.total,
+                "subtotal": this.state.subtotal,
+                "shipping": this.state.shipping,
+                "tax": this.state.tax,
+                "orderDate": orderDate,
+                "orderStatus": "Success",
+                "cartItems": []
+            }
+            
+            for (const item of localCartItems) {
+                console.log(item)
+                saveCartItems.cartItems.push(
+                    {
+                        "itemArticle": {
+                            "idArticle": item.ProductID
+                        },
+                        "qty":item.Qty,
+                        "productName": item.ProductName,
+                        "productImage": item.ProductImage,
+                        "rate":item.Rate
+                    }
+                )
+            }
+            console.log('saveCartItems type: ',typeof saveCartItems)
+            console.log('saveCartItems: ', saveCartItems)
+            console.log('state: ',this.state)
+
+            const response = await axios({
+                method: 'post',
+                withCredentials:true,
+                url:  CommonList[0].siteUrl+'saveCart',
+                data: saveCartItems
+            });
+            console.log("response",response);
+            // if(response.data.includes('<!DOCTYPE html>')){
+            //     // user n'est pas connecté
+            //     // afficher le message d'erreur
+            //     //document.getElementById('responseErrorMsg').classList.add("show")
+            // } else {
+
+            //     localStorage.setItem("FinalCheckoutCartItems",localStorage.getItem("LocalCartItems"));
+            //     localStorage.removeItem("LocalCartItems");
+            //     this.props.history.push(`/SuccessScreen`)
+            // }
         }
       }
 
@@ -233,6 +308,12 @@ class CheckOut extends Component {
             <div className="content-wrapper mb-7">
                 <Container>
                    <form onSubmit={this.onCheckOutSubmit.bind(this)}>
+                    <div class="alert alert-danger alert-dismissible fade" id="responseErrorMsg" role="alert" style={{marginTop: "2rem"}}>
+                    <strong>Oups !</strong> You should login before order the article.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
                         <Row class="mt-5">
                         <Col class="col-lg-6">
                             <Row>
@@ -604,7 +685,7 @@ class CheckOut extends Component {
                                         </tr>
                                         <tr class="order-total">
                                             <th>Total</th>
-                                            <td><strong><span class="woocs_special_price_code"><span class="Price-amount amount">{parseFloat(parseFloat(this.ReadCartItems().reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)) + parseFloat((this.state.TotalShippingCarge != undefined) ? this.state.TotalShippingCarge.toFixed(2) : 0)).toFixed(2)}    </span> <span className="Price-currencySymbol">€</span></span></strong>
+                                            <td><strong><span class="woocs_special_price_code"><span class="Price-amount amount">{this.state.total}    </span> <span className="Price-currencySymbol">€</span></span></strong>
                                             </td>
                                         </tr>
                                     </tfoot>
@@ -661,4 +742,11 @@ class CheckOut extends Component {
             )
     }
 }
-export default CheckOut;
+
+const mapStateToProps = (state) => {
+    return {
+        uid: state.login.uid
+    }
+}
+
+export default connect(mapStateToProps)(CheckOut) 

@@ -1,5 +1,6 @@
 package fr.EGame.projet.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,8 +35,14 @@ public class Cart {
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
 	List<CartItem> cartItems = new ArrayList<CartItem>();
 
-	String billing_phone;
-	String billing_email;
+	String phone;
+	String email;
+	String orderId;
+	LocalDateTime orderDate;
+	String orderStatus;
+	float shipping;
+	float subtotal;
+	float tax;
 	float total;
 
 	public boolean addCartItem(CartItem item) {

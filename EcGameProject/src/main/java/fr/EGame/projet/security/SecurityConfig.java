@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 						"/getAllComments", "/getComment/")
 				.permitAll().anyRequest().fullyAuthenticated();
 
+
 		http.csrf().disable();
 	}
 

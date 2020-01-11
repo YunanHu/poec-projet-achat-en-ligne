@@ -6,8 +6,12 @@ import { Row, Col,Container, FormGroup, Label, Input } from 'reactstrap';
 import Slider from "react-slick";
 import { Link } from 'react-router-dom';
 import ImageUploader from 'react-images-upload';
+
+// import UseFormArticleValidation from '../../../hook/useFormArticleValidation';
+
 import axios from 'axios';
 import Moment from 'react-moment';
+
 
 
 const settings = {
@@ -44,7 +48,6 @@ const productdata = {
         "Blue",
         "Green"
     ],
-
     plateform:[
         "PS4",
         "Switch",

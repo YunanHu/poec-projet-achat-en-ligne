@@ -43,6 +43,7 @@ import Invoices from './component/admin/Invoices';
 import OrderHistory from './component/Account/OrderHistory';
 import AdminDashboard from './component/admin';
 import SavedCardsadd from './component/Account/SavedCardsadd';
+import PrivateRoute from "./component/PrivateRoute/PrivateRoute"
 
 class App extends Component {
 
@@ -64,7 +65,7 @@ class App extends Component {
                 <Switch>
                   <Route path="/ComingSoon" component={ComingSoon} />
                   <Route path="/Maintenance" component={Maintenance} />
-                  <Route path="/admin-panel" component={AdminDashboard} />
+                  <PrivateRoute routeRole={"ROLE_ADMIN"} path="/admin-panel" component={AdminDashboard} />
                 </Switch>
               :
               <div>
@@ -86,6 +87,7 @@ class App extends Component {
                     <Route exact path="/CheckOut" component={CheckOut} />
                     <Route exact path="/Address" component={Address} />
                     <Route exact path="/Account/Addressedit" component={Addressedit} />
+                    <PrivateRoute routeRole={"ROLE_CLIENT"} path={`/Account/AccountProfile`} component={AccountProfile} />  {/* a changer */}
                     <Route exact path="/Account/AccountProfile" component={AccountProfile} />
                     <Route exact path="/Account/Address" component={Address} />
                     <Route exact path="/Account/OrderHistory" component={OrderHistory} />
@@ -99,6 +101,7 @@ class App extends Component {
                     <Route exact path="/Invoices" component={Invoices} />
                     <Route path={`/shop/:category/:id`} component={ProductDetail} /> 
                     <Route exact  component={PageNotFound} />
+                    <Route path="/loginerror" render={() => <h1>ERREUR IL FAUT VOUS CONNECTER</h1>}/>
 
                   </Switch>
                 <Footer />
