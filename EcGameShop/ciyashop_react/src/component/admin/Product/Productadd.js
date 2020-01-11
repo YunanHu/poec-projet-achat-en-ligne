@@ -7,21 +7,8 @@ import Slider from "react-slick";
 import { Link } from 'react-router-dom';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
+import Moment from 'react-moment';
 
-const INITIAL_STATE_ARTICLE_FORM = {
-    articleName:"",
-    articleBrand:"",
-    articleDescription:"",
-    articleDateAvailibility:"",
-    articleAddedDate:"",
-    articlePlateforme:"",
-    articleCategory:"",
-    articlePromoPrice:"",
-    articlePrice:"",
-    articleQty:"",
-    articlePromoBegDate:"",
-    articleDatePromoEnd:""
-}
 
 const settings = {
     dots: false,
@@ -99,8 +86,7 @@ class Productadd extends Component{
                 articleQty:"",
                 refArticle:"",
                 categories:[],
-                validationErrorMsg:"",
-                selectedOption: "option1"
+                validationErrorMsg:""
             };
             this.Uploadimage = this.Uploadimage.bind(this);
             this.onClickSaveBtn = this.onClickSaveBtn.bind(this);
@@ -113,8 +99,6 @@ class Productadd extends Component{
             // const value = event.type === 'radio' ? event.checked : event.value;
             const value = event.value;
             const name = event.name;
-            console.log("event name",event.name);
-            console.log("event value", event.value);
             this.setState({
                 ...this.state,
                 [name]:value,
@@ -215,14 +199,18 @@ class Productadd extends Component{
             return errors;
         }
         onClickSaveBtn  = async (event) =>{
+            const date = new Date();
+            const day = ('0'+date.getDate()).slice(-2);
+            const year = date.getFullYear();
+            const month = ('0'+date.getMonth()+1).slice(-2);
+            const actualDate = year+"-"+month+"-"+day;
             event.preventDefault();
-            console.log(this.state);
             const article ={};
             article.articleName = this.state.articleName;
             article.articleBrand = this.state.articleBrand;
             article.articleDescription = this.state.articleDescription;
             article.articleDateAvailibility = this.state.articleDateAvailibility;
-            article.articleAddedDate = Date.now();
+            article.articleAddedDate = actualDate;
             article.articlePlateforme = this.state.articlePlateforme;
             article.articleCategory = this.state.articleCategory;
             article.articleDematerialized = this.state.articleDematerialized;
@@ -231,49 +219,40 @@ class Productadd extends Component{
             article.articleQty = this.state.articleQty;
             article.articlePromoBegDate = this.state.articlePromoBegDate;
             article.articleDatePromoEnd = this.state.articleDatePromoEnd;
+            article.artListImg = this.state.pictures;
+            console.log("article.artListImg",article.artListImg);
+            const articleCategoryArray = this.state.categories.filter(c=>c.categoryLabel===this.state.articleCategory);
+            article.articleCategory = Object.assign({},articleCategoryArray);
             const errors = this.validationArticleForm(article);
-            console.log("errors",errors);
-            console.log("articleCategory",article.articleCategory)
+            
             this.setState({
                 ...this.state,
                 validationErrorMsg:errors
             })
             // if (errors) return;
-            
-            // fetch("http://localhost:8080/addArticle",
-            // {
-            //     method:"post",
-            //     credentials:"include",
-            //     headers: {
-            //         'Accept': 'application/json',
-            //         'Content-Type': 'application/json',
-            //     },
-            //     mode: "no-cors",
-            //     body:JSON.stringify(article)
-            // }).then(data=>console.log("data",data))
-            // .catch(error=>console.log("le message d'erreur est tatata",error))
+            console.log("pictures",this.state.pictures);
             const response = await axios({
                 method: 'post',
-                credentials:'include',
+                withCredentials:'true',
                 url: 'http://localhost:8080/addArticle',
                 data: {
-                    articleName : this.state.articleName,
-                    articleBrand : this.state.articleBrand,
-                    articleDescription : this.state.articleDescription,
-                    articleDateAvailibility : this.state.articleDateAvailibility,
-                    articlePlateforme : this.state.articlePlateforme,
-                    articleCategory : this.state.categories[0],
-                    articleDematerialized : this.state.articleDematerialized,
-                    articlePricePromo : this.state.articlePricePromo,
-                    articlePrice : this.state.articlePrice,
-                    articleQty : this.state.articleQty,
+                     articleName : this.state.articleName,
+                     articleBrand : this.state.articleBrand,
+                     articleDescription : this.state.articleDescription,
+                     articleDateAvailibility : this.state.articleDateAvailibility,
+                     articleAddedDate: actualDate,
+                     articlePlateforme : this.state.articlePlateforme,
+                     articleCategory : article.articleCategory[0],
+                     articleDematerialized : this.state.articleDematerialized,
+                     articlePricePromo : this.state.articlePricePromo,
+                     articlePrice : this.state.articlePrice,
+                     articleQty : this.state.articleQty,
                     articlePromoBegDate : this.state.articlePromoBegDate,
                     articleDatePromoEnd : this.state.articleDatePromoEnd,
-
+                    artListImg:this.state.pictures.name
                 }
             });
-            console.log("response",response);
-
+            console.log(response);
         }
         Uploadimage(picture) {
             if(picture == '')
@@ -285,8 +264,9 @@ class Productadd extends Component{
             }
             else
             {
+                
                 this.setState({
-                    pictures: this.state.pictures.concat(picture),
+                    //pictures: pictures.push(picture),
                     ErrorMsg:''
                 });
             }
@@ -405,7 +385,7 @@ class Productadd extends Component{
                                                         <FormGroup>
                                                             {this.state.categories.map((cat) =>
                                                             <Label>
-                                                            <Input name="categoryLabel" name="articleCategory" value={cat.categoryLabel} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
+                                                            <Input name="articleCategory" value={cat.categoryLabel} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>
                                                             {cat.categoryLabel}
                                                             </Label>
                                                             )}
@@ -413,7 +393,8 @@ class Productadd extends Component{
                                                         {this.state.validationErrorMsg.articleCategory && <p className="error-text">{this.state.validationErrorMsg.articleCategory}</p>}
                                                         <Label className="title mb-2">Availibility Date</Label>
                                                         <FormGroup>
-                                                        <Input type="date" name="articleDateAvailibility" value={this.state.articleDateAvailibility} onChange={e=>this.onChangeHandler(e.target)}></Input>
+                                                            {/* <Moment name="articleDateAvailibility" value={this.state.articleDateAvailibility} onChange={e=>this.onChangeHandler(e.target)}/> */}
+                                                            <Input type="date" name="articleDateAvailibility" value={this.state.articleDateAvailibility} onChange={e=>this.onChangeHandler(e.target)}></Input>
                                                         </FormGroup>
                                                         {this.state.validationErrorMsg.articleDateAvailibility && <p className="error-text">{this.state.validationErrorMsg.articleDateAvailibility}</p>}
                                                         <Label className="title mb-2">Article Promotion Beginning Date</Label>

@@ -17,18 +17,9 @@ export const fetchProducts = (product, times) => (
 
 
 const traitementArticle = (result) =>{ 
-    console.log("result",result);
     const artProductsArray = [];
-    
     for (let article of result) {
-
-        // artProduct.add(objArticles[x].idArticle,objArticles[x].articleName);
         const pictArray = [];
-        // const category = [];
-        // for (let cat in result[x].articleCategory) {
-        //     category.push(result[x].articleCategory.categoryLabel);
-        // }
-        // console.log("category",category);
         for (let pict in article.artListImg) {
             pictArray.push("imagesEcGame/"+article.artListImg[pict].name);
             
