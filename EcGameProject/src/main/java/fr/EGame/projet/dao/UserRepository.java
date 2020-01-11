@@ -13,9 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Modifying
     @Query(value = "insert into users_roles values (:uid,:role)", nativeQuery = true)
 	@Transactional
-	public void setRole(@Param("uid") Long usid, @Param("role") Long role); 
-	
-	
+	public void setRole(@Param("uid") Long usid, @Param("role") Long role); 	
 	
 	@Query("select u from User u where u.email = :email")
     public User findByEmail(@Param("email") String email);

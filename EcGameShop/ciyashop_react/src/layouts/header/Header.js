@@ -181,7 +181,7 @@ class Header extends React.Component {
     /************************************* */
     onSubmitLogin = async (event) => {
 
-        event.preventDefault() //évite le rafraichissement de la page
+        // event.preventDefault() //évite le rafraichissement de la page
 
         console.log(this.state.passwordInput)
         console.log(this.state.email)
@@ -253,7 +253,7 @@ class Header extends React.Component {
 
     onSubmitRegister = async (event) => {
 
-        event.preventDefault() //évite le rafraichissement de la page
+        // event.preventDefault() //évite le rafraichissement de la page
         
         if (this.passwordInputRef.current.value == this.passwordInputRef2.current.value) {
             const response = await axios({
@@ -270,6 +270,70 @@ class Header extends React.Component {
             if (response.data == 202) {
                 // this.props.history.push("/login")
                 console.log("inscrit")
+                
+
+                const data = {
+                    'username': this.state.email,
+                    'password': this.passwordInputRef.current.value
+                }
+        
+        
+                const response = await fetch("http://localhost:8080/login", {
+                    method: "POST",
+                    credentials: "include",
+                    body: new URLSearchParams(data),
+                })
+                console.log(response.status)
+        
+                if (response.status == 200) {
+        
+        
+                    this.setState({
+                        statut: "Connecté !"
+                    })
+        
+                    //try
+                    const response2 = await axios({
+                        method: 'post',
+                        withCredentials: true,
+                        url: 'http://localhost:8080/role/byemail',
+                        data: {
+                            email: this.state.email,
+                        }
+                    })
+                    console.log(response2.data[0].roleName)
+        
+                    this.props.onSetRole(response2.data[0].roleName)
+        
+        
+                    const response3 = await axios({
+                        method: 'post',
+                        withCredentials: true,
+                        url: 'http://localhost:8080/infouser/byemail',
+                        data: {
+                            email: this.state.email,
+                        }
+                    })
+                    
+                    console.log(response3.data)
+                    this.setState({
+                        userData: response3.data,
+                        uid:response3.data[0]
+                    })
+                    console.log("userdata:"+this.state.userData)
+        
+                    this.props.onSetUid(response3.data[0])
+                    this.toggle()
+                } else {
+                    console.log("Email ou mot de passe incorrect")
+        
+                    this.setState({
+                        statut: "Email ou mot de passe incorrect"
+                    })
+                }
+        
+            
+                
             }
         
     } else console.log("pas les memes mot de passe")
