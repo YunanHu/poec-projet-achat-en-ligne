@@ -16,6 +16,41 @@ export const setUid = (uid) => {
     }
  }
 
+ export const setLN = (lastname) => {
+    
+     return{
+          type: "SET_LN", 
+          lastname: lastname
+     }
+  }
+
+  export const setFN = (firstname) => {
+    
+     return{
+          type: "SET_FN", 
+          firstname: firstname
+     }
+  }
+
+  export const setPN = (phoneno) => {
+    
+     return{
+          type: "SET_PN", 
+          phoneno: phoneno
+     }
+  }
+
+  export const setEmail = (email) => {
+    
+     return{
+          type: "SET_EMAIL", 
+          email: email
+     }
+  }
+  
+
+  
+
  export const logout = () => {
     
     return{

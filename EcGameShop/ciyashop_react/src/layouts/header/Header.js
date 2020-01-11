@@ -237,6 +237,13 @@ class Header extends React.Component {
             console.log("userdata:"+this.state.userData)
 
             this.props.onSetUid(response3.data[0])
+            this.props.onSetLastName(response3.data[2])
+            this.props.onSetFirstName(response3.data[3])
+            this.props.onSetPhoneNumber(response3.data[4])
+            this.props.onSetEmail(response3.data[1])
+
+
+            
             this.toggle()
         } else {
             console.log("Email ou mot de passe incorrect")
@@ -731,6 +738,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onSetRole : (role) => dispatch(action.setRole(role)),
         onSetUid: (uid) => dispatch(action.setUid(uid)),
+        onSetLastName: (lastname) => dispatch(action.setLN(lastname)),
+        onSetFirstName: (firstname) => dispatch(action.setFN(firstname)),
+        onSetPhoneNumber: (phoneno) => dispatch(action.setPN(phoneno)),
+        onSetEmail: (email) => dispatch(action.setEmail(email)),
+
         onLogout : () => dispatch(action.logout())
     }
 }

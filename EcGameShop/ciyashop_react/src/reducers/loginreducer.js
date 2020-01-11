@@ -1,7 +1,12 @@
 
 const initialLoginState = {
     role:"Not Connected",
-    uid:0
+    uid:0,
+    lastname:"",
+    firstname:"",
+    phoneno:null,
+    email:"",
+
 }
 
 const loginReducer = (state= initialLoginState, action) => {
@@ -16,6 +21,26 @@ const loginReducer = (state= initialLoginState, action) => {
             return {
                 ...state,
                 uid: action.uid
+            }
+            case "SET_LN":
+            return {
+                ...state,
+                lastname: action.lastname
+            }
+            case "SET_FN":
+            return {
+                ...state,
+                firstname: action.firstname
+            }
+            case "SET_PN":
+            return {
+                ...state,
+                phoneno: action.phoneno
+            }
+            case "SET_EMAIL":
+            return {
+                ...state,
+                email: action.email
             }
             case "LOGOUT":
             return {
