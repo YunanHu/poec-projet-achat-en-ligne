@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.EGame.projet.dao.RoleRepository;
 import fr.EGame.projet.dao.UserRepository;
+import fr.EGame.projet.model.Address;
 import fr.EGame.projet.model.Role;
 import fr.EGame.projet.model.User;
 
@@ -33,70 +34,95 @@ public class UserRestController {
 		return userRepository.findAll();
 	}
 
-	
 	@GetMapping("/user/byemail/{email}")
 	public User getUser(@PathVariable("email") String email) {
 		return userRepository.findByEmail(email);
 	}
-	
+
 	@PostMapping("/role/byemail")
 	public List<Role> getUserRole(@RequestBody User user) {
 		System.out.println(user);
 		User u5 = userRepository.findByEmail(user.getEmail());
 		return u5.getRoles();
 	}
+
+	
+	
+	
+	//ADRESSE 
+	
+	@PostMapping("/addAdresses/byid")
+	public List<Address> addAdress(@RequestBody User user) {
+		User u5 = userRepository.findByUID(user.getUID());
+		u5.setAddresses(user.getAddresses());
+		userRepository.save(u5);
+ 		return u5.getAddresses();
+	}
+
+	@PostMapping("/getadresses/byid")
+	public List<Address> getUserAdresses(@RequestBody User user) {
+		User u5 = userRepository.findByUID(user.getUID());
+		return u5.getAddresses();
+	}
+
+	//
+	
 	
 	@PostMapping("/infouser/byemail")
 	public List<Object> getUserInfo(@RequestBody User user) {
 		System.out.println(user);
 		User u5 = userRepository.findByEmail(user.getEmail());
-		List<Object> info = new ArrayList<Object>();;
-		info.add(u5.getUID()); info.add(u5.getEmail()); info.add(u5.getLastname()); info.add(u5.getFirstname()); info.add(u5.getPhoneno());
-		
-		return info; 
+		List<Object> info = new ArrayList<Object>();
+		;
+		info.add(u5.getUID());
+		info.add(u5.getEmail());
+		info.add(u5.getLastname());
+		info.add(u5.getFirstname());
+		info.add(u5.getPhoneno());
+
+		return info;
 	}
-	//id email firstname lastname phonenum
 	
-	
-	@PostMapping(value = "/user/register" , consumes = "application/json", produces = "application/json")
+
+	@PostMapping(value = "/user/register", consumes = "application/json", produces = "application/json")
 	public int addUser(@RequestBody User user) {
 		System.out.println(user);
 		userRepository.save(user);
 		User u5 = userRepository.findByEmail(user.getEmail());
 		userRepository.setRole(u5.getUID(), (long) 2);
+		UserRepository.sendEmail(u5.getEmail());
 		return 202;
 	}
 
-	
 	@GetMapping("/user/byid/{uid}")
 	public User getUser(@PathVariable("uid") Long uid) {
 		return userRepository.findByUID(uid);
 	}
 
-			@GetMapping("/initusers")
-			public String initUsers() {
-				/*
-				 * User u1 = new User("test@gmail.com", "pass" ); System.out.println(u1);
-				 * userRepository.save(u1);
-				 */
-		
-				Role admin = new Role((long) 1, "ROLE_ADMIN");
-				Role client = new Role((long) 2, "ROLE_CLIENT");
-				Role vendeur = new Role((long) 3, "ROLE_SELLER");
-		
-				roleRepository.save(admin);
-				roleRepository.save(client);
-				roleRepository.save(vendeur);
-		
-				User u2 = new User("admin@gmail.com", "admin");
-				u2.setFirstname("Jules");
-				u2.setLastname("DupontAdmin");
-				u2.setPhoneno("0123456789");
-				userRepository.save(u2);
-				System.out.println(u2);
-		
-				User u3 = userRepository.findByEmail(u2.getEmail());
-				userRepository.setRole(u3.getUID(), (long) 1);
+	@GetMapping("/initusers")
+	public String initUsers() {
+		/*
+		 * User u1 = new User("test@gmail.com", "pass" ); System.out.println(u1);
+		 * userRepository.save(u1);
+		 */
+
+		Role admin = new Role((long) 1, "ROLE_ADMIN");
+		Role client = new Role((long) 2, "ROLE_CLIENT");
+		Role vendeur = new Role((long) 3, "ROLE_SELLER");
+
+		roleRepository.save(admin);
+		roleRepository.save(client);
+		roleRepository.save(vendeur);
+
+		User u2 = new User("admin@gmail.com", "admin");
+		u2.setFirstname("Jules");
+		u2.setLastname("DupontAdmin");
+		u2.setPhoneno("0123456789");
+		userRepository.save(u2);
+		System.out.println(u2);
+
+		User u3 = userRepository.findByEmail(u2.getEmail());
+		userRepository.setRole(u3.getUID(), (long) 1);
 
 		User u4 = new User("client@gmail.com", "client");
 		u4.setFirstname("Mathieu");
@@ -107,7 +133,7 @@ public class UserRestController {
 
 		User u5 = userRepository.findByEmail(u4.getEmail());
 		userRepository.setRole(u5.getUID(), (long) 2);
-		
+
 		User u6 = new User("vendeur@gmail.com", "vendeur");
 		u6.setFirstname("Anna");
 		u6.setLastname("HenriVendeur");

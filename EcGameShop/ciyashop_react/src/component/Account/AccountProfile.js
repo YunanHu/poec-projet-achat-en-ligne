@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Row, Col,Container,FormGroup,Form,Input,Button } from 'reactstrap';
 import Sitebar from './Sitebar';
 import Common from '../../api/common';
+import {connect } from "react-redux"
 
 
 class AccountProfile extends Component {
@@ -52,10 +53,10 @@ class AccountProfile extends Component {
                         </div>
                         <div className="woocommerce-Address-info mt-4">
                           <ul class="list-unstyled mb-0">
-                            <li><span>First name:</span><strong>{Profile.firstname}</strong></li>
-                            <li><span>Last name:</span><strong>{Profile.lastname}</strong></li>
-                            <li><span>Email:</span><strong>{Profile.email}</strong></li>
-                            <li><span>Phone no:</span><strong>{Profile.phoneno}</strong></li>
+                            <li><span>First name:</span><strong>{this.props.firstname}</strong></li>
+                            <li><span>Last name:</span><strong>{this.props.lastname}</strong></li>
+                            <li><span>Email:</span><strong>{this.props.email}</strong></li>
+                            <li><span>Phone no:</span><strong>{this.props.phoneno}</strong></li>
                             {/* <li><span>Gender:</span><strong>{Profile.gender}</strong></li>
                             <li><span>DOB:</span><strong>{Profile.dob}</strong></li>
                             <li><span>Address:</span><strong>{Profile.address}</strong></li> */}
@@ -72,4 +73,15 @@ class AccountProfile extends Component {
         )
     }
 }
-export default AccountProfile;
+
+const mapStateToProps = (state) => {
+  return {
+      lastname: state.login.lastname,
+      firstname: state.login.firstname,
+      phoneno: state.login.phoneno,
+      email: state.login.email
+  }
+}
+
+export default connect(mapStateToProps)(AccountProfile) 
+
