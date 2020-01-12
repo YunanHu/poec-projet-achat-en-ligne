@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Row, Col,Container,Dropdown, DropdownToggle, DropdownMenu, DropdownItem,Navbar,NavbarToggler, Nav, NavItem, NavLink, UncontrolledDropdown, Collapse } from 'reactstrap';
 import profile from '../../assets/images/testimonials/img-02.jpg';
-import logo from '../../assets/images/logo.svg';
+import logo from '../../assets/images/logoEgame.png';
 import { Link } from 'react-router-dom';
 import Common from '../../api/common';
 

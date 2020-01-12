@@ -222,6 +222,10 @@ class Productadd extends Component{
             article.articleQty = this.state.articleQty;
             article.articlePromoBegDate = this.state.articlePromoBegDate;
             article.articleDatePromoEnd = this.state.articleDatePromoEnd;
+
+            for(let pict in this.state.pictures){
+                console.log("pict type",typeof pict);
+            }
             article.artListImg = this.state.pictures;
             console.log("article.artListImg",article.artListImg);
             const articleCategoryArray = this.state.categories.filter(c=>c.categoryLabel===this.state.articleCategory);
@@ -234,28 +238,28 @@ class Productadd extends Component{
             })
             // if (errors) return;
             console.log("pictures",this.state.pictures);
-            const response = await axios({
-                method: 'post',
-                withCredentials:'true',
-                url: 'http://localhost:8080/addArticle',
-                data: {
-                     articleName : this.state.articleName,
-                     articleBrand : this.state.articleBrand,
-                     articleDescription : this.state.articleDescription,
-                     articleDateAvailibility : this.state.articleDateAvailibility,
-                     articleAddedDate: actualDate,
-                     articlePlateforme : this.state.articlePlateforme,
-                     articleCategory : article.articleCategory[0],
-                     articleDematerialized : this.state.articleDematerialized,
-                     articlePricePromo : this.state.articlePricePromo,
-                     articlePrice : this.state.articlePrice,
-                     articleQty : this.state.articleQty,
-                    articlePromoBegDate : this.state.articlePromoBegDate,
-                    articleDatePromoEnd : this.state.articleDatePromoEnd,
-                    artListImg:this.state.pictures.name
-                }
-            });
-            console.log(response);
+            // const response = await axios({
+            //     method: 'post',
+            //     withCredentials:'true',
+            //     url: 'http://localhost:8080/addArticle',
+            //     data: {
+            //          articleName : this.state.articleName,
+            //          articleBrand : this.state.articleBrand,
+            //          articleDescription : this.state.articleDescription,
+            //          articleDateAvailibility : this.state.articleDateAvailibility,
+            //          articleAddedDate: actualDate,
+            //          articlePlateforme : this.state.articlePlateforme,
+            //          articleCategory : article.articleCategory[0],
+            //          articleDematerialized : this.state.articleDematerialized,
+            //          articlePricePromo : this.state.articlePricePromo,
+            //          articlePrice : this.state.articlePrice,
+            //          articleQty : this.state.articleQty,
+            //         articlePromoBegDate : this.state.articlePromoBegDate,
+            //         articleDatePromoEnd : this.state.articleDatePromoEnd,
+            //         artListImg:this.state.pictures.name
+            //     }
+            // });
+            //console.log(response);
         }
         Uploadimage(picture) {
             if(picture == '')
@@ -267,9 +271,9 @@ class Productadd extends Component{
             }
             else
             {
-                
+                console.log("picture",this.state.pictures);
                 this.setState({
-                    //pictures: pictures.push(picture),
+                    pictures: [...this.state.pictures,picture],
                     ErrorMsg:''
                 });
             }

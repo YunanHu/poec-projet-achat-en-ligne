@@ -60,7 +60,7 @@ class Footer extends React.Component {
                             <div className="col-lg-3 col-md-6 footer-align-left">
                             <div className="logo-wrapper widget">
                                 <p><Link to="#">
-                                    <img className="img-fluid"  src={require(`../../assets/images/logo.svg`)}   alt="logo" />
+                                    <img className="img-fluid"  src={require(`../../assets/images/logoEgame.png`)}   alt="logo" />
                                 </Link></p>
                             </div>
                             <div className="text-content">

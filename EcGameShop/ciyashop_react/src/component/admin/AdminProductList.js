@@ -6,6 +6,8 @@ import { Row, Col,Container } from 'reactstrap';
 import AdminproductList from '../../widgets/AdminProduct';
 import productdata from '../../api/product';
 import Pagination from '../../services/Pagination';
+import {getFilterProductsdata} from '../../services';
+import { connect } from 'react-redux';
 
 class AdminProduct extends Component {
 
@@ -13,7 +15,7 @@ class AdminProduct extends Component {
         super(props);
         this.state={
             productsearch:'',
-            productList:productdata,
+            productList:this.props.products,
             currentProduct: [],
             currentPage: null,
             totalPages: null,
@@ -186,4 +188,9 @@ class AdminProduct extends Component {
         )
     }
 }
-export default AdminProduct;
+
+const mapDispatchToProps = state => ({
+    products: getFilterProductsdata(state.data, state.filters)
+  });
+export default connect(mapDispatchToProps, {})(AdminProduct);
+// export default connect(mapDispatchToProps, {})(ShopPage);
