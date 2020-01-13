@@ -6,10 +6,10 @@ import { Row, Col, Container, Button } from 'reactstrap';
 import Sitebar from './Sitebar';
 import Common from '../../api/common';
 import { Link } from 'react-router-dom';
-import axios from "axios"
-import { connect } from "react-redux"
-import { withRouter } from "react-router-dom"
-import * as action from "../../actions/loginInfo"
+import axios from "axios";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import * as action from "../../actions/loginInfo";
 
 
 class AccountProfileedit extends Component {
@@ -263,8 +263,6 @@ class AccountProfileedit extends Component {
 const mapStateToProps = (state) => {
   return {
     uid: state.login.uid,
-
-
   }
 }
 

@@ -8,6 +8,7 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import { Row, FormGroup, Label, Input } from 'reactstrap';
 import ImageUploader from 'react-images-upload';
+import axios from 'axios';
 
 const settings = {
     dots: false,
@@ -97,7 +98,8 @@ class ProductEditDetail extends Component {
      componentDidMount() {
         this.setState({
            newImage: 'product-01.jpg'
-        })
+        });
+        console.log("id", this.props.product.id);
      }
 
     //function for preview images
@@ -106,7 +108,22 @@ class ProductEditDetail extends Component {
            newImage: image
         });
     }
+    fetchCategories(){
+        fetch("http://localhost:8080/categories",
+        {
+            method:"get",
+            credentials:"include"
+        }).then(response=>response.json())
+        .then(result=>
+            this.setState({
+                ...this.state,
+                categories:result
+            }))
+            .catch(function(error){
+                console.log(error.message);
+            })
 
+    }
 
     ImageChange(picture) {
         this.setState({
@@ -114,19 +131,31 @@ class ProductEditDetail extends Component {
         });
     }
 
+    onChangeHandler(event){
+            
+        // const value = event.type === 'radio' ? event.checked : event.value;
+        const value = event.value;
+        const name = event.name;
+        this.setState({
+            ...this.state,
+            [name]:value,
+            validationErrorMsg:""               
+        })            
+    }
+
     onClickSaveBtn  = async (event) =>{
-        const date = new Date();
-        const day = ('0'+date.getDate()).slice(-2);
-        const year = date.getFullYear();
-        const month = ('0'+date.getMonth()+1).slice(-2);
-        const actualDate = year+"-"+month+"-"+day;
+        // const date = new Date();
+        // const day = ('0'+date.getDate()).slice(-2);
+        // const year = date.getFullYear();
+        // const month = ('0'+date.getMonth()+1).slice(-2);
+        // const actualDate = year+"-"+month+"-"+day;
         event.preventDefault();
         const article ={};
         article.articleName = this.state.articleName;
         article.articleBrand = this.state.articleBrand;
         article.articleDescription = this.state.articleDescription;
         article.articleDateAvailibility = this.state.articleDateAvailibility;
-        article.articleAddedDate = actualDate;
+        // article.articleAddedDate = actualDate;
         article.articlePlateforme = this.state.articlePlateforme;
         article.articleCategory = this.state.articleCategory;
         article.articleDematerialized = this.state.articleDematerialized;
@@ -151,27 +180,26 @@ class ProductEditDetail extends Component {
         })
         // if (errors) return;
         console.log("pictures",this.state.pictures);
-        // const response = await axios({
-        //     method: 'post',
-        //     withCredentials:'true',
-        //     url: 'http://localhost:8080/addArticle',
-        //     data: {
-        //          articleName : this.state.articleName,
-        //          articleBrand : this.state.articleBrand,
-        //          articleDescription : this.state.articleDescription,
-        //          articleDateAvailibility : this.state.articleDateAvailibility,
-        //          articleAddedDate: actualDate,
-        //          articlePlateforme : this.state.articlePlateforme,
-        //          articleCategory : article.articleCategory[0],
-        //          articleDematerialized : this.state.articleDematerialized,
-        //          articlePricePromo : this.state.articlePricePromo,
-        //          articlePrice : this.state.articlePrice,
-        //          articleQty : this.state.articleQty,
-        //         articlePromoBegDate : this.state.articlePromoBegDate,
-        //         articleDatePromoEnd : this.state.articleDatePromoEnd,
-        //         artListImg:this.state.pictures.name
-        //     }
-        // });
+        const response = await axios({
+            method: 'post',
+            withCredentials:'true',
+            url: 'http://localhost:8080//updateArticle/'+this.props.product.id,
+            data: {
+                 articleName : this.state.articleName,
+                 articleBrand : this.state.articleBrand,
+                 articleDescription : this.state.articleDescription,
+                 articleDateAvailibility : this.state.articleDateAvailibility,
+                 articlePlateforme : this.state.articlePlateforme,
+                 articleCategory : article.articleCategory[0],
+                 articleDematerialized : this.state.articleDematerialized,
+                 articlePricePromo : this.state.articlePricePromo,
+                 articlePrice : this.state.articlePrice,
+                 articleQty : this.state.articleQty,
+                articlePromoBegDate : this.state.articlePromoBegDate,
+                articleDatePromoEnd : this.state.articleDatePromoEnd,
+                artListImg:this.state.pictures.name
+            }
+        });
         //console.log(response);
     }
     render() {
@@ -237,20 +265,20 @@ class ProductEditDetail extends Component {
                         <div className="product-top-right-inner">
                                 <div className="summary entry-summary">
                                         <FormGroup className="edit-icon">
-                                            <Input type="text" name="articleName" onFocus={this.onFocus} onBlur={e=>this.onBlurHandler(e.target)}  onChange={e=>this.onChangeHandler(e.target)} className="form-control product_title" placeholder="Product Name" defaultValue={product.name} />
+                                            <Input type="text" name="articleName" onFocus={this.onFocus}  onChange={e=>this.onChangeHandler(e.target)} className="form-control product_title" placeholder={product.name}  />
                                         </FormGroup>
                                         <FormGroup className="edit-icon">
-                                            <Input type="text" className="form-control price" name="articlePrice" onChange={e=>this.onChangeHandler(e.target)} placeholder="Product Price" defaultValue={`${product.salePrice}`} />
+                                            <Input type="text" className="form-control price" name="articlePrice" onChange={e=>this.onChangeHandler(e.target)} placeholder={product.salePrice} />
                                         </FormGroup>
                                         <Label className="title">Description</Label>
                                         <FormGroup className="edit-icon">
-                                            <Input  type="textarea" className="form-control" name="articleDescription" onChange={e=>this.onChangeHandler(e.target)} rows="3" placeholder="Product Description" defaultValue={product.description} />
+                                            <Input  type="textarea" className="form-control" name="articleDescription"  onChange={e=>this.onChangeHandler(e.target)} rows="3" placeholder={product.description}  />
                                         </FormGroup>
                                         <Label className="title">Plateforme</Label>
                                         <FormGroup>
                                         {productdata.plateform.map((p) =>
                                             <Label>
-                                                <Input  name="articlePlateforme" defaultValue={ product.plateforme} value={p} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
+                                                <Input  name="articlePlateforme" defaultValue={ product.plateforme}  value={p} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
                                                 {p}
                                             </Label>
                                         )}
@@ -259,7 +287,7 @@ class ProductEditDetail extends Component {
                                         <FormGroup>
                                         {productdata.dematerialized.map((d) =>
                                                 <Label>
-                                                <Input name="articleDematerialized"  value={d} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
+                                                <Input name="articleDematerialized" onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
                                                 {d}
                                                 </Label>
                                             )}                                                        
@@ -286,14 +314,14 @@ class ProductEditDetail extends Component {
                                         <FormGroup>
                                             {this.state.categories.map((cat) =>
                                             <Label>
-                                            <Input name="articleCategory" onChange={e=>this.onChangeHandler(e.target)} type="radio"/>
+                                            <Input name="articleCategory"  onChange={e=>this.onChangeHandler(e.target)} type="radio"/>
                                             {cat.categoryLabel}
                                             </Label>
                                             )}
                                         </FormGroup>
                                         <Label className="title">Brand</Label>
                                         <FormGroup>
-                                            <Input type="text" name="articleBrand" onChange={e=>this.onChangeHandler(e.target)} class="form-control" placeholder="Article Brand" />
+                                            <Input type="text" name="articleBrand"  onChange={e=>this.onChangeHandler(e.target)} class="form-control" placeholder="Article Brand" />
                                         </FormGroup>
                                         <Label className="title mb-2">Availibility Date</Label>
                                                         <FormGroup>
@@ -303,7 +331,7 @@ class ProductEditDetail extends Component {
                                                         
                                                         <Label className="title mb-2">Article Promotion Beginning Date</Label>
                                                         <FormGroup>
-                                                            <Input type="date" name="articlePromoBegDate" onChange={e=>this.onChangeHandler(e.target)}></Input>
+                                                            <Input type="date" name="articlePromoBegDate" onBlur={e=>this.onBlurHandler(e.target)} onChange={e=>this.onChangeHandler(e.target)}></Input>
                                                         </FormGroup>
                                                        
                                                         <Label className="title mb-2">Article Promotion Ending Date</Label>
@@ -319,7 +347,7 @@ class ProductEditDetail extends Component {
                                         <input type="text" className="form-control" placeholder="Total Product" defaultValue={product.stock}></input> */}
 
                                         <Label className="title">Product Stock</Label>
-                                        <input type="text" class="form-control" placeholder="Product Stock" defaultValue={product.stock}></input>
+                                        <input type="text" class="form-control" placeholder="Product Stock" onBlur={e=>this.onBlurHandler(e.target)} defaultValue={product.stock}></input>
 
                                         <a href="#" class="btn btn-primary mb-2 mr-2"  onClick={this.onClickSaveBtn}> Update </a>
                                         <Link to="/admin-panel/Product" class="btn btn-danger mb-2"> Cancel </Link>

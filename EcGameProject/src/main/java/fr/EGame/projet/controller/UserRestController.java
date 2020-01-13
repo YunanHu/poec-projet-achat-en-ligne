@@ -121,6 +121,7 @@ public class UserRestController {
 		Role admin = new Role((long) 1, "ROLE_ADMIN");
 		Role client = new Role((long) 2, "ROLE_CLIENT");
 		Role vendeur = new Role((long) 3, "ROLE_SELLER");
+		
 
 		roleRepository.save(admin);
 		roleRepository.save(client);
@@ -152,6 +153,13 @@ public class UserRestController {
 		u6.setPhoneno("0776655443");
 		userRepository.save(u6);
 		System.out.println(u6);
+		
+		
+		User testVendeur = new User("testvendeur@gmail.com","testvendeur");
+		userRepository.save(testVendeur);
+		
+		User u8 = userRepository.findByEmail(testVendeur.getEmail());
+		userRepository.setRole(u8.getUID(), (long) 3);
 
 		User u7 = userRepository.findByEmail(u6.getEmail());
 		userRepository.setRole(u7.getUID(), (long) 3);
