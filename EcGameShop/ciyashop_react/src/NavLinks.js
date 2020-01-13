@@ -35,7 +35,7 @@ export default [
       // ]
    },
    {
-      "menu_title": "Products",
+      "menu_title": "e-Shop",
       "path": "/shop",
       // "mega": true,
       "icon": "party_mode",
