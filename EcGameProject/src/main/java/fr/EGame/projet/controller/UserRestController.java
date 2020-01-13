@@ -58,6 +58,8 @@ public class UserRestController {
 		userRepository.save(u5);
  		return u5.getAddresses();
 	}
+	
+	
 
 	@PostMapping("/getadresses/byid")
 	public List<Address> getUserAdresses(@RequestBody User user) {
@@ -67,6 +69,16 @@ public class UserRestController {
 
 	//
 	
+	@PostMapping("/editProfile/byid")
+	public User editProfile(@RequestBody User user) {
+		User u5 = userRepository.findByUID(user.getUID());
+		u5.setFirstname(user.getFirstname());
+		u5.setLastname(user.getLastname());
+		u5.setEmail(user.getEmail());
+		u5.setPhoneno(user.getPhoneno());
+		userRepository.save(u5);
+ 		return u5;
+	} 
 	
 	@PostMapping("/infouser/byemail")
 	public List<Object> getUserInfo(@RequestBody User user) {
