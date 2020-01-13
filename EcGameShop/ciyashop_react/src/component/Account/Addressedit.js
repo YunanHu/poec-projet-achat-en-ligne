@@ -240,14 +240,29 @@ class Addressedit extends Component {
     const response2 = await axios({
       method: 'post',
       withCredentials: true,
-      url: 'http://localhost:8080/addAdresses/byid',
+      url: 'http://localhost:8080/addAddresses/byid',
       data: {
         uid: this.props.uid,
-        address: [this.props.address],
-        idAddress: this.props.address.idAddress
-      }
+        addresses: [
+          {
+              "idAddress": 1,
+              "billing_name": "aaa?",
+              "billing_address": "aaaallée delib",
+              "billing_streetno": "12",
+              "billing_state": "",
+              "billing_zipcode": "75000",
+              "billing_country": "aFRANCE",
+              "shipping_name": null,
+              "shipping_address": "rue delibes",
+              "shipping_streetno": "8",
+              "shipping_state": null,
+              "shipping_zipcode": "75016",
+              "shipping_country": "france"
+          }
+      ],
+        }
     })
-
+    console.log(response2)
     if (response2.status == 200) {
       console.log("changed")
 
