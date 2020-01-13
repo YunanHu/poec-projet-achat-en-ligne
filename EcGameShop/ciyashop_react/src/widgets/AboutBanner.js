@@ -15,7 +15,7 @@ class AboutBanner extends Component {
       }
       getMoreTextDiv(){
         if (this.state.showText) {
-            return  <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</p>;
+            return  <p>Nous sommes des professionnels du jeu passionnés et souhaitons diffuser notre enthousiasme pour le jeu à travers cette plateforme.</p>;
           } else {
             return null;
           }
@@ -31,18 +31,18 @@ class AboutBanner extends Component {
             </Col>
             <Col md={6}>
                 <div className="text-wrapper">
-                   <span>Know more</span>
+                   <span>En savoir plus</span>
                 </div>
                 <div className="section-title mb-4">
-                  <h2 className="title text-left"> About CiyaShop</h2>
+                  <h2 className="title text-left"> A propos de eGame</h2>
                 <div className="text-wrapper">
-                    <p>We are CiyaShop ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veni quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    <p>eGame est une boutique en ligne de jeux vidéo multiplateforme et toutes catégories de jeux. Nous offrons une large sélection de produits, en prévente et également dématérialisés.</p>
                     { expandedDiv }
                  </div>
                  </div>
                 <div className="ciyashop_button_wrapper ciyashop_button_width_default">
                     <div className="inline_hover ciyashop_button_link ciyashop_button_size_medium button-underline">
-                        <Link Style="cursor:pointer;" className="inline_hover"  onClick={() => this.setState({ showText: !this.state.showText }) }> {(this.state.showText) ? "Read Less.." : "Read More.."} </Link>
+                        <Link Style="cursor:pointer;" className="inline_hover"  onClick={() => this.setState({ showText: !this.state.showText }) }> {(this.state.showText) ? "Masquer.." : "Afficher.."} </Link>
 
                     </div>
                 </div>
