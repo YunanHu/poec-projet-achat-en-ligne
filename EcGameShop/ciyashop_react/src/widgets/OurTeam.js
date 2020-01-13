@@ -19,8 +19,8 @@ function OurTeam(props) {
                             </div>
                             <div className="team-info">
                                 <div className="team-description">
-                                <h4>Joana Williams</h4>
-                                <span>CTO</span>
+                                <h4>Yunan Gac</h4>
+                                <span>Product owner</span>
                                 </div>
                                 <div className="team-social-icon ciyashop-social-icons ciyashop-social-shape-round ciyashop-social-effect-color-hover ciyashop-social-size-small">
                                 <ul>
@@ -56,7 +56,7 @@ function OurTeam(props) {
                             </div>
                             <div className="team-info">
                                 <div className="team-description">
-                                <h4>Frank Smith</h4>
+                                <h4>Ismail Sahraoui</h4>
                                 <span>Community</span>
                                 </div>
                                 <div className="team-social-icon ciyashop-social-icons ciyashop-social-shape-round ciyashop-social-effect-color-hover ciyashop-social-size-small">
@@ -93,7 +93,7 @@ function OurTeam(props) {
                             </div>
                             <div className="team-info">
                                 <div className="team-description">
-                                <h4>John Doe</h4>
+                                <h4>Yoann Biheux</h4>
                                 <span>Support</span>
                                 </div>
                                 <div className="team-social-icon ciyashop-social-icons ciyashop-social-shape-round ciyashop-social-effect-color-hover ciyashop-social-size-small">
@@ -167,8 +167,8 @@ function OurTeam(props) {
                             </div>
                             <div className="team-info">
                                 <div className="team-description">
-                                <h4>Joana Williams</h4>
-                                <span>CTO</span>
+                                <h4>Yunan Gac</h4>
+                                <span>Product owner</span>
                                 </div>
                                 <div className="team-social-icon ciyashop-social-icons ciyashop-social-shape-round ciyashop-social-effect-color-hover ciyashop-social-size-small">
                                 <ul>
@@ -204,8 +204,8 @@ function OurTeam(props) {
                             </div>
                             <div className="team-info">
                                 <div className="team-description">
-                                <h4>Joana Williams</h4>
-                                <span>CTO</span>
+                                <h4>Yunan Gac</h4>
+                                <span>Product owner</span>
                                 </div>
                                 <div className="team-social-icon ciyashop-social-icons ciyashop-social-shape-round ciyashop-social-effect-color-hover ciyashop-social-size-small">
                                 <ul>
@@ -241,8 +241,8 @@ function OurTeam(props) {
                             </div>
                             <div className="team-info">
                                 <div className="team-description">
-                                <h4>Joana Williams</h4>
-                                <span>CTO</span>
+                                <h4>Yunan Gac</h4>
+                                <span>Product owner</span>
                                 </div>
                                 <div className="team-social-icon ciyashop-social-icons ciyashop-social-shape-round ciyashop-social-effect-color-hover ciyashop-social-size-small">
                                 <ul>
@@ -278,8 +278,8 @@ function OurTeam(props) {
                         </div>
                         <div className="team-info">
                             <div className="team-description">
-                            <h4>Joana Williams</h4>
-                            <span>CTO</span>
+                            <h4>Yunan Gac</h4>
+                            <span>Product owner</span>
                             </div>
                             <div className="team-social-icon ciyashop-social-icons ciyashop-social-shape-round ciyashop-social-effect-color-hover ciyashop-social-size-small">
                             <ul>

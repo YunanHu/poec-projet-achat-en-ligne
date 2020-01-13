@@ -115,7 +115,7 @@ class ProductDetail extends Component {
 
                             <Nav tabs >
                                 <NavItem>
-                                    <NavLink  className={classnames({ active: this.state.activeTab === '1' })} >Reviews</NavLink>
+                                    <NavLink  className={classnames({ active: this.state.activeTab === '1' })} >Commentaires</NavLink>
                                 </NavItem>
                                 {/* <NavItem active>
                                     <NavLink   className={classnames({ active: this.state.activeTab === '1' })}  onClick={() => { this.toggle('1'); }}>Description</NavLink>
@@ -131,18 +131,18 @@ class ProductDetail extends Component {
 
                                 <TabPane tabId="1">
                                     <div className="product-reviews">
-                                    <h6>Add a Review</h6>
-                                    <p>Your email address will not be published. Required fields are marked *</p>
+                                    <h6>Ajouter un commentaire</h6>
+                                    <p>Votre email ne sera pas publié. (*) Champs requis</p>
                                     <form>
                                        <div class="form-group">
-                                        <label>Name</label>
+                                        <label>Nom</label>
                                         <input type="Text" class="form-control"></input>
                                       </div>
                                       <div class="form-group">
                                         <label>Email</label>
                                         <input type="Text" class="form-control"></input>
                                       </div>
-                                      <div class="form-group">
+                                      {/* <div class="form-group">
                                         <label className="mb-0">Your rating *</label>
                                         <ul class="rating list-unstyled">
                                             <li><i class="fa fa-star"></i></li>
@@ -151,17 +151,17 @@ class ProductDetail extends Component {
                                             <li><i class="fa fa-star-half-o"></i></li>
                                             <li><i class="fa fa-star-o"></i></li>
                                         </ul>
-                                      </div>
+                                      </div> */}
                                       <div class="form-group">
-                                        <label>Your review *</label>
+                                        <label>Votre commentaire *</label>
                                         <textarea class="form-control" rows="3"></textarea>
                                       </div>
                                       <div class="form-group form-check">
                                         <input type="checkbox" class="form-check-input" id="exampleCheck1"></input>
-                                        <label class="form-check-label" for="exampleCheck1">Save my name, email, and website in this browser for the next time I comment.</label>
+                                        <label class="form-check-label" for="exampleCheck1">Sauvegarder mes donnees pour la prochaine connexion.</label>
                                       </div>
                                        <div class="form-group">
-                                        <Link class="btn btn-primary">Submit</Link>
+                                        <Link class="btn btn-primary">Envoyer</Link>
                                       </div>
 
 
@@ -171,7 +171,7 @@ class ProductDetail extends Component {
                                  <TabPane tabId="1">
                                         <div className="tab-content" id="myTabContent">
                                                 <div className="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="home-tab">
-                                                <h2>What is Lorem Ipsum?</h2>
+                                                {/* <h2>What is Lorem Ipsum?</h2>
                                                 <p><strong>Lorem Ipsum</strong> is simply dummy text of the printing and typesetting
                                                     industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s,
                                                     when an unknown printer took a galley of type and scrambled it to make a type specimen
@@ -211,7 +211,7 @@ class ProductDetail extends Component {
                                                     making this the first true generator on the Internet. It uses a dictionary of over 200
                                                     Latin words, combined with a handful of model sentence structures, to generate Lorem
                                                     Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from
-                                                    repetition, injected humour, or non-characteristic words etc.</p>
+                                                    repetition, injected humour, or non-characteristic words etc.</p> */}
                                                 <div className="product-info-box border-top border-bottom mt-5  pt-4 pt-lg-0 pb-2 pb-sm-0">
                                                     <Row>
                                                     <Col sm={6} md={4}>

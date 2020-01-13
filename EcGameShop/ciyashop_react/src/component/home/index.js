@@ -125,10 +125,8 @@ class HomePage extends Component {
                                     <Row className="justify-content-center">
                                        <Col sm={12} lg={7}>
                                        <div className="section-title text-center">
-                                          <h2 className="title">Our Team</h2>
-                                          <p className="text-center">Discover the best collection for autumn of Stylist Art. With so
-                                          charming, modern and
-                                          passionate, you certainly love this collection.</p>
+                                          <h2 className="title">Notre équipe</h2>
+                                          <p className="text-center">Découvrez l'équipe d'eGame. Des professionnels toujours prêts à dénicher THE bests games, en ligne, pour vous.</p>
                                        </div>
 
                                        </Col>
