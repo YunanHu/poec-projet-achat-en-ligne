@@ -8,12 +8,12 @@ import productdata from '../../api/product';
 import Pagination from '../../services/Pagination';
 import {getFilterProductsdata} from '../../services';
 import { connect } from 'react-redux';
-import axios from "axios";
+
 
 
 const traitementArticle = (result) =>{ 
     const artProductsArray = [];
-    console.log("result",result);
+    console.log("result22",result);
     for (let article of result) {
         const pictArray = [];
         for (let pict in article.artListImg) {

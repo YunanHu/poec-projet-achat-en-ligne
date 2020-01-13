@@ -233,8 +233,10 @@ public class Article
 		this.artListImg = artListImg;
 	}
 
-
-	public void setarticleQty(int articleQty) {
+	public float getArticleQty() {
+		return articleQty;
+	}
+	public void setArticleQty(int articleQty) {
 		this.articleQty = articleQty;
 	}
 	

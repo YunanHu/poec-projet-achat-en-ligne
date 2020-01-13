@@ -8,9 +8,8 @@ import { Link } from 'react-router-dom';
 import ImageUploader from 'react-images-upload';
 
 // import UseFormArticleValidation from '../../../hook/useFormArticleValidation';
-
+import { connect } from 'react-redux';
 import axios from 'axios';
-import Moment from 'react-moment';
 
 
 
@@ -89,6 +88,8 @@ class Productadd extends Component{
                 articleQty:"",
                 refArticle:"",
                 categories:[],
+                user:[],
+                uid:this.props.uid,
                 validationErrorMsg:""
             };
             this.Uploadimage = this.Uploadimage.bind(this);
@@ -96,6 +97,8 @@ class Productadd extends Component{
             this.onChangeHandler=this.onChangeHandler.bind(this);
             this.onBlurHandler = this.onBlurHandler.bind(this);
             this.onFocus = this.onFocus.bind(this);
+            this.fetchCategories = this.fetchCategories.bind(this);
+            this.fetchUser = this.fetchUser.bind(this);
         }
         onChangeHandler(event){
             
@@ -121,6 +124,21 @@ class Productadd extends Component{
                 ...this.state,
                 validationErrorMsg:this.validationOnBlurArticleForm(event)
             })
+        }
+        fetchUser(uid){
+            fetch("http://localhost:8080/user/byid/"+uid,
+            {
+                method:"get",
+                credentials:"include"
+            }).then(response=>response.json())
+            .then(result=>
+                this.setState({
+                    ...this.state,
+                    user:result
+                }))
+                .catch(function(error){
+                    console.log(error.message);
+                })
         }
 
         validationOnBlurArticleForm(event){
@@ -223,9 +241,7 @@ class Productadd extends Component{
             article.articlePromoBegDate = this.state.articlePromoBegDate;
             article.articleDatePromoEnd = this.state.articleDatePromoEnd;
 
-            for(let pict in this.state.pictures){
-                console.log("pict type",typeof pict);
-            }
+            
             article.artListImg = this.state.pictures;
             console.log("article.artListImg",article.artListImg);
             const articleCategoryArray = this.state.categories.filter(c=>c.categoryLabel===this.state.articleCategory);
@@ -236,7 +252,7 @@ class Productadd extends Component{
                 ...this.state,
                 validationErrorMsg:errors
             })
-             if (errors) return;
+             //if (errors) return;
            
             const response = await axios({
                 method: 'post',
@@ -254,9 +270,10 @@ class Productadd extends Component{
                      articlePricePromo : this.state.articlePricePromo,
                      articlePrice : this.state.articlePrice,
                      articleQty : this.state.articleQty,
-                    articlePromoBegDate : this.state.articlePromoBegDate,
-                    articleDatePromoEnd : this.state.articleDatePromoEnd,
-                    artListImg:this.state.pictures.name
+                     articlePromoBegDate : this.state.articlePromoBegDate,
+                     articleDatePromoEnd : this.state.articleDatePromoEnd,
+                     artListImg:this.state.pictures.name,
+                     user:this.state.user
                 }
             });
             //console.log(response);
@@ -295,10 +312,13 @@ class Productadd extends Component{
 
         }
         componentDidMount() {
-            window.scrollTo(0, 0)
+            window.scrollTo(0, 0);
             this.fetchCategories();
+            this.fetchUser(this.state.uid);
         }
       render(){
+          console.log("user",this.state.user);
+          console.log("uid",this.state.uid);
         return(
                 <div>
                     <div className="site-content">
@@ -444,4 +464,9 @@ class Productadd extends Component{
         )
     }
 }
-export default Productadd;
+// export default Productadd;
+
+const mapStateToProps = state => ({
+    uid: state.login.uid
+  });
+export default connect(mapStateToProps)(Productadd);

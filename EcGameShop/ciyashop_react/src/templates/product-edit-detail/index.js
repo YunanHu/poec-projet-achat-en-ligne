@@ -87,8 +87,10 @@ class ProductEditDetail extends Component {
           articleQty:"",
           refArticle:"",
           categories:[],
+          user:[],
         validationErrorMsg:""
         };
+        this.fetchCategories = this.fetchCategories.bind(this);
       }
 
     state1 = {
@@ -99,7 +101,7 @@ class ProductEditDetail extends Component {
         this.setState({
            newImage: 'product-01.jpg'
         });
-        console.log("id", this.props.product.id);
+        this.fetchCategories();
      }
 
     //function for preview images
@@ -165,25 +167,25 @@ class ProductEditDetail extends Component {
         article.articlePromoBegDate = this.state.articlePromoBegDate;
         article.articleDatePromoEnd = this.state.articleDatePromoEnd;
 
-        for(let pict in this.state.pictures){
-            console.log("pict type",typeof pict);
-        }
-        article.artListImg = this.state.pictures;
-        console.log("article.artListImg",article.artListImg);
+        console.log("articleUp",article);
+        // article.artListImg = this.state.pictures;
+        // console.log("article.artListImg",article.artListImg);
         const articleCategoryArray = this.state.categories.filter(c=>c.categoryLabel===this.state.articleCategory);
-        article.articleCategory = Object.assign({},articleCategoryArray);
-        const errors = this.validationArticleForm(article);
+         article.articleCategory = Object.assign({},articleCategoryArray);
+         const errors = this.validationArticleForm(article);
         
         this.setState({
             ...this.state,
-            validationErrorMsg:errors
+             validationErrorMsg:errors
         })
-        // if (errors) return;
+        console.log("errors",errors);
+         if (errors) return;
+         
         console.log("pictures",this.state.pictures);
         const response = await axios({
             method: 'post',
             withCredentials:'true',
-            url: 'http://localhost:8080//updateArticle/'+this.props.product.id,
+            url: 'http://localhost:8080/updateArticle/'+this.props.product.id,
             data: {
                  articleName : this.state.articleName,
                  articleBrand : this.state.articleBrand,
@@ -197,15 +199,15 @@ class ProductEditDetail extends Component {
                  articleQty : this.state.articleQty,
                 articlePromoBegDate : this.state.articlePromoBegDate,
                 articleDatePromoEnd : this.state.articleDatePromoEnd,
-                artListImg:this.state.pictures.name
+                // artListImg:this.state.pictures.name
             }
         });
-        //console.log(response);
+        console.log(response);
     }
     render() {
         const { photoIndex, isOpen } = this.state;
         const {product} = this.props;
-        
+        console.log("product",product);
         const images=[];
         {product.pictures.map((pic)=>
             images.push(require(`../../assets/images/${pic}`))
@@ -265,14 +267,14 @@ class ProductEditDetail extends Component {
                         <div className="product-top-right-inner">
                                 <div className="summary entry-summary">
                                         <FormGroup className="edit-icon">
-                                            <Input type="text" name="articleName" onFocus={this.onFocus}  onChange={e=>this.onChangeHandler(e.target)} className="form-control product_title" placeholder={product.name}  />
+                                            <Input type="text" name="articleName" value={this.state.articleName}  onChange={e=>this.onChangeHandler(e.target)} className="form-control product_title" placeholder={product.name}  />
                                         </FormGroup>
                                         <FormGroup className="edit-icon">
-                                            <Input type="text" className="form-control price" name="articlePrice" onChange={e=>this.onChangeHandler(e.target)} placeholder={product.salePrice} />
+                                            <Input type="text" className="form-control price"value={this.state.articlePrice} name="articlePrice" onChange={e=>this.onChangeHandler(e.target)} placeholder={product.salePrice} />
                                         </FormGroup>
                                         <Label className="title">Description</Label>
                                         <FormGroup className="edit-icon">
-                                            <Input  type="textarea" className="form-control" name="articleDescription"  onChange={e=>this.onChangeHandler(e.target)} rows="3" placeholder={product.description}  />
+                                            <Input  type="textarea" className="form-control"value={this.state.articleDescription} name="articleDescription"  onChange={e=>this.onChangeHandler(e.target)} rows="3" placeholder={product.description}  />
                                         </FormGroup>
                                         <Label className="title">Plateforme</Label>
                                         <FormGroup>
@@ -287,7 +289,7 @@ class ProductEditDetail extends Component {
                                         <FormGroup>
                                         {productdata.dematerialized.map((d) =>
                                                 <Label>
-                                                <Input name="articleDematerialized" onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
+                                                <Input name="articleDematerialized" value={d} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>{' '}
                                                 {d}
                                                 </Label>
                                             )}                                                        
@@ -314,7 +316,7 @@ class ProductEditDetail extends Component {
                                         <FormGroup>
                                             {this.state.categories.map((cat) =>
                                             <Label>
-                                            <Input name="articleCategory"  onChange={e=>this.onChangeHandler(e.target)} type="radio"/>
+                                            <Input name="articleCategory"  value={cat.categoryLabel} onChange={e=>this.onChangeHandler(e.target)} type="radio"/>
                                             {cat.categoryLabel}
                                             </Label>
                                             )}
@@ -326,7 +328,7 @@ class ProductEditDetail extends Component {
                                         <Label className="title mb-2">Availibility Date</Label>
                                                         <FormGroup>
                                                             {/* <Moment name="articleDateAvailibility" value={this.state.articleDateAvailibility} onChange={e=>this.onChangeHandler(e.target)}/> */}
-                                                            <Input type="date" name="articleDateAvailibility" value={this.state.articleDateAvailibility} onChange={e=>this.onChangeHandler(e.target)}></Input>
+                                                            <Input type="date" name="articleDateAvailibility" value={this.state.articleDateAvailibility}  onChange={e=>this.onChangeHandler(e.target)}></Input>
                                                         </FormGroup>
                                                         
                                                         <Label className="title mb-2">Article Promotion Beginning Date</Label>
@@ -340,14 +342,14 @@ class ProductEditDetail extends Component {
                                                         </FormGroup>
                                                         <Label className="title mb-2">Promotion Price</Label>
                                                         <FormGroup>
-                                                            <Input type="text" name="articlePricePromo" onChange={e=>this.onChangeHandler(e.target)} className="form-control" placeholder="Promotion Price" ></Input>
+                                                            <Input type="text" name="articlePricePromo" onChange={e=>this.onChangeHandler(e.target)} className="form-control" placeholder={"Promotion Price"} ></Input>
                                                         </FormGroup>
 
                                         {/* <Label className="title">Total Products</Label>
                                         <input type="text" className="form-control" placeholder="Total Product" defaultValue={product.stock}></input> */}
 
                                         <Label className="title">Product Stock</Label>
-                                        <input type="text" class="form-control" placeholder="Product Stock" onBlur={e=>this.onBlurHandler(e.target)} defaultValue={product.stock}></input>
+                                        <input type="text" class="form-control" name="articleQty" value={this.state.articleQty} onChange={e=>this.onChangeHandler(e.target)} placeholder={product.stock}></input>
 
                                         <a href="#" class="btn btn-primary mb-2 mr-2"  onClick={this.onClickSaveBtn}> Update </a>
                                         <Link to="/admin-panel/Product" class="btn btn-danger mb-2"> Cancel </Link>
