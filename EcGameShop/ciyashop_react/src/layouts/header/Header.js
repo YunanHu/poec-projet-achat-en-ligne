@@ -41,8 +41,7 @@ class Header extends React.Component {
             passwordInput:"",
             userData:[],
             uid:0,
-            bjr:"Bonjour ",
-            prenom:"",
+           
 
 
 
@@ -396,7 +395,7 @@ class Header extends React.Component {
                                                         <Link to="/Contactus"><i className="fa fa-envelope-o">&nbsp;</i>support@ciyashop.com</Link>
                                                     </li>
                                                     <li className="topbar_item topbar_item_type-phone_number">
-                                                        <Link to="/Contactus"><i className="fa fa-phone">&nbsp;</i>126-632-2345</Link>
+                                                        <Link to="/Contactus"><i className="fa fa-phone">&nbsp;</i>06 00 00 00 00</Link>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -413,13 +412,13 @@ class Header extends React.Component {
                                                                     <Link to="/admin-panel/Product">Gérer ma boutique</Link>
                                                                 </li>}
                                                             { this.props.userRole!="Not Connected" &&<li className="menu-item">
-                                                                    <Link to="/Account/AccountProfile">My account</Link>
+                                                                    <Link to="/Account/AccountProfile">Mon Compte</Link>
                                                                 </li>}
                                                                 { this.props.userRole==="Not Connected" &&  <li>
-                                                                    <Link to="#" onClick={this.toggle} data-toggle="modal" data-target="#"><i className="fa fa-sign-in">&nbsp;</i> Login</Link>
+                                                                    <Link to="#" onClick={this.toggle} data-toggle="modal" data-target="#"><i className="fa fa-sign-in">&nbsp;</i> Se connecter</Link>
                                                                 </li>}
                                                                 { this.props.userRole!="Not Connected" && <li>
-                                                                    <div> Bonjour {this.state.prenom} </div>
+                                                                    <div> Bonjour {this.props.firstname} </div>
                                                                 </li>}
                                                                 { this.props.userRole!="Not Connected" &&<li>
                                                                     <Link onClick={this.onLogout}  > Se deconnecter</Link>
@@ -744,7 +743,8 @@ class Header extends React.Component {
 
 const mapStateToProps =(state) => {
     return {
-        userRole : state.login.role
+        userRole : state.login.role,
+        firstname : state.login.firstname
     }
 }
 
