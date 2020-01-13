@@ -75,7 +75,6 @@ class SuccessScreen extends Component {
       if (this.state.CartItems == null) {
         this.props.history.push(`/`)
       }
-
     }
 
 
@@ -116,11 +115,11 @@ const date = new Date();
                       <i className="fa fa-check-circle-o"></i>
                       <h1 className="text-white">Thank You</h1>
                       <span>Success! We received your payment. Your order will be processed soon.</span>
-                      <strong className="text-white">Transaction ID:637686G154T154485</strong>
+   <strong className="text-white">Transaction ID:{localStorage.getItem("orderId")}</strong>
                     </div>
                     <div className="delivery p-4 p-md-5 bg-light text-center">
                       <span className="h5">Expected Date Of Delivery</span>
-                      <h2 className="mb-0 mt-2"> { date.toLocaleString('en-us', { month: 'long' }) } {new Date().getDay()+2}, {new Date().getFullYear()}  </h2>
+                      <h2 className="mb-0 mt-2"> { date.toLocaleString('en-us', { month: 'long' }) } {new Date().getDay()}, {new Date().getFullYear()}  </h2>
                     </div>
                     {(this.state.CartItems != null && this.state.CartItems.length > 0) ?
                     <div className="pt-4 px-4 pt-md-5 px-md-5 pb-3">
@@ -138,9 +137,9 @@ const date = new Date();
                       <Col lg={6} className="text-lg-right mt-4 mt-lg-0">
                         <h6>Summary</h6>
                         <ul className="list-unstyled mb-0">
-                          <li><span>Order ID:</span> <strong>7582654455365</strong></li>
-                          <li><span>Order Date:</span> <strong> { date.toLocaleString('en-us', { month: 'long' }) } {new Date(). getDay()}, {new Date().getFullYear()}</strong></li>
-                          <li><span>Order Total:</span> <strong>${parseFloat(parseFloat(this.state.CartItems.reduce((fr, CartItem) => fr + (CartItem.Qty * CartItem.Rate), 0)) + parseFloat((this.state.TotalShippingCarge != undefined) ? this.state.TotalShippingCarge.toFixed(2) : 0)).toFixed(2)} </strong></li>
+                    <li><span>Order ID:</span> <strong>{localStorage.getItem("orderId")}</strong></li>
+                          {/* <li><span>Order Date:</span> <strong> { date.toLocaleString('en-us', { month: 'long' }) } {new Date(). getDay()}, {new Date().getFullYear()}</strong></li> */}
+                          <li><span>Order Date:</span> <strong> {localStorage.getItem("orderDate")}</strong></li>
                         </ul>
                       </Col>
                     </Row>
