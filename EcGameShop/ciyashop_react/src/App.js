@@ -100,7 +100,7 @@ class App extends Component {
                     <PrivateRoute routeRole={["ROLE_ADMIN"]} exact path="/Reports" component={Reports} />
                     <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Invoices" component={Invoices} />
                     <Route path={`/shop/:category/:id`} component={ProductDetail} /> 
-                    <Route path="/loginerror" render={() => <h1>Veuillez vous connecter s'il vous plait.</h1>}/>
+                    <Route path="/loginerror" render={() => <div className="container"><h1>Veuillez vous connecter s'il vous plait.</h1></div>}/>
                     <Route exact  component={PageNotFound} />
 
                   </Switch>
