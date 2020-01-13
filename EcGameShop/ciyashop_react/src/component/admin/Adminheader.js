@@ -73,8 +73,9 @@ class AdminHeader extends Component {
                         </div>
                         </DropdownToggle>
                         <DropdownMenu>
-                            <DropdownItem onClick={() => this.Changeclass('profile')}  className="nav-link"  tag={Link} to="/admin-panel/Profile"><i className="fa fa-user-circle-o"></i>Profile</DropdownItem>
-                            {/* <DropdownItem onClick={() => this.Changeclass('profile')}className="nav-link"  tag={Link} to="/admin-panel/Settings"><i className="fa fa-cog"></i>Account settings</DropdownItem> */}
+                            <DropdownItem onClick={() => this.Changeclass('profile')}  className="nav-link"  tag={Link} to="/Account/AccountProfile"><i className="fa fa-user-circle-o"></i>Profile</DropdownItem>
+                            {/* <DropdownItem onClick={() => this.Changeclass('profile')}  className="nav-link"  tag={Link} to="/admin-panel/Profile"><i className="fa fa-user-circle-o"></i>Profile</DropdownItem>
+                            <DropdownItem onClick={() => this.Changeclass('profile')}className="nav-link"  tag={Link} to="/admin-panel/Settings"><i className="fa fa-cog"></i>Account settings</DropdownItem> */}
                             <DropdownItem onClick={() => this.Changeclass('profile')}  className="nav-link" tag={Link} to="/"><i className="fa fa-sign-out"></i>Logout</DropdownItem>
                         </DropdownMenu>
                     </Dropdown>
