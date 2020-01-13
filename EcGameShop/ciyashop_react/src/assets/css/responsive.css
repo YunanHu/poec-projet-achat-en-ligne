@@ -3,16 +3,16 @@
   .slider-01 .slide-content .slide-title h1 {
     font-size: 110px;
     line-height: 110px;
-    color: white;
+    /* color: white;
     text-shadow: 2px 2px blue;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8); */
   }
 
   .slider-01 .slide-content .slide-subtitle {
     font-size: 66px;
     line-height: 66px;
-    color: white;
-    text-shadow: 2px 2px blue;
+    /* color: white;
+    text-shadow: 2px 2px blue; */
   }
 
   .slider-01 .slide-content .slide-offer {
@@ -70,9 +70,9 @@
   .slider-01 .slide-content .slide-title h1 {
     font-size: 80px;
     line-height: 80px;
-    color: white;
+    /* color: white;
     text-shadow: 2px 2px blue;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8); */
   }
 
   .slider-01 .slide-content .slide-subtitle {
@@ -84,8 +84,8 @@
   .slider-01 .slide-content .slide-offer {
     font-size: 42px;
     line-height: 42px;
-    color: white;
-    text-shadow: 2px 2px blue;
+    /* color: white;
+    text-shadow: 2px 2px blue; */
   }
 
   .section-1 .section-title h2 {
@@ -601,9 +601,9 @@
     line-height: 60px;
     margin-bottom: 10px;
     margin-top: 0;
-    color: white;
+    /* color: white;
     text-shadow: 2px 2px blue;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8); */
   }
 
   .slider-01 .slide-content .slide-offer {
@@ -614,8 +614,8 @@
   .slider-01 .slide-content .slide-button {
     font-size: 14px;
     margin-top: 10px;
-    color: white;
-    text-shadow: 2px 2px blue;
+    /* color: white;
+    text-shadow: 2px 2px blue; */
   }
 
   .section-1 .section-title h2 {
@@ -1077,9 +1077,9 @@
   .slider-01 .slide-content .slide-title h1 {
     font-size: 40px;
     line-height: 50px;
-    color: white;
+    /* color: white;
     text-shadow: 2px 2px blue;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8); */
   }
 
   .slider-01 .slide-content .slide-subtitle {
@@ -1480,9 +1480,9 @@
   .slider-01 .slide-content .slide-title h1 {
     font-size: 30px;
     line-height: 30px;
-    color: white;
+    /* color: white;
     text-shadow: 2px 2px blue;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8); */
   }
 
   .slider-01 .slide-content .slide-since {
@@ -2087,9 +2087,9 @@
   .slider-01 .slide-content .slide-title h1 {
     font-size: 25px;
     margin-bottom: 0;
-    color: white;
+    /* color: white;
     text-shadow: 2px 2px blue;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.8); */
   }
 
   .slider-01 .slide-content .slide-subtitle {
