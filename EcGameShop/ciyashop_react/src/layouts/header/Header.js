@@ -233,7 +233,7 @@ class Header extends React.Component {
             const response4 = await axios({
                 method: 'post',
                 withCredentials: true,
-                url: 'http://localhost:8080/getadresses/byemail',
+                url: 'http://localhost:8080/getaddresses/byemail',
                 data: {
                     email: this.state.email,
                 }
