@@ -230,13 +230,21 @@ class Header extends React.Component {
                 }
             })
             
-            console.log(response3.data)
+            const response4 = await axios({
+                method: 'post',
+                withCredentials: true,
+                url: 'http://localhost:8080/getaddresses/byemail',
+                data: {
+                    email: this.state.email,
+                }
+            })
+            console.log(response4.data[0])
+            this.props.onSetAddress(response4.data[0])
+            
             this.setState({
-                userData: response3.data,
                 uid:response3.data[0],
                 prenom:response3.data[3]
             })
-            console.log("userdata:"+this.state.userData)
 
             this.props.onSetUid(response3.data[0])
             this.props.onSetLastName(response3.data[2])
@@ -245,7 +253,9 @@ class Header extends React.Component {
             this.props.onSetEmail(response3.data[1])
 
             localStorage.setItem("firstname",response3.data[3]);
-            localStorage.setItem("lastName",response3.data[2]);
+            localStorage.setItem("lastname",response3.data[2]);
+            localStorage.setItem("email",response3.data[1]);
+
             
             this.toggle()
         } else {
@@ -352,7 +362,6 @@ class Header extends React.Component {
     //--------------------------------------------------------
 
     onChangeHandler = (event) => {
-        console.log(event.target)
         this.setState({
             [event.target.name]: event.target.value
         })
@@ -409,17 +418,17 @@ class Header extends React.Component {
                                                     <li className="topbar_item topbar_item_type-topbar_menu">
                                                         <div className="menu-top-bar-menu-container">
                                                             <ul className="top-menu list-inline">
+                                                                { this.props.userRole!="Not Connected" && <li>
+                                                                    <div> Bonjour <Link to="/Account/AccountProfile">{this.props.firstname}</Link> </div>
+                                                                </li>}
                                                             { this.props.userRole==="ROLE_SELLER" &&<li className="menu-item">
                                                                     <Link to="/admin-panel/Product">Gérer ma boutique</Link>
                                                                 </li>}
-                                                            { this.props.userRole!="Not Connected" &&<li className="menu-item">
+                                                            {/* { this.props.userRole!="Not Connected" &&<li className="menu-item">
                                                                     <Link to="/Account/AccountProfile">Mon Compte</Link>
-                                                                </li>}
+                                                                </li>} */}
                                                                 { this.props.userRole==="Not Connected" &&  <li>
                                                                     <Link to="#" onClick={this.toggle} data-toggle="modal" data-target="#"><i className="fa fa-sign-in">&nbsp;</i> Se connecter</Link>
-                                                                </li>}
-                                                                { this.props.userRole!="Not Connected" && <li>
-                                                                    <div> Bonjour {this.props.firstname} </div>
                                                                 </li>}
                                                                 { this.props.userRole!="Not Connected" &&<li>
                                                                     <Link onClick={this.onLogout}  > Se deconnecter</Link>
@@ -757,6 +766,7 @@ const mapDispatchToProps = (dispatch) => {
         onSetFirstName: (firstname) => dispatch(action.setFN(firstname)),
         onSetPhoneNumber: (phoneno) => dispatch(action.setPN(phoneno)),
         onSetEmail: (email) => dispatch(action.setEmail(email)),
+        onSetAddress: (address) => dispatch(action.setAddress(address)),
 
         onLogout : () => dispatch(action.logout())
     }

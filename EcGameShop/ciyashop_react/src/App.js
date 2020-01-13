@@ -84,7 +84,7 @@ class App extends Component {
                     <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/wishlist" component={WishList} />
                     <Route exact path="/Aboutus" component={Aboutus} />
                     <Route exact path="/contactus" component={Contactus} />
-                    <Route exact path="/CheckOut" component={CheckOut} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/CheckOut" component={CheckOut} />
                     <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Address" component={Address} />
                     <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Account/Addressedit" component={Addressedit} />
                     <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} path={`/Account/AccountProfile`} component={AccountProfile} />  
@@ -97,10 +97,10 @@ class App extends Component {
                     <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Account/SavedCardsedit" component={SavedCardsedit} />
                     <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Account/SavedCardsadd" component={SavedCardsadd} />
                     <Route exact path="/SuccessScreen" component={SuccessScreen} />
-                    <Route exact path="/Reports" component={Reports} />
+                    <PrivateRoute routeRole={["ROLE_ADMIN"]} exact path="/Reports" component={Reports} />
                     <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Invoices" component={Invoices} />
                     <Route path={`/shop/:category/:id`} component={ProductDetail} /> 
-                    <Route path="/loginerror" render={() => <h1>Veuillez vous connecter s'il vous plait.</h1>}/>
+                    <Route path="/loginerror" render={() => <div className="container"><h1>Veuillez vous connecter s'il vous plait.</h1></div>}/>
                     <Route exact  component={PageNotFound} />
 
                   </Switch>

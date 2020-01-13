@@ -51,7 +51,7 @@ public class UserRestController {
 	
 	//ADRESSE 
 	
-	@PostMapping("/addAdresses/byid")
+	@PostMapping("/addAddresses/byid")
 	public List<Address> addAdress(@RequestBody User user) {
 		User u5 = userRepository.findByUID(user.getUID());
 		u5.setAddresses(user.getAddresses());
@@ -61,9 +61,9 @@ public class UserRestController {
 	
 	
 
-	@PostMapping("/getadresses/byid")
+	@PostMapping("/getaddresses/byemail")
 	public List<Address> getUserAdresses(@RequestBody User user) {
-		User u5 = userRepository.findByUID(user.getUID());
+		User u5 = userRepository.findByEmail(user.getEmail());
 		return u5.getAddresses();
 	}
 

@@ -188,13 +188,13 @@ class AdminProduct extends Component {
                                 <div className="mb-0">
                                     <h4>Product List</h4>
                                 </div>
-                                <div className="mb-4">
+                                {/* <div className="mb-4">
                                     <form>
                                         <div class="form-group mb-0">
                                             <input type="text" class="form-control" placeholder="Search product" value={this.state.productsearch} onChange={(e)=>{this.onProductSearch(e.target.value)}}></input>
                                         </div>
                                     </form>
-                                </div>
+                                </div> */}
 
                                 <div className="mb-0 mb-md-4">
                                     {this.state.currentProduct.length > 0 ?

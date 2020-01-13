@@ -24,4 +24,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 	List<Article> findByUser(@Param("user") User user);
 
 	
-} 
+}
+
+

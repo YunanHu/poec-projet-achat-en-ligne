@@ -6,6 +6,7 @@ const initialLoginState = {
     firstname:"",
     phoneno:null,
     email:"",
+    address:[]
 
 }
 
@@ -41,6 +42,11 @@ const loginReducer = (state= initialLoginState, action) => {
             return {
                 ...state,
                 email: action.email
+            }
+            case "SET_ADDRESS":
+            return {
+                ...state,
+                address: action.address
             }
             case "LOGOUT":
             return {

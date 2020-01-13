@@ -20,10 +20,10 @@ class AccountProfileedit extends Component {
     this.state = {
       fieldvalue: Common['0']['profile'],
       errors: {},
-      firstname: "",
-      lastname: "",
-      email: "",
-      phoneno: "",
+      firstname: props.firstname,
+      lastname: props.lastname,
+      email: props.email,
+      phoneno: props.phoneno,
 
     }
   }
@@ -150,18 +150,24 @@ class AccountProfileedit extends Component {
 
     if (response2.status == 200) {
       console.log("changed")
-     
+
       this.props.onSetLastName(this.state.lastname)
       this.props.onSetFirstName(this.state.firstname)
       this.props.onSetPhoneNumber(this.state.phoneno)
       this.props.onSetEmail(this.state.email)
+
+      localStorage.setItem("firstname", this.state.firstname);
+      localStorage.setItem("lastname", this.state.lastname);
+      localStorage.setItem("email", this.state.email);
+
+
       this.props.history.push("/Account/AccountProfile")
+
     }
 
   }
 
   onChangeHandler = (event) => {
-    console.log(event.target)
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -186,7 +192,7 @@ class AccountProfileedit extends Component {
                       <Link className="bread-link bread-home" to="/">Home</Link>
                     </span>
                   </li>
-                  <li><span>My Account</span></li>
+                  <li><span>Mon Compte</span></li>
                 </ul>
               </Col>
             </Row>
@@ -201,13 +207,13 @@ class AccountProfileedit extends Component {
                   <Col lg={12}>
                     <div className="woocommerce-Address woocommerce-Address-edit">
                       <div className="woocommerce-Address-title">
-                        <h5 class="mb-0">Profile Information Edit </h5>
+                        <h5 class="mb-0">Editer son profile </h5>
                       </div>
                       <div className="woocommerce-Address-info mt-4">
                         <form onSubmit={this.onProfileFormSubmit.bind(this)}>
                           <div class="form-group">
                             <label>First name</label>
-                            <input type="text" class="form-control" name="firstname" value={this.state.firstname} onChange={this.onChangeHandler} placeholder="First name" />
+                            <input type="text" class="form-control" name="firstname"  value={this.state.firstname} onChange={this.onChangeHandler} placeholder="First name"  />
                             <span className="error">{this.state.errors["firstname"]}</span>
                           </div>
                           <div class="form-group">
@@ -263,6 +269,12 @@ class AccountProfileedit extends Component {
 const mapStateToProps = (state) => {
   return {
     uid: state.login.uid,
+    lastname: state.login.lastname,
+    firstname: state.login.firstname,
+    email: state.login.email,
+    phoneno: state.login.phoneno
+
+
   }
 }
 

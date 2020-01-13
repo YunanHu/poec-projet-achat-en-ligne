@@ -466,6 +466,7 @@ h6 {
 .newsletter-wrapper .newsletter-title {
   line-height: 38px;
   font-weight: 700;
+  background-color: rgba(255, 255, 255, .8);
 }
 
 .position-a {
