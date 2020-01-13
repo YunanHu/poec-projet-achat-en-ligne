@@ -1,7 +1,6 @@
-package fr.EGame.projet.controller;
+package fr.EGame.projet.dao;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import fr.EGame.projet.dao.ArticleRepository;
-import fr.EGame.projet.dao.CategoryRepository;
-import fr.EGame.projet.dao.UserRepository;
 import fr.EGame.projet.model.Article;
 import fr.EGame.projet.model.ArticlesImages;
 import fr.EGame.projet.model.Category;
