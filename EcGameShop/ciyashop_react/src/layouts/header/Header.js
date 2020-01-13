@@ -41,6 +41,8 @@ class Header extends React.Component {
             passwordInput:"",
             userData:[],
             uid:0,
+            bjr:"Bonjour ",
+            prenom:"",
 
 
 
@@ -183,7 +185,7 @@ class Header extends React.Component {
 
         // event.preventDefault() //évite le rafraichissement de la page
 
-        console.log(this.state.passwordInput)
+        
         console.log(this.state.email)
 
         const data = {
@@ -232,7 +234,8 @@ class Header extends React.Component {
             console.log(response3.data)
             this.setState({
                 userData: response3.data,
-                uid:response3.data[0]
+                uid:response3.data[0],
+                prenom:response3.data[3]
             })
             console.log("userdata:"+this.state.userData)
 
@@ -325,6 +328,7 @@ class Header extends React.Component {
                     console.log(response3.data)
                     this.setState({
                         userData: response3.data,
+                        
                         uid:response3.data[0]
                     })
                     console.log("userdata:"+this.state.userData)
@@ -357,6 +361,10 @@ class Header extends React.Component {
 
     onLogout = () => {
         this.props.onLogout()
+        this.setState({
+            
+            prenom:""
+        })
     }
 
    
@@ -401,15 +409,21 @@ class Header extends React.Component {
                                                     <li className="topbar_item topbar_item_type-topbar_menu">
                                                         <div className="menu-top-bar-menu-container">
                                                             <ul className="top-menu list-inline">
-                                                                <li className="menu-item">
+                                                            { this.props.userRole==="ROLE_SELLER" &&<li className="menu-item">
+                                                                    <Link to="/admin-panel/Product">Gérer ma boutique</Link>
+                                                                </li>}
+                                                            { this.props.userRole!="Not Connected" &&<li className="menu-item">
                                                                     <Link to="/Account/AccountProfile">My account</Link>
-                                                                </li>
-                                                                <li>
+                                                                </li>}
+                                                                { this.props.userRole==="Not Connected" &&  <li>
                                                                     <Link to="#" onClick={this.toggle} data-toggle="modal" data-target="#"><i className="fa fa-sign-in">&nbsp;</i> Login</Link>
-                                                                </li>
-                                                                <li>
+                                                                </li>}
+                                                                { this.props.userRole!="Not Connected" && <li>
+                                                                    <div> Bonjour {this.state.prenom} </div>
+                                                                </li>}
+                                                                { this.props.userRole!="Not Connected" &&<li>
                                                                     <Link onClick={this.onLogout}  > Se deconnecter</Link>
-                                                                </li>
+                                                                </li>}
                                                             </ul>
                                                         </div>
                                                     </li>

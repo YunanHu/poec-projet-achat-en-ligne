@@ -65,7 +65,7 @@ class App extends Component {
                 <Switch>
                   <Route path="/ComingSoon" component={ComingSoon} />
                   <Route path="/Maintenance" component={Maintenance} />
-                  <PrivateRoute routeRole={"ROLE_ADMIN"} path="/admin-panel" component={AdminDashboard} />
+                  <PrivateRoute routeRole={["ROLE_ADMIN","ROLE_SELLER"]} path="/admin-panel" component={AdminDashboard} />
                 </Switch>
               :
               <div>
@@ -78,30 +78,30 @@ class App extends Component {
                     <Route exact path="/index-home-classic" component={HomePage4} />
                     <Route exact path="/shop" component={ShopPage} />
                     <Route exact path="/ShopingCart" component={ShopingCart} />
-                    <Route exact path="/MyAccount" component={MyAccount} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/MyAccount" component={MyAccount} />
                     <Route exact path="/BlogSinglePage" component={BlogSinglePage} />
                     <Route exact path="/BlogFullWidth" component={BlogFullWidth} />
-                    <Route exact path="/wishlist" component={WishList} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/wishlist" component={WishList} />
                     <Route exact path="/Aboutus" component={Aboutus} />
                     <Route exact path="/contactus" component={Contactus} />
                     <Route exact path="/CheckOut" component={CheckOut} />
-                    <Route exact path="/Address" component={Address} />
-                    <Route exact path="/Account/Addressedit" component={Addressedit} />
-                    <PrivateRoute routeRole={"ROLE_CLIENT"} path={`/Account/AccountProfile`} component={AccountProfile} />  {/* a changer */}
-                    <Route exact path="/Account/AccountProfile" component={AccountProfile} />
-                    <Route exact path="/Account/Address" component={Address} />
-                    <Route exact path="/Account/OrderHistory" component={OrderHistory} />
-                    <Route exact path="/Account/SavedCards" component={SavedCards} />
-                    <Route exact path="/Account/AccountProfileedit" component={AccountProfileedit} />
-                    <Route exact path="/Account/SavedCards" component={SavedCards} />
-                    <Route exact path="/Account/SavedCardsedit" component={SavedCardsedit} />
-                    <Route exact path="/Account/SavedCardsadd" component={SavedCardsadd} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Address" component={Address} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Account/Addressedit" component={Addressedit} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} path={`/Account/AccountProfile`} component={AccountProfile} />  
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Account/AccountProfile" component={AccountProfile} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Account/Address" component={Address} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Account/OrderHistory" component={OrderHistory} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Account/SavedCards" component={SavedCards} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Account/AccountProfileedit" component={AccountProfileedit} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Account/SavedCards" component={SavedCards} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Account/SavedCardsedit" component={SavedCardsedit} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Account/SavedCardsadd" component={SavedCardsadd} />
                     <Route exact path="/SuccessScreen" component={SuccessScreen} />
                     <Route exact path="/Reports" component={Reports} />
-                    <Route exact path="/Invoices" component={Invoices} />
+                    <PrivateRoute routeRole={["ROLE_CLIENT","ROLE_ADMIN","ROLE_SELLER"]} exact path="/Invoices" component={Invoices} />
                     <Route path={`/shop/:category/:id`} component={ProductDetail} /> 
+                    <Route path="/loginerror" render={() => <h1>Veuillez vous connecter s'il vous plait.</h1>}/>
                     <Route exact  component={PageNotFound} />
-                    <Route path="/loginerror" render={() => <h1>ERREUR IL FAUT VOUS CONNECTER</h1>}/>
 
                   </Switch>
                 <Footer />
