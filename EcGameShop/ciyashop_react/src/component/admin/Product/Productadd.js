@@ -236,29 +236,29 @@ class Productadd extends Component{
                 ...this.state,
                 validationErrorMsg:errors
             })
-            // if (errors) return;
-            console.log("pictures",this.state.pictures);
-            // const response = await axios({
-            //     method: 'post',
-            //     withCredentials:'true',
-            //     url: 'http://localhost:8080/addArticle',
-            //     data: {
-            //          articleName : this.state.articleName,
-            //          articleBrand : this.state.articleBrand,
-            //          articleDescription : this.state.articleDescription,
-            //          articleDateAvailibility : this.state.articleDateAvailibility,
-            //          articleAddedDate: actualDate,
-            //          articlePlateforme : this.state.articlePlateforme,
-            //          articleCategory : article.articleCategory[0],
-            //          articleDematerialized : this.state.articleDematerialized,
-            //          articlePricePromo : this.state.articlePricePromo,
-            //          articlePrice : this.state.articlePrice,
-            //          articleQty : this.state.articleQty,
-            //         articlePromoBegDate : this.state.articlePromoBegDate,
-            //         articleDatePromoEnd : this.state.articleDatePromoEnd,
-            //         artListImg:this.state.pictures.name
-            //     }
-            // });
+             if (errors) return;
+           
+            const response = await axios({
+                method: 'post',
+                withCredentials:'true',
+                url: 'http://localhost:8080/addArticle',
+                data: {
+                     articleName : this.state.articleName,
+                     articleBrand : this.state.articleBrand,
+                     articleDescription : this.state.articleDescription,
+                     articleDateAvailibility : this.state.articleDateAvailibility,
+                     articleAddedDate: actualDate,
+                     articlePlateforme : this.state.articlePlateforme,
+                     articleCategory : article.articleCategory[0],
+                     articleDematerialized : this.state.articleDematerialized,
+                     articlePricePromo : this.state.articlePricePromo,
+                     articlePrice : this.state.articlePrice,
+                     articleQty : this.state.articleQty,
+                    articlePromoBegDate : this.state.articlePromoBegDate,
+                    articleDatePromoEnd : this.state.articleDatePromoEnd,
+                    artListImg:this.state.pictures.name
+                }
+            });
             //console.log(response);
         }
         Uploadimage(picture) {

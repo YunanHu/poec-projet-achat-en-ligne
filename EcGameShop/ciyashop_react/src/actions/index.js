@@ -15,7 +15,6 @@ export const fetchProducts = (product, times) => (
       })
 )
 
-
 const traitementArticle = (result) =>{ 
     const artProductsArray = [];
     console.log("result",result);

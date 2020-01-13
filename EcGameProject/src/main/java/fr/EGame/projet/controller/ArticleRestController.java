@@ -52,16 +52,6 @@ public class ArticleRestController {
 		List<Category> listeCategory = categoryRepository.findAll();
 		List<User> listUser = userRepository.findAll();
 		
-		System.out.println(listUser.get(1));
-
-//		User user = new User("test@gmail.com","12345");
-//		System.out.println(user.getLastname());
-//		userRepository.save(user);
-//		for ( User u : listUser) {
-//			System.out.println(u);
-//		}
-
-
 		Category c1 = new Category("FPS", "jeu de tir a la 1ere personne");
 		Category c2 = new Category("AVENTURE", "jeu d\\'aventure");
 		Category c3 = new Category("RPG", "jeu de role");

@@ -236,7 +236,7 @@ class Addressedit extends Component {
   }
 
   onSave = async () => {
-
+    console.log(this.props.address)
     const response2 = await axios({
       method: 'post',
       withCredentials: true,
@@ -245,19 +245,19 @@ class Addressedit extends Component {
         uid: this.props.uid,
         addresses: [
           {
-              "idAddress": 1,
-              "billing_name": "aaa?",
-              "billing_address": "aaaallée delib",
-              "billing_streetno": "12",
-              "billing_state": "",
-              "billing_zipcode": "75000",
-              "billing_country": "aFRANCE",
-              "shipping_name": null,
-              "shipping_address": "rue delibes",
-              "shipping_streetno": "8",
-              "shipping_state": null,
-              "shipping_zipcode": "75016",
-              "shipping_country": "france"
+              
+              billing_name: this.props.address.billing_name,
+              billing_address: this.props.address.billing_address,
+              billing_streetno: this.props.address.billing_streetno,
+              billing_state: this.props.address.billing_state,
+              billing_zipcode: this.props.address.billing_zipcode,
+              billing_country: this.props.address.billing_country,
+              shipping_name: this.props.address.shipping_name,
+              shipping_address: this.props.address.shipping_address,
+              shipping_streetno: this.props.address.shipping_streetno,
+              shipping_state: this.props.address.shipping_state,
+              shipping_zipcode: this.props.address.shipping_zipcode,
+              shipping_country: this.props.address.shipping_country
           }
       ],
         }

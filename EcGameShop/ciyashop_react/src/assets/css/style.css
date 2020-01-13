@@ -17690,9 +17690,9 @@ ul.products .product-inner .product-info .stock {
   margin-bottom: 20px;
   margin-top: 0;
   font-weight: 600;
-  color: white;
+  /* color: white;
   text-shadow: 2px 2px blue;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8); */
 }
 
 .slider-01 .slide-content .slide-subtitle {
@@ -17706,12 +17706,12 @@ ul.products .product-inner .product-info .stock {
 .slider-01 .slide-content .slide-since {
   margin-top: 30px;
   display: inline-block;
-  /* background: #fff2d5; */
-  background: white;
+  background: #fff2d5;
+  /* background: white; */
   padding: 6px 10px;
   font-size: 22px;
   line-height: 22px;
-  /* color: #323232; */
+  color: #323232;
   color: rgb(53, 53, 58);
   text-transform: uppercase;
   font-weight: 700;
@@ -17731,18 +17731,18 @@ ul.products .product-inner .product-info .stock {
 .slider-01 .slide-content .slide-button {
   font-size: 18px;
   border-bottom: 2px solid white;
-  /* color: #323232; */
-  color: white;
+  color: #323232;
+  /* color: white; */
   font-weight: 700;
   text-transform: uppercase;
   margin-top: 20px;
   display: inline-block;
-  text-shadow: 2px 2px blue;
+  /* text-shadow: 2px 2px blue; */
 }
 
 .slider-01 .slide-content .slide-button:hover {
-  /* color: #04d39f; */
-  color: whitesmoke;
+  color: #04d39f;
+  /* color: whitesmoke; */
   border-color: #04d39f;
 }
 

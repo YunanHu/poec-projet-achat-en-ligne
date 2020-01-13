@@ -8,9 +8,41 @@ import productdata from '../../api/product';
 import Pagination from '../../services/Pagination';
 import {getFilterProductsdata} from '../../services';
 import { connect } from 'react-redux';
+import axios from "axios";
+
+
+const traitementArticle = (result) =>{ 
+    const artProductsArray = [];
+    console.log("result",result);
+    for (let article of result) {
+        const pictArray = [];
+        for (let pict in article.artListImg) {
+            pictArray.push("imagesEcGame/"+article.artListImg[pict].name);
+            
+        }
+        artProductsArray.push({
+            id:article.idArticle,
+            name:article.articleName,
+            pictures:pictArray,
+            stock:article.articleQty,
+            discount:0,
+            salePrice:article.articlePrice,
+            description:article.articleDescription,
+            rating:2,
+            category:article.articleCategory.categoryLabel,
+            tags:[article.articleCategory.categoryLabel],
+            size: ["100 CM", 
+                "90 CM", 
+                "95 CM"],
+            colors: ["black", 
+                "gray",
+                "red"]
+        });
+    }
+    return artProductsArray;
+  }
 
 class AdminProduct extends Component {
-
     constructor(props) {
         super(props);
         this.state={
@@ -20,11 +52,17 @@ class AdminProduct extends Component {
             currentPage: null,
             totalPages: null,
             cp_productList:productdata,
-            IsDeleteProcess:false
+            IsDeleteProcess:false,
+            uid:this.props.uid,
+            user:[]
         }
+        this.fechArticlesByUser = this.fechArticlesByUser.bind(this);
     }
     componentDidMount() {
         window.scrollTo(0, 0);
+        console.log("uid",this.state.uid);
+        const u = this.fechArticlesByUser(this.state.uid);
+        console.log("articlesByUser",u);
     }
     onProductSearch(searchproduct)
     {
@@ -86,6 +124,25 @@ class AdminProduct extends Component {
         }
     }
 
+
+    fechArticlesByUser(uid){
+        fetch("http://localhost:8080/getArticleByUser/"+uid,
+        {
+            method:"get",
+            credentials:"include"
+        }).then(response=>response.json())
+        .then(result=>
+            this.setState({
+                ...this.state,
+                productList:traitementArticle(result)
+                
+
+            }))
+            .catch(function(error){
+                console.log(error.message);
+            })
+    }
+
     onPageChanged = data => {
         const { productList } = this.state;
         const { currentPage, totalPages, pageLimit } = data;
@@ -121,6 +178,7 @@ class AdminProduct extends Component {
         }
     }
     render() {
+        console.log("this.state.productList",this.state.productList)
         return (
             <div>
                 <div className="section-ptb">
@@ -141,7 +199,8 @@ class AdminProduct extends Component {
                                 <div className="mb-0 mb-md-4">
                                     {this.state.currentProduct.length > 0 ?
                                         <Row className="products products-loop grid ciyashop-products-shortcode pgs-product-list">
-                                                {this.state.currentProduct.map((product, index) =>
+                                                {/* {this.state.currentProduct.map((product, index) => */}
+                                                {this.state.productList.map((product, index) =>
                                                             <AdminproductList product={product} key={index} deleteproduct={()=>this.onDeleteProduct(product)} />
                                                     )
                                                 }
@@ -189,8 +248,15 @@ class AdminProduct extends Component {
     }
 }
 
-const mapDispatchToProps = state => ({
-    products: getFilterProductsdata(state.data, state.filters)
+// const mapStateToProps = (state) => {
+//     return {
+//       uid: state.login.uid,
+//     }
+//   }
+
+const mapStateToProps = state => ({
+    products: getFilterProductsdata(state.data, state.filters),
+    uid: state.login.uid
   });
-export default connect(mapDispatchToProps, {})(AdminProduct);
+export default connect(mapStateToProps)(AdminProduct);
 // export default connect(mapDispatchToProps, {})(ShopPage);
