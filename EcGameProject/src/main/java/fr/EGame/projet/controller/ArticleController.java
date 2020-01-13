@@ -1,4 +1,4 @@
-package fr.EGame.projet.controller;
+/*package fr.EGame.projet.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,3 +28,4 @@ public class ArticleController {
 
 
 }
+*/
