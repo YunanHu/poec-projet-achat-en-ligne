@@ -35,37 +35,37 @@ export default [
       // ]
    },
    {
-      "menu_title": "Shop",
+      "menu_title": "Products",
       "path": "/shop",
-      "mega": true,
+      // "mega": true,
       "icon": "party_mode",
-      "type": "subMenu",
-      "child_routes": [
-         {
-            "path": "/shop",
-            "menu_title": "Products",
-            "icon": "arrow_right_alt",
-            "child_routes": null
-         },
-         {
-            "path": "/shop/FPS/97",
-            "menu_title": "Product Detail",
-            "icon": "arrow_right_alt",
-            "child_routes": null
-         },
-         // {
-         //    "path": "/Aboutus",
-         //    "menu_title": "About Us",
-         //    "icon": "arrow_right_alt",
-         //    "child_routes": null
-         // },
-         {
-            "path": "/404",
-            "menu_title": "Page Not Found",
-            "icon": "arrow_right_alt",
-            "child_routes": null
-         }
-      ],
+      // "type": "subMenu",
+      // "child_routes": [
+      //    {
+      //       "path": "/shop",
+      //       "menu_title": "Products",
+      //       "icon": "arrow_right_alt",
+      //       "child_routes": null
+      //    },
+      //    {
+      //       "path": "/shop/FPS/97",
+      //       "menu_title": "Product Detail",
+      //       "icon": "arrow_right_alt",
+      //       "child_routes": null
+      //    },
+      //    // {
+      //    //    "path": "/Aboutus",
+      //    //    "menu_title": "About Us",
+      //    //    "icon": "arrow_right_alt",
+      //    //    "child_routes": null
+      //    // },
+      //    {
+      //       "path": "/404",
+      //       "menu_title": "Page Not Found",
+      //       "icon": "arrow_right_alt",
+      //       "child_routes": null
+      //    }
+      // ],
    },
    /*
    {
@@ -127,11 +127,11 @@ export default [
             "child_routes": null
          }
       ]
-   },*/
+   },
    {
       "menu_title": "Admin Panel",
       "path":  "/admin-panel/Product",//"/admin-panel/Reports",
       "icon": "perm_identity",
       "child_routes": null
-   }
+   }*/
 ]
