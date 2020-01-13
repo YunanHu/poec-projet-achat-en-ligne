@@ -22,7 +22,7 @@ class HomSlider extends Component {
                <div key={1} className="slide-01-item">
                     <div className="slide-inner">
                     <div className="slide-image">
-                        <img src={require(`../assets/images/home-01-slider/img-01.jpg`)} alt="slide-1" />
+                        <img src={require(`../assets/images/home-01-slider/hp-slide-1.jpeg`)} alt="slide-1" />
                     </div>
                     <div className="slide-content">
                        <div class="container">
@@ -52,7 +52,7 @@ class HomSlider extends Component {
                 <div key={2} className="slide-01-item">
                     <div className="slide-inner">
                     <div className="slide-image">
-                        <img src={require(`../assets/images/home-01-slider/img-02.jpg`)} alt="slide-1" />
+                        <img src={require(`../assets/images/home-01-slider/hp-slide-2.jpeg`)} alt="slide-1" />
                     </div>
                     <div className="slide-content">
                        <div class="container">
