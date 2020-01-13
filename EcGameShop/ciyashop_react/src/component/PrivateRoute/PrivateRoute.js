@@ -5,7 +5,10 @@ import {connect } from "react-redux"
 const PrivateRoute = ({ component: Component, userRole, routeRole, ...rest }) => {
     console.log("userRole")
 
-    if (userRole === routeRole) {
+    const authorize = routeRole.some(role=>role === userRole)
+    console.log(authorize)
+
+    if (authorize) {
         return (
             <Route {...rest} render={props => <Component {...props} />} />
         )

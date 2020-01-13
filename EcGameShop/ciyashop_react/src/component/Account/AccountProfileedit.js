@@ -7,11 +7,21 @@ import Sitebar from './Sitebar';
 import Common from '../../api/common';
 import { Link } from 'react-router-dom';
 class AccountProfileedit extends Component {
+  constructor(props) {
 
-  state = {
+    super(props);
+    this.state = {
+      timeout: true,
       fieldvalue:Common['0']['profile'],
       errors: {}
-  };
+    }
+
+  /*state = {
+      fieldvalue:Common['0']['profile'],
+      errors: {}
+  };*/
+
+}
   componentDidMount() {
       window.scrollTo(0, 0)
   }
@@ -118,6 +128,10 @@ class AccountProfileedit extends Component {
     this.setState({fieldvalue});
   }
 
+  onClickSave =() =>{
+
+  }
+
    render() {
     const Profile=Common['0']['profile'];
     return (
@@ -196,7 +210,7 @@ class AccountProfileedit extends Component {
                           <textarea class="form-control" rows="3" placeholder="Address" value={this.state.fieldvalue.address}   onChange={this.handleChange.bind(this, "address")}></textarea>
                           <span className="error">{this.state.errors["address"]}</span>
                         </div> */}
-                        <Button type="submit" className="btn btn-primary">Save</Button>
+                        <Button onClick={this.onClickSave} type="submit" className="btn btn-primary">Save</Button>
                     </form>
                     </div>
                   </div>
