@@ -94,7 +94,7 @@ function OurTeam(props) {
                             <div className="team-info">
                                 <div className="team-description">
                                 <h4>Yoann Biheux</h4>
-                                <span>Support</span>
+                                <span>Site Supervisor</span>
                                 </div>
                                 <div className="team-social-icon ciyashop-social-icons ciyashop-social-shape-round ciyashop-social-effect-color-hover ciyashop-social-size-small">
                                 <ul>
@@ -130,8 +130,8 @@ function OurTeam(props) {
                             </div>
                             <div className="team-info">
                                 <div className="team-description">
-                                <h4>Felica Queen</h4>
-                                <span>Site Supervisor</span>
+                                <h4>Florence Trebalag</h4>
+                                <span>Support</span>
                                 </div>
                                 <div className="team-social-icon ciyashop-social-icons ciyashop-social-shape-round ciyashop-social-effect-color-hover ciyashop-social-size-small">
                                 <ul>
