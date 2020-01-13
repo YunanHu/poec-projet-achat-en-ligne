@@ -244,7 +244,8 @@ class Header extends React.Component {
             this.props.onSetPhoneNumber(response3.data[4])
             this.props.onSetEmail(response3.data[1])
 
-
+            localStorage.setItem("firstname",response3.data[3]);
+            localStorage.setItem("lastName",response3.data[2]);
             
             this.toggle()
         } else {
