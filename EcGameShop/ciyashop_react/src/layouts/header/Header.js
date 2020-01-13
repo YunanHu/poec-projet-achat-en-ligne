@@ -4,7 +4,7 @@
 import React, { Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import navLinks from '../../NavLinks.js';
-import logo from '../../assets/images/logo.svg';
+import logo from '../../assets/images/logoEgame.png';
 import { Row, Col, Container } from 'reactstrap';
 import Loader from 'react-loader-spinner';
 import AllProduct from '../../api/product';

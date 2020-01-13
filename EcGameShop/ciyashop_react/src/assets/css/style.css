@@ -7682,6 +7682,7 @@ footer.site-footer.footer-style-2 .footer-widgets-wrapper {
   display: none;
 }
 
+
 .image-slider-items.image-slider-style-1 .about-details {
   background: #fff;
   padding: 25px 30px;
@@ -11600,7 +11601,7 @@ footer.site-footer.footer-style-2 .footer-widgets-wrapper {
 
 .products .product a img {
   width: 100%;
-  height: auto;
+  height: 400px;
   display: block;
   box-shadow: none;
 }

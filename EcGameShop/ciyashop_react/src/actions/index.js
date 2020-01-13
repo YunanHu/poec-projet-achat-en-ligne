@@ -18,6 +18,7 @@ export const fetchProducts = (product, times) => (
 
 const traitementArticle = (result) =>{ 
     const artProductsArray = [];
+    console.log("result",result);
     for (let article of result) {
         const pictArray = [];
         for (let pict in article.artListImg) {
@@ -43,7 +44,6 @@ const traitementArticle = (result) =>{
                 "red"]
         });
     }
-    console.log("artProductsArray",artProductsArray);
     return artProductsArray;
   }
 // export const  fetchProducts = (product, times) => (

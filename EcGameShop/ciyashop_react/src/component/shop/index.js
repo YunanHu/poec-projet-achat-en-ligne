@@ -54,7 +54,6 @@ class ShopPage extends Component {
       articleProducts:{},
       isLoading:false
     };
-    this.fetchArticles = this.fetchArticles.bind(this);
     // this.traitementArticle = this.traitementArticle.bind(this);
   }
   componentWillMount() {
@@ -66,80 +65,21 @@ class ShopPage extends Component {
       }, 2500);
     }
   }
-  fetchArticles() {
-    // if (this.state.limit >= this.props.products.length) {
-    //     this.setState({ hasMoreProduct: false });
-    //     return;
-    // }
-    // setTimeout(() => {
-    //     this.setState({
-    //         limit: this.state.limit + 5
-    //     });
-    // }, 2500);
-    fetch("http://localhost:8080/getAllArticles", {
-      method: "get",
-      credentials: "include"
-    })
-      .then(response => response.json())
-      .then(result =>
-        this.setState({
-          ...this.state,
-          articleProducts: result,
-          isLoading:false
-        })
-      )
-      .catch(function(error){
-        console.log("Il y a eu une erreur dans le fetch: "+error.message);
-      });
-      
-  }
+
   componentDidMount() {
     this.setState({
       ...this.state,
       isLoading:true
     })
     window.scrollTo(0, 0);
-    // this.fetchArticles();
-    // this.traitementArticle();
+
   }
   componentDidUpdate(prevProps, prevState) {
-        // this.traitementArticle(prevState)
+
 
     
   }
-  // traitementArticle(prevState) {    
-  //   const objArticles = this.state.articles;
-  //   const artProductsArray = [];
-    
-  //   for (let x in objArticles) {
-  //       // artProduct.add(objArticles[x].idArticle,objArticles[x].articleName);
-  //       const pictArray = [];
-  //       const category = [];
-  //       // for (let pict in objArticles[x].articleCategory) {
-  //       //     category.push(objArticles[x].artListImg[pict].name);
-  //       // }
-  //       for (let pict in objArticles[x].artListImg) {
-  //           pictArray.push(objArticles[x].artListImg[pict].name);
-  //       }
-  //       artProductsArray.push({
-  //           id:objArticles[x].idArticle,
-  //           name:objArticles[x].articleName,
-  //           pictures:pictArray,
-  //           stock:objArticles[x].articleQty,
-  //           discount:0,
-  //           salePrice:objArticles[x].articlePrice,
-  //           description:objArticles[x].articleDescription,
-  //           rating:2,
-  //           category:""
-  //       });
-  //   }
-  //   if(prevState.articleProducts===null){
-  //     this.setState({
-  //         ...this.state,
-  //         articleProducts:artProductsArray
-  //     });
-  //   }
-  // }
+
   fetchProduct = () => {
     if (this.state.limit >= this.props.products.length) {
       this.setState({ hasMoreProduct: false });

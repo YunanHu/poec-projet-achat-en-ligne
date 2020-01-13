@@ -5,6 +5,8 @@ import React, { Component } from 'react';
 import productdata from '../../../api/product';
 import { Container } from 'reactstrap';
 import ProductEditDetail from '../../../templates/product-edit-detail';
+import {getFilterProductsdata} from '../../../services';
+import { connect } from 'react-redux';
 
 
 class Productedit extends Component{
@@ -21,7 +23,8 @@ class Productedit extends Component{
     componentDidMount()
     {
         let CurrentProductId=this.state.ProductId;
-        let allproductdata=this.state.AllProduct;
+        // let allproductdata=this.state.AllProduct;
+        let allproductdata=this.props.products;
         if(allproductdata && allproductdata.length > 0)
         {
             for(let product of allproductdata)
@@ -57,4 +60,8 @@ class Productedit extends Component{
         )
     }
 }
-export default Productedit;
+// export default Productedit;
+const mapDispatchToProps = state => ({
+    products: getFilterProductsdata(state.data, state.filters)
+  });
+  export default connect(mapDispatchToProps, {})(Productedit);
