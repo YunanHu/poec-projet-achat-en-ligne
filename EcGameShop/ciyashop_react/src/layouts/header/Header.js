@@ -230,13 +230,21 @@ class Header extends React.Component {
                 }
             })
             
-            console.log(response3.data)
+            const response4 = await axios({
+                method: 'post',
+                withCredentials: true,
+                url: 'http://localhost:8080/getadresses/byemail',
+                data: {
+                    email: this.state.email,
+                }
+            })
+            console.log(response4.data[0])
+            this.props.onSetAddress(response4.data[0])
+            
             this.setState({
-                userData: response3.data,
                 uid:response3.data[0],
                 prenom:response3.data[3]
             })
-            console.log("userdata:"+this.state.userData)
 
             this.props.onSetUid(response3.data[0])
             this.props.onSetLastName(response3.data[2])
@@ -354,7 +362,6 @@ class Header extends React.Component {
     //--------------------------------------------------------
 
     onChangeHandler = (event) => {
-        console.log(event.target)
         this.setState({
             [event.target.name]: event.target.value
         })
@@ -759,6 +766,7 @@ const mapDispatchToProps = (dispatch) => {
         onSetFirstName: (firstname) => dispatch(action.setFN(firstname)),
         onSetPhoneNumber: (phoneno) => dispatch(action.setPN(phoneno)),
         onSetEmail: (email) => dispatch(action.setEmail(email)),
+        onSetAddress: (address) => dispatch(action.setAddress(address)),
 
         onLogout : () => dispatch(action.logout())
     }
