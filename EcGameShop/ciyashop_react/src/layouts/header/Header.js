@@ -418,17 +418,17 @@ class Header extends React.Component {
                                                     <li className="topbar_item topbar_item_type-topbar_menu">
                                                         <div className="menu-top-bar-menu-container">
                                                             <ul className="top-menu list-inline">
+                                                                { this.props.userRole!="Not Connected" && <li>
+                                                                    <div> Bonjour <Link to="/Account/AccountProfile">{this.props.firstname}</Link> </div>
+                                                                </li>}
                                                             { this.props.userRole==="ROLE_SELLER" &&<li className="menu-item">
                                                                     <Link to="/admin-panel/Product">Gérer ma boutique</Link>
                                                                 </li>}
-                                                            { this.props.userRole!="Not Connected" &&<li className="menu-item">
+                                                            {/* { this.props.userRole!="Not Connected" &&<li className="menu-item">
                                                                     <Link to="/Account/AccountProfile">Mon Compte</Link>
-                                                                </li>}
+                                                                </li>} */}
                                                                 { this.props.userRole==="Not Connected" &&  <li>
                                                                     <Link to="#" onClick={this.toggle} data-toggle="modal" data-target="#"><i className="fa fa-sign-in">&nbsp;</i> Se connecter</Link>
-                                                                </li>}
-                                                                { this.props.userRole!="Not Connected" && <li>
-                                                                    <div> Bonjour {this.props.firstname} </div>
                                                                 </li>}
                                                                 { this.props.userRole!="Not Connected" &&<li>
                                                                     <Link onClick={this.onLogout}  > Se deconnecter</Link>
