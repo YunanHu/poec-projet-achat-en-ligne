@@ -76,6 +76,8 @@ class CheckOut extends Component {
 
             }
         }
+        this.SetShippingCharge(1);
+
         this.forceUpdate();
     }
 
@@ -129,13 +131,17 @@ class CheckOut extends Component {
         e.preventDefault();
         if(this.handleValidation()){
 
-            const localCartItems = JSON.parse(localStorage.getItem("LocalCartItems"))
-            console.log('LocalCartItems:', localCartItems)
-            console.log(typeof localCartItems)
+            let localCartItems = JSON.parse(localStorage.getItem("LocalCartItems"))
+            // console.log('LocalCartItems:', localCartItems)
+            // console.log(typeof localCartItems)
             // format date
             const orderDate = getCurrentDate();
+            const orderId = Math.random().toString(20).substr(2, 9)
 
-            console.log('orderDate: ',orderDate)
+            localStorage.setItem("orderId", orderId)
+            localStorage.setItem("orderDate", orderDate)
+
+            // console.log('localCartItems:', localCartItems)
             let saveCartItems = {
                 "cartUser": {
                     "uid": this.props.uid
@@ -146,6 +152,7 @@ class CheckOut extends Component {
                 "tax": this.state.tax,
                 "orderDate": orderDate,
                 "orderStatus": "Success",
+                "orderId": orderId,
                 "cartItems": []
             }
             
@@ -163,9 +170,10 @@ class CheckOut extends Component {
                     }
                 )
             }
-            console.log('saveCartItems type: ',typeof saveCartItems)
-            console.log('saveCartItems: ', saveCartItems)
-            console.log('state: ',this.state)
+            // console.log('orderid:', Math.random().toString(36))
+            // console.log('saveCartItems type: ',typeof saveCartItems)
+            // console.log('saveCartItems: ', saveCartItems)
+            // console.log('state: ',this.state)
 
             const response = await axios({
                 method: 'post',
@@ -173,16 +181,16 @@ class CheckOut extends Component {
                 url:  CommonList[0].siteUrl+'saveCart',
                 data: saveCartItems
             });
-            console.log("response",response);
+            // console.log("response",response);
             // if(response.data.includes('<!DOCTYPE html>')){
             //     // user n'est pas connecté
             //     // afficher le message d'erreur
             //     //document.getElementById('responseErrorMsg').classList.add("show")
             // } else {
 
-            //     localStorage.setItem("FinalCheckoutCartItems",localStorage.getItem("LocalCartItems"));
-            //     localStorage.removeItem("LocalCartItems");
-            //     this.props.history.push(`/SuccessScreen`)
+                localStorage.setItem("FinalCheckoutCartItems",localStorage.getItem("LocalCartItems"));
+                localStorage.removeItem("LocalCartItems");
+                this.props.history.push(`/SuccessScreen`)
             // }
         }
       }
