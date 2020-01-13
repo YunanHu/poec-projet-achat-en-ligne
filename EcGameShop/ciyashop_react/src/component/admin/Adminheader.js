@@ -68,8 +68,8 @@ class AdminHeader extends Component {
                         <DropdownToggle caret className="btn-white">
                         {/* <img className="img-fluid rounded-circle profile-img" src={profile} alt="profile"/> */}
                         <div className="d-none d-sm-block">
-                        <h6 className="mb-0">{Profile.firstname+' '+Profile.lastname}</h6>
-                        <span className="text-dark">{Profile.email}</span>
+                        <h6 className="mb-0">{localStorage.getItem("firstname")+' '+localStorage.getItem("lastname")}</h6>
+                        <span className="text-dark">{localStorage.getItem("email")}</span>
                         </div>
                         </DropdownToggle>
                         <DropdownMenu>

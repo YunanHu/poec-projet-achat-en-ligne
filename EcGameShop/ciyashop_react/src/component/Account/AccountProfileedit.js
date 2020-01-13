@@ -150,12 +150,19 @@ class AccountProfileedit extends Component {
 
     if (response2.status == 200) {
       console.log("changed")
-     
+
       this.props.onSetLastName(this.state.lastname)
       this.props.onSetFirstName(this.state.firstname)
       this.props.onSetPhoneNumber(this.state.phoneno)
       this.props.onSetEmail(this.state.email)
+
+      localStorage.setItem("firstname", this.state.firstname);
+      localStorage.setItem("lastname", this.state.lastname);
+      localStorage.setItem("email", this.state.email);
+
+
       this.props.history.push("/Account/AccountProfile")
+
     }
 
   }

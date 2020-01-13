@@ -1,10 +1,8 @@
 package fr.EGame.projet.model;
 
 
-import java.awt.Image;
+
 import java.io.Serializable;
-import java.security.interfaces.RSAMultiPrimePrivateCrtKey;
-import java.time.LocalDate;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +11,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -29,7 +26,7 @@ public class Article
 	private String refArticle ;
 	private String articleName;
 	private String articlePlateforme;
-	@ManyToOne(cascade={CascadeType.DETACH, CascadeType.REMOVE})
+	@ManyToOne
 	private Category articleCategory;
 	private String articleDescription;
 	private float articlePrice;
@@ -44,10 +41,9 @@ public class Article
 	private boolean articleDematerialized;
 	private boolean articleDeactivated;
 	private String articleBrand;
+	@ManyToOne
+	private User user;
 	
-	
-
-
 	public Article() 
 	{
 
@@ -57,9 +53,9 @@ public class Article
 	public Article(String articleName, String articlePlateforme, Category articleCategory,
 			String articleDescription, float articlePrice, List<ArticlesImages> artListImg,
 			int articleQty, float articlePricePromo, LocalDate articlePromoBegDate,
-			LocalDate articlePromoEndDate, LocalDate articleDateAvailibility, boolean articleDematerialized, String articleBrand) {
-		this.refArticle = articlePlateforme + LocalDate.now().toString() + articleCategory.getIdCategory().toString() + articleCategory.getCategoryLabel()
-		+ "01";
+			LocalDate articlePromoEndDate, LocalDate articleDateAvailibility, boolean articleDematerialized, String articleBrand,User user) {
+//		this.refArticle = articlePlateforme + LocalDate.now().toString() + articleCategory.getIdCategory().toString() + articleCategory.getCategoryLabel()
+//		+ "01";
 		this.articleName = articleName;
 		this.articlePlateforme = articlePlateforme;
 		this.articleCategory = articleCategory;
@@ -74,16 +70,16 @@ public class Article
 		this.articleDateAvailibility = articleDateAvailibility;
 		this.articleDematerialized = articleDematerialized;
 		this.articleBrand = articleBrand;
+		this.user = user;
 	}
-	
-	
+
 	public Article(String articleName, String articlePlateforme, Category articleCategory,
 			String articleDescription, float articlePrice, List<ArticlesImages> artListImg,
 			int articleQty, float articlePricePromo, LocalDate articlePromoBegDate,
 			LocalDate articlePromoEndDate, LocalDate articleDateAvailibility, boolean articleDematerialized,
-			boolean articleDeactivated, String articleBrand) {
-		this.refArticle = articlePlateforme + LocalDate.now().toString() + articleCategory.getIdCategory().toString() + articleCategory.getCategoryLabel()
-		+ "01";
+			boolean articleDeactivated, String articleBrand,User user) {
+//		this.refArticle = articlePlateforme + LocalDate.now().toString() + articleCategory.getIdCategory().toString() + articleCategory.getCategoryLabel()
+//		+ "01";
 		this.articleName = articleName;
 		this.articlePlateforme = articlePlateforme;
 		this.articleCategory = articleCategory;
@@ -99,14 +95,21 @@ public class Article
 		this.articleDematerialized = articleDematerialized;
 		this.articleDeactivated = articleDeactivated;
 		this.articleBrand = articleBrand;
+		this.user = user;
 	}
 	
-	public Article( String articleName, String articlePlateforme, Category articleCategory,
-			String articleDescription, float articlePrice, int articleQty,
-			LocalDate articleDateAvailibility, boolean articleDematerialized,boolean articleDeactivated, String articleBrand) {
+	public Article( String articleName, 
+			String articlePlateforme,
+			Category articleCategory,
+			String articleDescription, 
+			float articlePrice, int articleQty,
+			LocalDate articleDateAvailibility,
+			boolean articleDematerialized,
+			boolean articleDeactivated, 
+			String articleBrand,User user) {
 		super();
-		this.refArticle = articlePlateforme + LocalDate.now().toString() + articleCategory.getIdCategory().toString() + articleCategory.getCategoryLabel()
-		+ "01";
+//		this.refArticle = articlePlateforme + LocalDate.now().toString() + articleCategory.getIdCategory().toString() + articleCategory.getCategoryLabel()
+//		+ "01";
 		this.articleName = articleName;
 		this.articlePlateforme = articlePlateforme;
 		this.articleCategory = articleCategory;
@@ -118,14 +121,15 @@ public class Article
 		this.articleDematerialized = articleDematerialized;
 		this.articleDeactivated=articleDeactivated;
 		this.articleBrand = articleBrand;
+		this.user = user;
 	}
 	
 	public Article(String articleName, String articlePlateforme, Category articleCategory,
 			String articleDescription, float articlePrice, int articleQty,
-			LocalDate articleDateAvailibility, boolean articleDematerialized, String articleBrand) {
+			LocalDate articleDateAvailibility, boolean articleDematerialized, String articleBrand,User user) {
 		super();
-		this.refArticle = articlePlateforme + LocalDate.now().toString() + articleCategory.getIdCategory().toString() + articleCategory.getCategoryLabel()
-		+ "01";
+//		this.refArticle = articlePlateforme + LocalDate.now().toString() + articleCategory.getIdCategory().toString()
+//				+ articleCategory.getCategoryLabel() + "01";
 		this.articleName = articleName;
 		this.articlePlateforme = articlePlateforme;
 		this.articleCategory = articleCategory;
@@ -136,6 +140,7 @@ public class Article
 		this.articleDateAvailibility = articleDateAvailibility;
 		this.articleDematerialized = articleDematerialized;
 		this.articleBrand = articleBrand;
+		this.user = user;
 	}
 	
 	public boolean isArticleDeactivated() {
@@ -165,8 +170,9 @@ public class Article
 	public String getRefArticle() {
 		return refArticle;
 	}
-	public void setRefArticle(String refArticle) {
-		this.refArticle = refArticle;
+	public void setRefArticle() {
+		this.refArticle = this.articlePlateforme + LocalDate.now().toString() + this.articleCategory.getIdCategory().toString() + this.articleCategory.getCategoryLabel()
+		+ "01";
 	}
 	public String getArticleName() {
 		return articleName;
@@ -174,7 +180,13 @@ public class Article
 	public void setArticleName(String articleName) {
 		this.articleName = articleName;
 	}
+	public User getUser() {
+		return user;
+	}
 
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public String getArticlePlateforme() {
 		return articlePlateforme;
