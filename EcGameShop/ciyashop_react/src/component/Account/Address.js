@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { Row, Col,Container } from 'reactstrap';
 import Sitebar from './Sitebar';
 import Common from '../../api/common';
+import {connect} from "react-redux"
+
 
 class Address extends Component {
   componentDidMount() {
@@ -51,11 +53,11 @@ class Address extends Component {
                     </div>
                     <div className="woocommerce-Address-info mt-4">
                       <ul class="list-unstyled mb-0">
-                        <li><strong>{BillingAddress.billingname}</strong></li>
-                        <li><strong>{BillingAddress.address}</strong></li>
-                        <li><strong>{BillingAddress.streetno}</strong></li>
-                        <li><strong>{BillingAddress.state}</strong></li>
-                        <li><strong>{BillingAddress.country} {BillingAddress.zipcode}</strong></li>
+                        {/* <li><strong>{BillingAddress.billingname}</strong></li> */}
+                        <li><strong>{this.props.address.billing_streetno}</strong></li>
+                        <li><strong>{this.props.address.billing_address}</strong></li>
+                        <li><strong>{this.props.address.billing_state}</strong></li>
+                        <li><strong>{this.props.address.billing_country} {this.props.address.billing_zipcode}</strong></li>
                       </ul>
                     </div>
                   </div>
@@ -68,11 +70,11 @@ class Address extends Component {
                     </div>
                     <div className="woocommerce-Address-info mt-4">
                       <ul class="list-unstyled mb-0">
-                        <li><strong>{ShippingAddress.shippingname}</strong></li>
-                        <li><strong>{ShippingAddress.address}</strong></li>
-                        <li><strong>{ShippingAddress.streetno}</strong></li>
-                        <li><strong>{ShippingAddress.state}</strong></li>
-                        <li><strong>{ShippingAddress.country} {ShippingAddress.zipcode}</strong></li>
+                        {/* <li><strong>{ShippingAddress.shippingname}</strong></li> */}
+                        <li><strong>{this.props.address.shipping_streetno}</strong></li>
+                        <li><strong>{this.props.address.shipping_address}</strong></li>
+                        <li><strong>{this.props.address.shipping_state}</strong></li>
+                        <li><strong>{this.props.address.shipping_country} {this.props.address.shipping_zipcode}</strong></li>
                       </ul>
                     </div>
                   </div>
@@ -86,4 +88,12 @@ class Address extends Component {
         )
     }
 }
-export default Address;
+
+
+const mapStateToProps =(state) => {
+  return {
+      address : state.login.address,
+      
+  }
+}
+export default connect(mapStateToProps)(Address);
