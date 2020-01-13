@@ -88,7 +88,7 @@ class AdminHeader extends Component {
                             </NavItem>
                             <NavItem className="invoice">
                                 <Link to="/admin-panel/Invoices" className="nav-link" onClick={() => this.Changeclass('invoice')}><i className="fa fa-inbox"></i>invoices</Link>
-                            </NavItem> */}
+                            </NavItem> 
                             <UncontrolledDropdown nav inNavbar>
                                 <DropdownToggle nav caret>
                                     <i className="fa fa-shopping-cart"></i>Products
@@ -97,10 +97,17 @@ class AdminHeader extends Component {
                                     <DropdownItem onClick={() => this.Changeclass('product')} className="nav-link"   tag={Link} to="/admin-panel/Product"><i className="fa fa-cart-plus"></i>Products</DropdownItem>
                                     <DropdownItem onClick={() => this.Changeclass('product')} className="nav-link"   tag={Link} to="/admin-panel/product-add"><i className="fa fa-cart-arrow-down"></i>Add Product</DropdownItem>
                                 </DropdownMenu>
-                            </UncontrolledDropdown>
+                            </UncontrolledDropdown>*/}
+                            
                             <NavItem className="profile">
-                                <Link to="/admin-panel/Profile" className="nav-link" onClick={() => this.Changeclass('profile')}><i className="fa fa-user-circle-o"></i>Profile</Link>
+                                <Link to="/admin-panel/Product" className="nav-link" onClick={() => this.Changeclass('product')}><i className="fa fa-cart-plus"></i>Products</Link>
                             </NavItem>
+                            <NavItem className="profile">
+                                <Link to="/admin-panel/product-add" className="nav-link" onClick={() => this.Changeclass('product')}><i className="fa fa-cart-arrow-down"></i>Add Product</Link>
+                            </NavItem>
+                            {/* <NavItem className="profile">
+                                <Link to="/admin-panel/Profile" className="nav-link" onClick={() => this.Changeclass('profile')}><i className="fa fa-user-circle-o"></i>Profile</Link>
+                            </NavItem> */}
                             <NavItem className="backhome">
                                 <Link to="/" className="nav-link" onClick={() => this.Changeclass('backhome')}><i className="fa fa-home"></i>Back to home</Link>
                             </NavItem>
