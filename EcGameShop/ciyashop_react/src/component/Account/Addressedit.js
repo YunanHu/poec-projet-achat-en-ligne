@@ -21,7 +21,7 @@ class Addressedit extends Component {
       billingaddress: Common['0']['billingaddress'],
       shippingaddress: Common['0']['shippingaddress'],
       errors: {},
-      address: props.address,
+      address: this.props.address
     };
 
 
@@ -236,38 +236,23 @@ class Addressedit extends Component {
   }
 
   onSave = async () => {
-    console.log(this.props.address)
+    console.log(this.state.address)
     const response2 = await axios({
       method: 'post',
       withCredentials: true,
       url: 'http://localhost:8080/addAddresses/byid',
       data: {
         uid: this.props.uid,
-        addresses: [
-          {
-              
-              billing_name: this.props.address.billing_name,
-              billing_address: this.props.address.billing_address,
-              billing_streetno: this.props.address.billing_streetno,
-              billing_state: this.props.address.billing_state,
-              billing_zipcode: this.props.address.billing_zipcode,
-              billing_country: this.props.address.billing_country,
-              shipping_name: this.props.address.shipping_name,
-              shipping_address: this.props.address.shipping_address,
-              shipping_streetno: this.props.address.shipping_streetno,
-              shipping_state: this.props.address.shipping_state,
-              shipping_zipcode: this.props.address.shipping_zipcode,
-              shipping_country: this.props.address.shipping_country
-          }
-      ],
-        }
+        addresses: [this.state.address]
+        
+      }
     })
     console.log(response2)
     if (response2.status == 200) {
       console.log("changed")
 
-      this.props.onSetAddress(this.state.address)
-      localStorage.setItem("address", this.state.address);
+      // this.props.onSetAddress(this.state.address)
+      // localStorage.setItem("address", );
       this.props.history.push("/Account/Address")
 
     }
@@ -275,8 +260,12 @@ class Addressedit extends Component {
   }
 
   onChangeHandler = (event) => {
+    console.log(event.target.name)
     this.setState({
-      [event.target.name]: event.target.value
+        address: {
+          ...this.state.address,
+          [event.target.name]: event.target.value
+        }
     })
   }
 
@@ -320,32 +309,32 @@ class Addressedit extends Component {
                         <form onSubmit={this.onAddressFormSubmit.bind(this)}>
                           <div class="form-group">
                             <label>Billing Name</label>
-                            <input type="Text" class="form-control"  name="address" placeholder="Billing name" value={this.state.address.billing_name} onChange={this.onChangeHandler}></input>
+                            <input type="Text" class="form-control" name="billing_name" placeholder="Billing name" value={this.state.address.billing_name} onChange={this.onChangeHandler}></input>
                             <span className="error">{this.state.errors["billingname"]}</span>
                           </div>
                           <div class="form-group">
                             <label>Address</label>
-                            <textarea class="form-control" rows="3" name="address" placeholder="Address" value={this.state.address.billing_address} onChange={this.onChangeHandler}></textarea>
+                            <textarea class="form-control" rows="3" name="billing_address" placeholder="Address" value={this.state.address.billing_address} onChange={this.onChangeHandler}></textarea>
                             <span className="error">{this.state.errors["address"]}</span>
                           </div>
                           <div class="form-group">
                             <label>Street No</label>
-                            <input type="Text" class="form-control" name="address" placeholder="street no" value={this.state.address.billing_streetno} onChange={this.onChangeHandler}></input>
+                            <input type="Text" class="form-control" name="billing_streetno" placeholder="street no" value={this.state.address.billing_streetno} onChange={this.onChangeHandler}></input>
                             <span className="error">{this.state.errors["streetno"]}</span>
                           </div>
                           <div class="form-group">
                             <label>State</label>
-                            <input type="Text" class="form-control" name="address" placeholder="state" value={this.state.address.billing_state} onChange={this.onChangeHandler}></input>
+                            <input type="Text" class="form-control" name="billing_state" placeholder="state" value={this.state.address.billing_state} onChange={this.onChangeHandler}></input>
                             <span className="error">{this.state.errors["state"]}</span>
                           </div>
                           <div class="form-group">
                             <label>Zip Code/Pin Code</label>
-                            <input type="Text" class="form-control" name="address" placeholder="zip code/pin code" value={this.state.address.billing_zipcode} onChange={this.onChangeHandler}></input>
+                            <input type="Text" class="form-control" name="billing_zipcode" placeholder="zip code/pin code" value={this.state.address.billing_zipcode} onChange={this.onChangeHandler}></input>
                             <span className="error">{this.state.errors["zipcode"]}</span>
                           </div>
                           <div class="form-group">
                             <label>Country</label>
-                            <input type="Text" class="form-control" name="address" placeholder="Country" value={this.state.address.billing_country} onChange={this.onChangeHandler} ></input>
+                            <input type="Text" class="form-control" name="billing_country" placeholder="Country" value={this.state.address.billing_country} onChange={this.onChangeHandler} ></input>
                             <span className="error">{this.state.errors["country"]}</span>
                           </div>
                           <button onClick={this.onSave} type="submit" class="btn btn-primary">Save</button>
@@ -362,32 +351,32 @@ class Addressedit extends Component {
                         <form onSubmit={this.onAddressFormSubmit1.bind(this)}>
                           <div class="form-group">
                             <label>Billing Name</label>
-                            <input type="Text" class="form-control" name="address" placeholder="Shipping name" value={this.state.address.shipping_name} onChange={this.onChangeHandler}></input>
+                            <input type="Text" class="form-control" name="shipping_name" placeholder="Shipping name" value={this.state.address.shipping_name} onChange={this.onChangeHandler}></input>
                             <span className="error">{this.state.errors["shippingname"]}</span>
                           </div>
                           <div class="form-group">
                             <label>Address</label>
-                            <textarea class="form-control" rows="3" name="address" placeholder="Address" value={this.state.address.shipping_address} onChange={this.onChangeHandler}></textarea>
+                            <textarea class="form-control" rows="3" name="shipping_address" placeholder="Address" value={this.state.address.shipping_address} onChange={this.onChangeHandler}></textarea>
                             <span className="error">{this.state.errors["saddress"]}</span>
                           </div>
                           <div class="form-group">
                             <label>Street No</label>
-                            <input type="Text" class="form-control" name="address" placeholder="street no" value={this.state.address.shipping_streetno} onChange={this.onChangeHandler}></input>
+                            <input type="Text" class="form-control" name="shipping_streetno" placeholder="street no" value={this.state.address.shipping_streetno} onChange={this.onChangeHandler}></input>
                             <span className="error">{this.state.errors["sstreetno"]}</span>
                           </div>
                           <div class="form-group">
                             <label>State</label>
-                            <input type="Text" class="form-control" name="address" placeholder="state" value={this.state.address.shipping_state} onChange={this.onChangeHandler}></input>
+                            <input type="Text" class="form-control" name="shipping_state" placeholder="state" value={this.state.address.shipping_state} onChange={this.onChangeHandler}></input>
                             <span className="error">{this.state.errors["sstate"]}</span>
                           </div>
                           <div class="form-group">
                             <label>Zip Code/Pin Code</label>
-                            <input type="Text" class="form-control" name="address" placeholder="zip code/pin code" value={this.state.address.shipping_zipcode} onChange={this.onChangeHandler}></input>
+                            <input type="Text" class="form-control" name="shipping_zipcode" placeholder="zip code/pin code" value={this.state.address.shipping_zipcode} onChange={this.onChangeHandler}></input>
                             <span className="error">{this.state.errors["szipcode"]}</span>
                           </div>
                           <div class="form-group">
                             <label>Country</label>
-                            <input type="Text" class="form-control" name="address" placeholder="Country" value={this.state.address.shipping_country} onChange={this.onChangeHandler} ></input>
+                            <input type="Text" class="form-control" name="shipping_country" placeholder="Country" value={this.state.address.shipping_country} onChange={this.onChangeHandler} ></input>
                             <span className="error">{this.state.errors["scountry"]}</span>
                           </div>
                           <button onClick={this.onSave} type="submit" className="btn btn-primary">Save</button>
@@ -421,3 +410,19 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Addressedit));
 
+
+
+
+/*billing_name: this.props.address.billing_name,
+              billing_address: this.props.address.billing_address,
+              billing_streetno: this.props.address.billing_streetno,
+              billing_state: this.props.address.billing_state,
+              billing_zipcode: this.props.address.billing_zipcode,
+              billing_country: this.props.address.billing_country,
+              shipping_name: this.props.address.shipping_name,
+              shipping_address: this.props.address.shipping_address,
+              shipping_streetno: this.props.address.shipping_streetno,
+              shipping_state: this.props.address.shipping_state,
+              shipping_zipcode: this.props.address.shipping_zipcode,
+              shipping_country: this.props.address.shipping_country
+          }*/
