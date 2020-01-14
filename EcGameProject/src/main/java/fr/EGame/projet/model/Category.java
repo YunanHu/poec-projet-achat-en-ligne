@@ -7,24 +7,51 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
+@Table(name = "categories")
 public class Category 
 {
 	@Id@
 	GeneratedValue
-	private int idCategory;
+	private Long idCategory;
 	private String categoryLabel;
 	private String categoryDescription;
-
-	@ManyToMany(fetch = FetchType.EAGER,mappedBy="articleCategories")
+	@JsonIgnore
+	@OneToMany(mappedBy="articleCategory")
 	private List<Article> articles = new ArrayList<Article>();
 	
 	private static final long serialVersionUID = 1L;
-	
 
+	public boolean add(Article e) {
+		return articles.add(e);
+	}
+	public boolean remove(Article o) {
+		return articles.remove(o);
+	}
+	public List<Article> getArticles() {
+		return articles;
+	}
+	public void setArticles(List<Article> articles) {
+		this.articles = articles;
+	} 
+	public Category(String categoryLabel, String categoryDescription, List<Article> articles) {
+		super();
+		this.categoryLabel = categoryLabel;
+		this.categoryDescription = categoryDescription;
+		this.articles = articles;
+	}
+	public Long getIdCategory() {
+		return idCategory;
+	}
+	public void setIdCategory(Long idCategory) {
+		this.idCategory = idCategory;
+	}
 	public String getCategoryLabel() {
 		return categoryLabel;
 	}

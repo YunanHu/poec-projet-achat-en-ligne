@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### ignorer le mdp de connextion dans appliction.properties ###
+src/main/resources/application.properties

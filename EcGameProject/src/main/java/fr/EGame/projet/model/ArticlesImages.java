@@ -44,6 +44,10 @@ public class ArticlesImages implements Serializable {
 		this.name = name;
 		this.path = path;
 	}
+	
+	public ArticlesImages(String name) {
+		this.name = name;
+	}
 	public ArticlesImages() {
 		// TODO Auto-generated constructor stub
 	}
