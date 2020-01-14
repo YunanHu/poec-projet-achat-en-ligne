@@ -251,7 +251,7 @@ class Addressedit extends Component {
     if (response2.status == 200) {
       console.log("changed")
 
-      // this.props.onSetAddress(this.state.address)
+      this.props.onSetAddress(this.state.address)
       // localStorage.setItem("address", );
       this.props.history.push("/Account/Address")
 
