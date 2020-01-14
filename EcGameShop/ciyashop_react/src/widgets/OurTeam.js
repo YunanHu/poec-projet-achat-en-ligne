@@ -57,7 +57,7 @@ function OurTeam(props) {
                             <div className="team-info">
                                 <div className="team-description">
                                 <h4>Ismail Sahraoui</h4>
-                                <span>Community</span>
+                                <span>Développeur</span>
                                 </div>
                                 <div className="team-social-icon ciyashop-social-icons ciyashop-social-shape-round ciyashop-social-effect-color-hover ciyashop-social-size-small">
                                 <ul>
@@ -94,7 +94,7 @@ function OurTeam(props) {
                             <div className="team-info">
                                 <div className="team-description">
                                 <h4>Yoann Biheux</h4>
-                                <span>Site Supervisor</span>
+                                <span>Développeur</span>
                                 </div>
                                 <div className="team-social-icon ciyashop-social-icons ciyashop-social-shape-round ciyashop-social-effect-color-hover ciyashop-social-size-small">
                                 <ul>
@@ -126,12 +126,12 @@ function OurTeam(props) {
                         <div className="item">
                             <div className="team shadow">
                             <div className="team-images">
-                                <img className="img-fluid" src={require(`../assets/images/team/img-04.jpg`)}  />
+                                <img className="img-fluid" src="https://thumbs.dreamstime.com/b/portrait-femelle-de-femme-d-avatar-d-ic-ne-de-profil-occasionnel-58249495.jpg"  />
                             </div>
                             <div className="team-info">
                                 <div className="team-description">
                                 <h4>Florence Trebalag</h4>
-                                <span>Support</span>
+                                <span>Développeur</span>
                                 </div>
                                 <div className="team-social-icon ciyashop-social-icons ciyashop-social-shape-round ciyashop-social-effect-color-hover ciyashop-social-size-small">
                                 <ul>

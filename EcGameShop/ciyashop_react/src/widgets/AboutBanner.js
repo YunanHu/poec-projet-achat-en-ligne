@@ -25,7 +25,7 @@ class AboutBanner extends Component {
     return (
         <Row className="section-ptb align-items-center">
             <Col md={6} className="order-md-1 mb-4 mb-md-0">
-                <div className="single_image-wrapper">
+                <div className="single_image-wrapper" style={{textAlign:"right"}}>
                   <img src={require(`../assets/images/categories/default/about-img.png`)}   className="attachment-full img-fluid" alt />
                 </div>
             </Col>
